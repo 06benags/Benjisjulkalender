@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=11">
-  <script src="script.js?v=2" defer></script>
+  <link rel="stylesheet" href="style.css?v=12">
+  <script src="script.js?v=3" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -63,6 +63,26 @@
 
         <p>Riktigt stort lycka till, och glöm inte att ha kul längs vägen. Sedan återstår bara att se om ni har vad som krävs för att klara er igenom alla luckor. Jag hoppas att ni kommer att uppskatta utmaningen och att ni inte ger upp alltför lätt. Utöver det har jag faktiskt inget mer att säga, så det är bara att sätta igång!</p>
       </div>
+
+      <div class="hint-area">
+        <button class="hint-toggle" id="hint-toggle" type="button" aria-expanded="false" aria-controls="hint-options">💡 Ledtråd</button>
+        <div class="hint-options" id="hint-options" hidden>
+          <button class="hint-option" type="button" data-hint="hint-one">Ledtråd 1</button>
+          <div class="hint-text" id="hint-one" hidden>Läs början av meningarna noggrant.</div>
+          <button class="hint-option" type="button" data-hint="hint-two">Ledtråd 2</button>
+          <div class="hint-text" id="hint-two" hidden>Det är den allra första bokstaven i varje mening som är viktig.</div>
+          <button class="hint-option" type="button" data-hint="hint-answer">Facit</button>
+          <div class="hint-text" id="hint-answer" hidden>Nästa lucka är nummer sju.</div>
+        </div>
+      </div>
+      <form class="answer-form" id="answer-form">
+        <label for="door-answer">Vilken lucka ska ni öppna imorgon?</label>
+        <div class="answer-controls">
+          <input id="door-answer" name="door-answer" type="number" min="1" max="24" inputmode="numeric" placeholder="Luckans nummer" required>
+          <button type="submit">Svara</button>
+        </div>
+        <p class="answer-feedback" id="answer-feedback" aria-live="polite"></p>
+      </form>
 
     </section>
   </div>
