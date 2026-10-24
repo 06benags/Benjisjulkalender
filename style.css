@@ -381,3 +381,80 @@ body::after {
   .envelope, .envelope-flap, .envelope-seal { transition: none; }
   .envelope.is-opening { animation: none; opacity: 0; }
 }
+
+
+/* Clue buttons and answer check inside the letter */
+.hint-area {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(151,103,42,.4);
+}
+.hint-toggle, .hint-option, .answer-controls button {
+  border: 1px solid #d2b36b;
+  border-radius: 7px;
+  padding: 10px 16px;
+  color: #fff6dc;
+  background: linear-gradient(145deg, #236448, #123d32);
+  font: 700 1rem Georgia, serif;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(66,42,19,.18);
+}
+.hint-toggle:hover, .hint-option:hover, .answer-controls button:hover {
+  filter: brightness(1.12);
+}
+.hint-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 12px;
+}
+.hint-options[hidden], .hint-text[hidden] { display: none; }
+.hint-text {
+  flex-basis: 100%;
+  padding: 12px 14px;
+  border-left: 3px solid #b58a4d;
+  border-radius: 0 5px 5px 0;
+  color: #49351f;
+  background: rgba(255,255,255,.42);
+  line-height: 1.5;
+}
+.answer-form {
+  margin-top: 22px;
+  padding: 18px;
+  border: 1px solid rgba(181,138,77,.55);
+  border-radius: 8px;
+  background: rgba(255,255,255,.28);
+}
+.answer-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #174d38;
+  font-weight: 700;
+}
+.answer-controls {
+  display: flex;
+  gap: 9px;
+}
+.answer-controls input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #b58a4d;
+  border-radius: 6px;
+  color: #3c2a18;
+  background: #fffaf0;
+  font: 1rem Georgia, serif;
+}
+.answer-feedback {
+  margin: 10px 0 0;
+  font-weight: 700;
+}
+.answer-feedback:empty { display: none; }
+.answer-feedback.is-correct { color: #17633e; }
+.answer-feedback.is-wrong { color: #9a2828; }
+@media (max-width: 420px) {
+  .hint-options { gap: 7px; }
+  .hint-option { padding: 9px 11px; }
+  .answer-form { padding: 13px; }
+}
