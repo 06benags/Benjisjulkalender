@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173b2d">
+  <meta name="description" content="Ett mysigt julmysterium med 24 låsta luckor, gåtor och hemliga ledtrådar.">
+  <title>Julmysteriet – De 24 luckorna</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="snow" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Julmysteriet startsida"><span class="brand-star">✦</span> NORDPOLENS HEMLIGHETER</a>
+    <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false" title="Slå på eller av stämningsljud">♫ <span>Stämning</span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> ETT INTERAKTIVT JULÄVENTYR <span class="eyebrow-line"></span></div>
+      <h1>Jul<span>mysteriet</span></h1>
+      <p class="subtitle">De 24 låsta luckorna</p>
+      <p class="intro">En gammal hemlighet vilar under snön. Lös gåtorna, följ ledtrådarna och hitta vägen till julafton.</p>
+      <div class="progress-wrap">
+        <div class="progress-copy"><span id="progressLabel">1 av 24 mysterier upptäckta</span><span id="progressPercent">4%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+    </section>
+
+    <section class="story-card" aria-label="Berättelsen">
+      <div class="lantern" aria-hidden="true">🕯️</div>
+      <div><p class="card-kicker">ETT BREV FRÅN TOMTENS VERKSTAD</p><p class="story-text">“Den magiska julstjärnan har slocknat. Någon har gömt dess sken bakom 24 förseglade luckor. Den första nyckeln väntar på dig – men varje svar leder till en ny dörr.”</p></div>
+    </section>
+
+    <section class="calendar-section">
+      <div class="section-heading"><div><p class="card-kicker">DIN RESA BÖRJAR HÄR</p><h2>Vilken lucka väntar på dig?</h2></div><span class="tiny-snowflake" aria-hidden="true">❄</span></div>
+      <p class="section-copy">Öppna en upplåst lucka och lös gåtan för att hitta nästa nummer. Alla andra luckor förblir låsta tills du hittar rätt väg.</p>
+      <div class="calendar" id="calendar" aria-label="Julkalenderns 24 luckor"></div>
+      <div class="legend"><span><i class="legend-dot open"></i> Upptäckt</span><span><i class="legend-dot current"></i> Nästa steg</span><span><i class="legend-dot locked"></i> Låst</span></div>
+    </section>
+
+    <section class="keepsake">
+      <div class="keepsake-icon">🎁</div><div><h3>Din samling</h3><p id="keepsakeText">Dina nycklar och upptäckter dyker upp här medan du spelar.</p></div>
+      <button id="resetButton" class="reset-button" type="button">Börja om</button>
+    </section>
+    <footer><span>✦</span> Gjord med julmagi och en nypa mysterium <span>✦</span></footer>
+  </main>
+
+  <div class="modal-backdrop" id="puzzleModal" hidden>
+    <section class="puzzle-modal" role="dialog" aria-modal="true" aria-labelledby="puzzleTitle">
+      <button class="close-modal" id="closeModal" type="button" aria-label="Stäng gåtan">×</button>
+      <div class="modal-sparkle" aria-hidden="true">✧</div>
+      <p class="card-kicker" id="puzzleKicker">LUCKA 1</p>
+      <h2 id="puzzleTitle">En ledtråd i snön</h2>
+      <p id="puzzleStory" class="puzzle-story"></p>
+      <div class="riddle-box"><span class="riddle-icon">🔎</span><p id="puzzleQuestion"></p></div>
+      <button class="hint-button" id="hintButton" type="button">♡ Ge mig en ledtråd</button>
+      <p id="hintText" class="hint-text" hidden></p>
+      <form id="answerForm">
+        <label for="answerInput">Ditt svar</label>
+        <div class="answer-row"><input id="answerInput" name="answer" autocomplete="off" placeholder="Skriv ditt svar här…" required><button type="submit" class="solve-button">Lås upp <span>→</span></button></div>
+      </form>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+      <div id="successPanel" class="success-panel" hidden><span class="success-icon">✦</span><h3 id="successTitle">Du hittade nästa ledtråd!</h3><p id="successText"></p><button id="continueButton" type="button" class="solve-button">Fortsätt äventyret →</button></div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
