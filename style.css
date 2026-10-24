@@ -192,7 +192,7 @@ body::after {
   max-height: min(88vh, 900px);
   overflow-y: auto;
   padding: clamp(24px, 5vw, 48px);
-  border: 3px double #a47b39;
+  border: none;
   border-radius: 8px;
   color: #3c2a18;
   background:
@@ -202,14 +202,6 @@ body::after {
     #fff1ce;
   box-shadow: 0 25px 90px rgba(0,0,0,.55), inset 0 0 35px rgba(145,95,32,.12);
   animation: letter-in .3s ease-out;
-}
-
-.letter::before {
-  content: "";
-  position: absolute;
-  inset: 9px;
-  border: 1px solid rgba(151,103,42,.35);
-  pointer-events: none;
 }
 
 .letter-close {
