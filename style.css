@@ -200,7 +200,7 @@ body::after {
     radial-gradient(ellipse at 95% 90%, rgba(194,145,69,.15), transparent 35%),
     repeating-linear-gradient(0deg, rgba(128,91,43,.025) 0, rgba(128,91,43,.025) 1px, transparent 1px, transparent 4px),
     #fff1ce;
-  box-shadow: 0 25px 90px rgba(0,0,0,.55), inset 0 0 35px rgba(145,95,32,.12);
+  box-shadow: 0 25px 90px rgba(0,0,0,.55);
   animation: letter-in .3s ease-out;
 }
 
@@ -231,11 +231,23 @@ body::after {
 }
 
 .letter h2 {
-  margin: 0 0 22px;
-  color: #8b2927;
+  margin: 0 0 26px;
+  color: #174d38;
   text-align: center;
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
   line-height: 1.2;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+
+.letter h2::after {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 2px;
+  margin: 14px auto 0;
+  background: linear-gradient(90deg, transparent, #bd9145, transparent);
 }
 
 .letter-content {
