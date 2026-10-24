@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=10">
-  <script src="script.js?v=1" defer></script>
+  <link rel="stylesheet" href="style.css?v=11">
+  <script src="script.js?v=2" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -37,25 +37,17 @@
   </main>
 
   <div class="letter-overlay" id="letter-overlay" hidden>
-    <section class="letter" role="dialog" aria-modal="true" aria-labelledby="letter-title">
+    <button class="envelope" id="envelope" type="button" aria-label="Öppna brevet">
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">✦</span>
+      <span class="envelope-label">Till er</span>
+      <span class="envelope-hint">Tryck för att öppna</span>
+    </button>
+
+    <section class="letter" id="letter" role="dialog" aria-modal="true" aria-labelledby="letter-title" hidden>
       <button class="letter-close" type="button" aria-label="Stäng brevet">×</button>
       <div class="letter-holly" aria-hidden="true">✦ ❄ ✦</div>
       <h2 id="letter-title">Välkommen</h2>
-      <div class="letter-content">
-        <p>Nämen tjenare! Benjamin Afsharazad heter jag och är skaparen av denna fina escape room-julkalender! Äntligen är det dags för er att få sätta era hjärnor på prov, men innan ni kastar er in i alla klurigheter tänkte jag gå igenom lite kort hur det hela fungerar.</p>
-
-        <p>Spelet är egentligen väldigt enkelt, då varje lucka innehåller en gåta eller ett pussel som ni måste lösa för att komma vidare. Tänk dock inte att alla lösningar kommer att vara uppenbara, för ibland gäller det att tänka utanför boxen och se saker ur ett helt annat perspektiv. Alla uppgifter går att lösa utan några särskilda hjälpmedel, så ni behöver varken googla eller ringa någon professor i matematik.</p>
-
-        <p>Lyckas ni knäcka en gåta får ni reda på vilken lucka ni ska öppna härnäst, så det gäller att hålla ögonen öppna och läsa uppgifterna noggrant. Ungefär fem till tio minuter bör varje lucka ta att lösa, men vissa kan förstås kräva lite mer tålamod än andra. Chansen att hitta rätt svar ökar faktiskt om ni inte stressar, eftersom en liten detalj ibland kan vara viktigare än resten av uppgiften.</p>
-
-        <p>Kom ihåg att det inte alltid är själva gåtan som är det svåraste, utan att lista ut hur man egentligen ska börja tänka. Apropå julen finns det en gammal historia om tomten, som sägs ha ett ovanligt sätt att läsa och lägga märke till hur varje mening tar sin början. Även om jag inte vet om historien stämmer, kanske det ligger något i att uppmärksamma sådant som andra lätt förbiser.</p>
-
-        <p>Resten får ni helt enkelt upptäcka själva, och jag tänker inte avslöja mer än att det kan löna sig att vara nyfiken. Nåväl, nu har ni fått veta det viktigaste och det är väl ändå dags att sätta igång på riktigt. Utmaningen är er, och jag hoppas att ni är redo att använda era hjärnor.</p>
-
-        <p>Med det sagt vill jag önska er stort lycka till med årets julkalender. Men kom ihåg att inte ge upp om ni kör fast, för ibland kan en liten paus göra underverk. Ett sista tips från mig är att läsa allting noggrant innan ni bestämmer er för att ni förstått vad som menas.</p>
-
-        <p>Riktigt stort lycka till, och glöm inte att ha kul längs vägen. Sedan återstår bara att se om ni har vad som krävs för att klara er igenom alla luckor. Jag hoppas att ni kommer att uppskatta utmaningen och att ni inte ger upp alltför lätt. Utöver det har jag faktiskt inget mer att säga, så det är bara att sätta igång!</p>
-      </div>
 
     </section>
   </div>
