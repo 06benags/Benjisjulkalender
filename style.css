@@ -298,3 +298,86 @@ body::after {
   .door { transition: none; }
   .letter-overlay, .letter { animation: none; }
 }
+
+/* A sealed Christmas envelope that opens before the letter appears */
+.envelope {
+  position: relative;
+  width: min(84vw, 390px);
+  aspect-ratio: 1.48 / 1;
+  border: 2px solid #d6b66e;
+  border-radius: 8px;
+  overflow: visible;
+  cursor: pointer;
+  color: #5b3024;
+  background: linear-gradient(145deg, #fff4d9, #e9c98b);
+  box-shadow: 0 24px 70px rgba(0,0,0,.45), inset 0 0 0 7px rgba(255,255,255,.18);
+  transition: transform .25s ease, filter .25s ease;
+}
+.envelope:hover { transform: translateY(-4px); filter: brightness(1.06); }
+.envelope::before, .envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.envelope::before {
+  background: linear-gradient(32deg, transparent 49.5%, rgba(162,111,53,.28) 50%, transparent 50.7%),
+              linear-gradient(-32deg, transparent 49.5%, rgba(162,111,53,.28) 50%, transparent 50.7%);
+}
+.envelope::after {
+  background: linear-gradient(145deg, transparent 49%, rgba(191,148,76,.25) 50%, transparent 51%);
+}
+.envelope-flap {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; top: 0;
+  height: 58%;
+  background: linear-gradient(160deg, #f7e5b9, #d8b36d);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .65s ease;
+  filter: drop-shadow(0 2px 2px rgba(80,45,20,.16));
+}
+.envelope-seal {
+  position: absolute;
+  z-index: 3;
+  left: 50%; top: 45%;
+  display: grid; place-items: center;
+  width: 48px; height: 48px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  color: #fff0cb;
+  background: radial-gradient(circle at 30% 25%, #c65a4c, #81262a 75%);
+  border: 2px solid #e9c879;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  font-size: 1.4rem;
+  transition: opacity .25s ease;
+}
+.envelope-label {
+  position: absolute;
+  z-index: 1;
+  left: 0; right: 0; bottom: 22%;
+  font: italic 1.5rem Georgia, serif;
+  letter-spacing: .04em;
+}
+.envelope-hint {
+  position: absolute;
+  left: 0; right: 0; bottom: -42px;
+  color: #fff4d6;
+  font: 1rem Georgia, serif;
+  text-shadow: 0 2px 8px #000;
+}
+.envelope.is-opening { animation: envelope-lift .8s ease forwards; }
+.envelope.is-opening .envelope-flap { transform: rotateX(180deg); }
+.envelope.is-opening .envelope-seal { opacity: 0; }
+.letter[hidden] { display: none; }
+.letter { animation: letter-in .4s ease-out; }
+@keyframes envelope-lift {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  55% { transform: translateY(-12px) scale(1.04); }
+  100% { transform: translateY(18px) scale(.82); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope, .envelope-flap, .envelope-seal { transition: none; }
+  .envelope.is-opening { animation: none; opacity: 0; }
+}
