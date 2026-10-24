@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
+  <script src="script.js?v=1" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
   <main class="calendar" aria-label="Julkalender med 24 luckor">
-    <button class="door" type="button" aria-label="Lucka 1">1</button>
+    <button class="door" type="button" aria-label="Öppna lucka 1" data-door="1">1</button>
     <button class="door" type="button" aria-label="Lucka 2">2</button>
     <button class="door" type="button" aria-label="Lucka 3">3</button>
     <button class="door" type="button" aria-label="Lucka 4">4</button>
@@ -34,5 +35,37 @@
     <button class="door" type="button" aria-label="Lucka 23">23</button>
     <button class="door" type="button" aria-label="Lucka 24">24</button>
   </main>
+
+  <div class="letter-overlay" id="letter-overlay" hidden>
+    <section class="letter" role="dialog" aria-modal="true" aria-labelledby="letter-title">
+      <button class="letter-close" type="button" aria-label="Stäng brevet">×</button>
+      <div class="letter-holly" aria-hidden="true">✦ ❄ ✦</div>
+      <h2 id="letter-title">Ett brev från Benjamin</h2>
+      <div class="letter-content">
+        <p><strong>N</strong>ämen tjenare, Benjamin Afsharazad heter jag och är skaparen av denna fina escape room-julkalender!</p>
+        <p><strong>Ä</strong>ntligen är det dags för er att få sätta era hjärnor på prov, men innan ni kastar er in i alla klurigheter tänkte jag gå igenom lite kort hur det hela fungerar.</p>
+        <p><strong>S</strong>pelet är egentligen väldigt enkelt, då varje lucka innehåller en gåta eller ett pussel som ni måste lösa för att komma vidare.</p>
+        <p><strong>T</strong>änk dock inte att alla lösningar kommer att vara uppenbara, för ibland gäller det att tänka utanför boxen och se saker ur ett helt annat perspektiv.</p>
+        <p><strong>A</strong>lla uppgifter går att lösa utan några särskilda hjälpmedel, så ni behöver varken googla, leta efter hemliga föremål hemma eller ringa någon professor i matematik.</p>
+        <p><strong>L</strong>yckas ni knäcka en gåta får ni reda på vilken lucka ni ska öppna härnäst, så det gäller att hålla ögonen öppna och läsa uppgifterna noggrant.</p>
+        <p><strong>U</strong>ngefär fem till tio minuter bör varje lucka ta att lösa, men vissa kan förstås kräva lite mer tålamod än andra.</p>
+        <p><strong>C</strong>hansen att hitta rätt svar ökar faktiskt om ni inte stressar, eftersom en liten detalj ibland kan vara viktigare än hela resten av uppgiften.</p>
+        <p><strong>K</strong>om ihåg att det inte alltid är själva gåtan som är det svåraste, utan att lista ut hur man egentligen ska börja tänka.</p>
+        <p><strong>A</strong>propå att läsa noggrant finns det förresten en gammal historia om tomten, som sägs ha en märklig vana att lägga märke till sådant som andra ofta hoppar över när de läser.</p>
+        <p><strong>Ä</strong>ven om jag inte riktigt vet om den historien stämmer, kan det nog vara klokt att inte förbise några små detaljer under spelets gång.</p>
+        <p><strong>R</strong>esten får ni helt enkelt upptäcka själva, och jag tänker inte avslöja mer än att det kan löna sig att vara både nyfiken och uppmärksam.</p>
+        <p><strong>N</strong>åväl, nu har ni fått veta det viktigaste och det är väl ändå dags att sätta igång på riktigt.</p>
+        <p><strong>U</strong>tmaningen är er, och det enda jag kan lova är att ni kommer att behöva använda huvudet längs vägen.</p>
+        <p><strong>M</strong>ed det sagt hoppas jag att ni är redo, för nu börjar julkalendern och det finns ingen anledning att vänta längre.</p>
+        <p><strong>M</strong>en innan ni går vidare vill jag bara säga att det inte finns någon anledning att få panik om ni kör fast, eftersom en liten paus ibland kan göra underverk.</p>
+        <p><strong>E</strong>tt tips från mig är att läsa allting en extra gång innan ni bestämmer er för att ni har förstått exakt vad som menas.</p>
+        <p><strong>R</strong>iktigt stort lycka till, och kom ihåg att det viktigaste trots allt är att ha kul medan ni försöker lösa mysterierna.</p>
+        <p><strong>S</strong>edan återstår bara att se om ni har vad som krävs för att klara er igenom alla luckor.</p>
+        <p><strong>J</strong>ag hoppas i alla fall att ni kommer att uppskatta utmaningen och att ni inte ger upp alltför lätt.</p>
+        <p><strong>U</strong>töver det har jag faktiskt inget mer att säga, så det är bara att sätta igång och se vart era svar leder er!</p>
+      </div>
+      <div class="letter-footer" aria-hidden="true">❄ God jul och lycka till! ❄</div>
+    </section>
+  </div>
 </body>
 </html>
