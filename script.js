@@ -5,6 +5,7 @@ const letter = document.querySelector("#letter");
 const closeButton = document.querySelector(".letter-close");
 
 function openLetter() {
+  resetHints();
   overlay.hidden = false;
   envelope.hidden = false;
   letter.hidden = true;
@@ -47,22 +48,41 @@ document.addEventListener("keydown", (event) => {
 
 const hintToggle = document.querySelector("#hint-toggle");
 const hintOptions = document.querySelector("#hint-options");
+const hintMessage = document.querySelector("#hint-message");
 const answerForm = document.querySelector("#answer-form");
 const answerInput = document.querySelector("#door-answer");
 const answerFeedback = document.querySelector("#answer-feedback");
+let hintStage = 0;
+
+function resetHints() {
+  hintStage = 0;
+  hintOptions.hidden = true;
+  hintMessage.textContent = "";
+  hintToggle.textContent = "💡 Visa ledtråd 1";
+  hintToggle.disabled = false;
+  hintToggle.setAttribute("aria-expanded", "false");
+}
 
 hintToggle.addEventListener("click", () => {
-  const isExpanded = hintToggle.getAttribute("aria-expanded") === "true";
-  hintToggle.setAttribute("aria-expanded", String(!isExpanded));
-  hintOptions.hidden = isExpanded;
-});
+  const hints = [
+    "Tomtens lilla egenhet kan vara viktigare än själva berättelsen. Fundera på vad som återkommer i texten.",
+    "Titta på hur varje mening börjar. Ta vara på något från början av mening efter mening, i den ordning de står.",
+    "Så gör ni: läs den allra första bokstaven i varje mening i brevet, uppifrån och ned. Bokstäverna bildar ”NÄSTA LUCKA ÄR SJU”. Rätt svar är alltså lucka 7."
+  ];
 
-document.querySelectorAll("[data-hint]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const hint = document.querySelector("#" + button.dataset.hint);
-    hint.hidden = !hint.hidden;
-    button.setAttribute("aria-expanded", String(!hint.hidden));
-  });
+  hintOptions.hidden = false;
+  hintMessage.textContent = hints[hintStage];
+  hintStage += 1;
+  hintToggle.setAttribute("aria-expanded", "true");
+
+  if (hintStage === 1) {
+    hintToggle.textContent = "Visa ledtråd 2";
+  } else if (hintStage === 2) {
+    hintToggle.textContent = "Visa facit";
+  } else {
+    hintToggle.textContent = "Facit visat";
+    hintToggle.disabled = true;
+  }
 });
 
 answerForm.addEventListener("submit", (event) => {
