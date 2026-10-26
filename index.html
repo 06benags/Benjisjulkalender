@@ -38,6 +38,83 @@
 
   <div class="scene-transition" id="scene-transition" aria-hidden="true" hidden></div>
 
+
+  <div class="puzzle-overlay" id="puzzle-overlay" hidden>
+    <section class="string-puzzle" role="dialog" aria-modal="true" aria-labelledby="puzzle-title">
+      <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
+      <p class="puzzle-kicker">LUCKA 7</p>
+      <h2 id="puzzle-title">Vilken present är din?</h2>
+      <p class="puzzle-instructions">Börja vid stjärnan och följ snöret uppifrån och hela vägen ner. Snörena korsar varandra, men byt bara spår där de sitter ihop.</p>
+      <div class="string-maze">
+        <svg viewBox="0 0 640 570" role="img" aria-label="Ett visuellt snörpussel med sex snören som leder till sex presenter">
+          <defs>
+            <filter id="string-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <g class="string-lines" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M70 48 V90 H170 V150 H270 V210 H370 V270 H470 V330 H570 V390 H470 V450 H370 V495" stroke="#e85b55"/>
+            <path d="M170 48 V90 H70 V210 H170 V270 H270 V330 H170 V390 H270 V450 H170 V495" stroke="#4ec8bd"/>
+            <path d="M270 48 V150 H370 V210 H270 V270 H170 V330 H270 V390 H370 V450 H270 V495" stroke="#f3ca66"/>
+            <path d="M370 48 V90 H470 V150 H570 V210 H470 V270 H570 V330 H470 V390 H370 V450 H470 V495" stroke="#9d8df2"/>
+            <path d="M470 48 V90 H370 V150 H270 V210 H370 V270 H470 V330 H570 V390 H470 V450 H570 V495" stroke="#f39c55"/>
+            <path d="M570 48 V150 H470 V210 H570 V270 H370 V330 H270 V390 H170 V450 H70 V495" stroke="#82c86c"/>
+          </g>
+          <g class="start-marker">
+            <path d="M70 17 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#f6d77e" stroke="#fff4ce" stroke-width="1.5"/>
+            <text x="91" y="34" fill="#fff4ce" font-size="15" font-weight="700">BÖRJA HÄR</text>
+          </g>
+          <g class="gift" transform="translate(70 500)">
+            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#b52d36" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
+            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">14</text>
+          </g>
+          <g class="gift" transform="translate(170 500)">
+            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-23 13 H23" stroke="#fff0bc" stroke-width="5"/>
+            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#fff0bc" stroke-width="4"/>
+            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">16</text>
+          </g>
+          <g class="gift" transform="translate(270 500)">
+            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
+            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">18</text>
+          </g>
+          <g class="gift gift-target" transform="translate(370 500)">
+            <rect x="-25" y="-2" width="50" height="46" rx="3" fill="#b52d36" stroke="#ffe9a4" stroke-width="3"/>
+            <path d="M0 -2 V44 M-25 13 H25" stroke="#ffe9a4" stroke-width="6"/>
+            <path d="M0 0 C-26 -17 -23 -28 -11 -23 C-2 -19 0 -6 0 0 M0 0 C26 -17 23 -28 11 -23 C2 -19 0 -6 0 0" fill="none" stroke="#ffe9a4" stroke-width="4"/>
+            <text x="0" y="64" text-anchor="middle" fill="#ffe9a4" font-size="21" font-weight="800">20</text>
+          </g>
+          <g class="gift" transform="translate(470 500)">
+            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
+            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">22</text>
+          </g>
+          <g class="gift" transform="translate(570 500)">
+            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
+            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">24</text>
+          </g>
+        </svg>
+      </div>
+      <p class="puzzle-footer">Vilken siffra finns på presenten som snöret leder till?</p>
+      <form class="answer-form" id="puzzle-answer-form">
+        <label for="puzzle-answer">Skriv presentens nummer</label>
+        <div class="answer-controls">
+          <input id="puzzle-answer" name="puzzle-answer" type="number" min="1" max="99" inputmode="numeric" placeholder="Nummer" required>
+          <button type="submit">Svara</button>
+        </div>
+        <p class="answer-feedback" id="puzzle-feedback" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+
   <div class="letter-overlay" id="letter-overlay" hidden>
     <button class="envelope" id="envelope" type="button" aria-label="Öppna brevet">
       <span class="envelope-flap"></span>
