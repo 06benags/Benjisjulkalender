@@ -1,4 +1,5 @@
 const firstDoor = document.querySelector('[data-door="1"]');
+const seventhDoor = document.querySelectorAll(".door")[6];
 const overlay = document.querySelector("#letter-overlay");
 const envelope = document.querySelector("#envelope");
 const letter = document.querySelector("#letter");
@@ -32,6 +33,11 @@ function closeLetter() {
   overlay.hidden = true;
   document.body.style.overflow = "";
   firstDoor?.focus();
+}
+
+if (seventhDoor && localStorage.getItem("door-7-unlocked") === "true") {
+  seventhDoor.classList.add("is-unlocked");
+  seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
 }
 
 if (firstDoor && overlay && envelope && letter && closeButton) {
@@ -70,8 +76,17 @@ if (answerForm && answerInput && answerFeedback) {
         "Julmagiskt!"
       ];
       const messageIndex = Math.floor(Math.random() * correctMessages.length);
-      answerFeedback.textContent = correctMessages[messageIndex];
+      answerFeedback.textContent = "Lucka 7 är upplåst! " + correctMessages[messageIndex];
       answerFeedback.classList.add("is-correct");
+      if (seventhDoor) {
+        seventhDoor.classList.add("is-unlocked");
+        seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
+        localStorage.setItem("door-7-unlocked", "true");
+      }
+      window.setTimeout(() => {
+        closeLetter();
+        seventhDoor?.focus();
+      }, 1400);
     } else {
       answerFeedback.textContent = "Inte riktigt! Läs brevet noggrant och försök igen.";
       answerFeedback.classList.add("is-wrong");
