@@ -494,3 +494,25 @@ body::after {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.06); }
 }
+
+
+/* Mjuk övergång mellan brevet och kalendern. */
+.scene-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 650ms ease-in-out;
+}
+
+.scene-transition.is-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-transition {
+    transition-duration: 150ms;
+  }
+}
