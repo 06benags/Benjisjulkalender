@@ -78,15 +78,15 @@ if (answerForm && answerInput && answerFeedback) {
       const messageIndex = Math.floor(Math.random() * correctMessages.length);
       answerFeedback.textContent = "Lucka 7 är upplåst! " + correctMessages[messageIndex];
       answerFeedback.classList.add("is-correct");
-      if (seventhDoor) {
-        seventhDoor.classList.add("is-unlocked");
-        seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
-        localStorage.setItem("door-7-unlocked", "true");
-      }
       window.setTimeout(() => {
         closeLetter();
-        seventhDoor?.focus();
-      }, 1400);
+        if (seventhDoor) {
+          seventhDoor.classList.add("is-unlocked");
+          seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
+          localStorage.setItem("door-7-unlocked", "true");
+          seventhDoor.focus();
+        }
+      }, 1000);
     } else {
       answerFeedback.textContent = "Inte riktigt! Läs brevet noggrant och försök igen.";
       answerFeedback.classList.add("is-wrong");
