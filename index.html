@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=18">
   <script src="script.js?v=17" defer></script>
 </head>
 <body>
@@ -46,66 +46,69 @@
       <h2 id="puzzle-title">Vilken present är din?</h2>
       <p class="puzzle-instructions">Börja vid stjärnan och följ just det snöret hela vägen ner. Det finns åtta snören och många förgreningar. Håll koll på varje byte och tappa inte bort dig vid korsningarna.</p>
       <div class="string-maze">
-        <svg viewBox="0 0 640 570" role="img" aria-label="Ett svårt snörpussel med åtta färgade snören, många tvärförbindelser och åtta numrerade presenter">
+        <svg viewBox="0 0 640 640" role="img" aria-label="Ett klurigt snörpussel med åtta slingrande snören och åtta likadana presenter">
           <defs>
-            <filter id="string-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <linearGradient id="string-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2b31"/><stop offset="1" stop-color="#07171e"/></linearGradient>
+            <linearGradient id="gift-red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d64d50"/><stop offset="1" stop-color="#77202e"/></linearGradient>
+            <linearGradient id="gift-green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#41936c"/><stop offset="1" stop-color="#164833"/></linearGradient>
+            <linearGradient id="gift-gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8c66e"/><stop offset="1" stop-color="#96702c"/></linearGradient>
+            <filter id="subtle-shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity=".5"/></filter>
           </defs>
-          <rect x="14" y="42" width="612" height="514" rx="12" fill="rgba(0,0,0,.16)" stroke="rgba(244,215,139,.15)"/>
-          <g class="string-lines" fill="none" stroke-linecap="round" stroke-linejoin="round">\n            <path d="M50 48 V495" stroke="#e85b55" stroke-width="7"/>\n            <path d="M125 48 V495" stroke="#4ec8bd" stroke-width="7"/>\n            <path d="M200 48 V495" stroke="#f3ca66" stroke-width="7"/>\n            <path d="M275 48 V495" stroke="#9d8df2" stroke-width="7"/>\n            <path d="M350 48 V495" stroke="#f39c55" stroke-width="7"/>\n            <path d="M425 48 V495" stroke="#82c86c" stroke-width="7"/>\n            <path d="M500 48 V495" stroke="#ef78a8" stroke-width="7"/>\n            <path d="M575 48 V495" stroke="#78b7ec" stroke-width="7"/>\n            <path d="M50 70 H125" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M50 70 H125" stroke="#e85b55" stroke-width="2.5"/>\n            <path d="M500 93 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 93 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M125 116 H200" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M125 116 H200" stroke="#4ec8bd" stroke-width="2.5"/>\n            <path d="M350 139 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 139 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M200 162 H275" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M200 162 H275" stroke="#f3ca66" stroke-width="2.5"/>\n            <path d="M50 185 H125" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M50 185 H125" stroke="#e85b55" stroke-width="2.5"/>\n            <path d="M425 208 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 208 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M275 231 H350" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M275 231 H350" stroke="#9d8df2" stroke-width="2.5"/>\n            <path d="M125 254 H200" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M125 254 H200" stroke="#4ec8bd" stroke-width="2.5"/>\n            <path d="M350 277 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 277 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M500 300 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 300 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M425 323 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 323 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M200 346 H275" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M200 346 H275" stroke="#f3ca66" stroke-width="2.5"/>\n            <path d="M500 369 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 369 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M500 392 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 392 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M425 415 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 415 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M350 438 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 438 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M275 461 H350" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M275 461 H350" stroke="#9d8df2" stroke-width="2.5"/>\n          </g>
+          <rect x="8" y="8" width="624" height="624" rx="18" fill="url(#string-bg)" stroke="#bda96c" stroke-opacity=".5"/>
+          <path d="M24 52 H616" stroke="#d5bd78" stroke-opacity=".5" stroke-width="2"/>
+          <text x="320" y="35" text-anchor="middle" fill="#e8d7a1" font-size="13" letter-spacing="4">FÖLJ SNÖRET • BYT INTE SPÅR</text>
+          <g class="string-lines" fill="none" stroke-linecap="round" stroke-linejoin="round">\n            <path d="M42 76 C32 112 52 142 42 176 S52 248 42 280 S32 352 42 384 S52 456 42 488 S32 544 42 566" stroke="#e85b55" stroke-width="6.5"/>\n            <path d="M121 76 C128 112 114 142 121 176 S114 248 121 280 S128 352 121 384 S114 456 121 488 S128 544 121 566" stroke="#4ec8bd" stroke-width="6.5"/>\n            <path d="M200 76 C194 112 206 142 200 176 S206 248 200 280 S194 352 200 384 S206 456 200 488 S194 544 200 566" stroke="#f3ca66" stroke-width="6.5"/>\n            <path d="M279 76 C289 112 269 142 279 176 S269 248 279 280 S289 352 279 384 S269 456 279 488 S289 544 279 566" stroke="#9d8df2" stroke-width="6.5"/>\n            <path d="M358 76 C350 112 366 142 358 176 S366 248 358 280 S350 352 358 384 S366 456 358 488 S350 544 358 566" stroke="#f39c55" stroke-width="6.5"/>\n            <path d="M437 76 C442 112 432 142 437 176 S432 248 437 280 S442 352 437 384 S432 456 437 488 S442 544 437 566" stroke="#82c86c" stroke-width="6.5"/>\n            <path d="M516 76 C509 112 523 142 516 176 S523 248 516 280 S509 352 516 384 S523 456 516 488 S509 544 516 566" stroke="#ef78a8" stroke-width="6.5"/>\n            <path d="M595 76 C603 112 587 142 595 176 S587 248 595 280 S603 352 595 384 S587 456 595 488 S603 544 595 566" stroke="#78b7ec" stroke-width="6.5"/>\n            <path d="M42 91 Q81.5 87 121 91" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M42 91 Q81.5 87 121 91" stroke="#e85b55" stroke-width="2.8"/>\n            <path d="M437 104.8 Q476.5 108.8 516 104.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M437 104.8 Q476.5 108.8 516 104.8" stroke="#82c86c" stroke-width="2.8"/>\n            <path d="M200 118.6 Q239.5 114.6 279 118.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M200 118.6 Q239.5 114.6 279 118.6" stroke="#f3ca66" stroke-width="2.8"/>\n            <path d="M516 132.4 Q555.5 136.4 595 132.4" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M516 132.4 Q555.5 136.4 595 132.4" stroke="#ef78a8" stroke-width="2.8"/>\n            <path d="M121 146.2 Q160.5 142.2 200 146.2" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M121 146.2 Q160.5 142.2 200 146.2" stroke="#4ec8bd" stroke-width="2.8"/>\n            <path d="M358 160 Q397.5 164 437 160" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M358 160 Q397.5 164 437 160" stroke="#f39c55" stroke-width="2.8"/>\n            <path d="M42 173.8 Q81.5 169.8 121 173.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M42 173.8 Q81.5 169.8 121 173.8" stroke="#e85b55" stroke-width="2.8"/>\n            <path d="M279 187.60000000000002 Q318.5 191.60000000000002 358 187.60000000000002" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M279 187.60000000000002 Q318.5 191.60000000000002 358 187.60000000000002" stroke="#9d8df2" stroke-width="2.8"/>\n            <path d="M437 201.4 Q476.5 197.4 516 201.4" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M437 201.4 Q476.5 197.4 516 201.4" stroke="#82c86c" stroke-width="2.8"/>\n            <path d="M121 215.2 Q160.5 219.2 200 215.2" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M121 215.2 Q160.5 219.2 200 215.2" stroke="#4ec8bd" stroke-width="2.8"/>\n            <path d="M516 229 Q555.5 225 595 229" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M516 229 Q555.5 225 595 229" stroke="#ef78a8" stroke-width="2.8"/>\n            <path d="M200 242.8 Q239.5 246.8 279 242.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M200 242.8 Q239.5 246.8 279 242.8" stroke="#f3ca66" stroke-width="2.8"/>\n            <path d="M358 256.6 Q397.5 252.60000000000002 437 256.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M358 256.6 Q397.5 252.60000000000002 437 256.6" stroke="#f39c55" stroke-width="2.8"/>\n            <path d="M42 270.4 Q81.5 274.4 121 270.4" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M42 270.4 Q81.5 274.4 121 270.4" stroke="#e85b55" stroke-width="2.8"/>\n            <path d="M437 284.20000000000005 Q476.5 280.20000000000005 516 284.20000000000005" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M437 284.20000000000005 Q476.5 280.20000000000005 516 284.20000000000005" stroke="#82c86c" stroke-width="2.8"/>\n            <path d="M279 298 Q318.5 302 358 298" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M279 298 Q318.5 302 358 298" stroke="#9d8df2" stroke-width="2.8"/>\n            <path d="M121 311.8 Q160.5 307.8 200 311.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M121 311.8 Q160.5 307.8 200 311.8" stroke="#4ec8bd" stroke-width="2.8"/>\n            <path d="M516 325.6 Q555.5 329.6 595 325.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M516 325.6 Q555.5 329.6 595 325.6" stroke="#ef78a8" stroke-width="2.8"/>\n            <path d="M200 339.4 Q239.5 335.4 279 339.4" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M200 339.4 Q239.5 335.4 279 339.4" stroke="#f3ca66" stroke-width="2.8"/>\n            <path d="M358 353.2 Q397.5 357.2 437 353.2" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M358 353.2 Q397.5 357.2 437 353.2" stroke="#f39c55" stroke-width="2.8"/>\n            <path d="M42 367 Q81.5 363 121 367" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M42 367 Q81.5 363 121 367" stroke="#e85b55" stroke-width="2.8"/>\n            <path d="M437 380.8 Q476.5 384.8 516 380.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M437 380.8 Q476.5 384.8 516 380.8" stroke="#82c86c" stroke-width="2.8"/>\n            <path d="M279 394.6 Q318.5 390.6 358 394.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M279 394.6 Q318.5 390.6 358 394.6" stroke="#9d8df2" stroke-width="2.8"/>\n            <path d="M121 408.40000000000003 Q160.5 412.40000000000003 200 408.40000000000003" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M121 408.40000000000003 Q160.5 412.40000000000003 200 408.40000000000003" stroke="#4ec8bd" stroke-width="2.8"/>\n            <path d="M516 422.20000000000005 Q555.5 418.20000000000005 595 422.20000000000005" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M516 422.20000000000005 Q555.5 418.20000000000005 595 422.20000000000005" stroke="#ef78a8" stroke-width="2.8"/>\n            <path d="M358 436 Q397.5 440 437 436" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M358 436 Q397.5 440 437 436" stroke="#f39c55" stroke-width="2.8"/>\n            <path d="M200 449.8 Q239.5 445.8 279 449.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M200 449.8 Q239.5 445.8 279 449.8" stroke="#f3ca66" stroke-width="2.8"/>\n            <path d="M42 463.6 Q81.5 467.6 121 463.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M42 463.6 Q81.5 467.6 121 463.6" stroke="#e85b55" stroke-width="2.8"/>\n            <path d="M437 477.40000000000003 Q476.5 473.40000000000003 516 477.40000000000003" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M437 477.40000000000003 Q476.5 473.40000000000003 516 477.40000000000003" stroke="#82c86c" stroke-width="2.8"/>\n            <path d="M279 491.20000000000005 Q318.5 495.20000000000005 358 491.20000000000005" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M279 491.20000000000005 Q318.5 495.20000000000005 358 491.20000000000005" stroke="#9d8df2" stroke-width="2.8"/>\n            <path d="M121 505 Q160.5 501 200 505" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M121 505 Q160.5 501 200 505" stroke="#4ec8bd" stroke-width="2.8"/>\n            <path d="M516 518.8 Q555.5 522.8 595 518.8" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M516 518.8 Q555.5 522.8 595 518.8" stroke="#ef78a8" stroke-width="2.8"/>\n            <path d="M358 532.6 Q397.5 528.6 437 532.6" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M358 532.6 Q397.5 528.6 437 532.6" stroke="#f39c55" stroke-width="2.8"/>\n            <path d="M200 546.4000000000001 Q239.5 550.4000000000001 279 546.4000000000001" stroke="#f7e9c6" stroke-width="6.5"/>\n            <path d="M200 546.4000000000001 Q239.5 550.4000000000001 279 546.4000000000001" stroke="#f3ca66" stroke-width="2.8"/>\n          </g>
           <g class="start-marker">
-            <path d="M50 13 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#f6d77e" stroke="#fff4ce" stroke-width="1.5"/>
-            <text x="72" y="31" fill="#fff4ce" font-size="15" font-weight="700">BÖRJA HÄR</text>
+            <path d="M42 58 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#f6d77e" stroke="#fff4ce" stroke-width="1.5"/>
+            <text x="62" y="78" fill="#fff4ce" font-size="13" font-weight="700">START</text>
           </g>
-          <g class="gift" transform="translate(50 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">14</text>
+          <g class="gift" transform="translate(42 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-red)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">14</text>
           </g>
-          <g class="gift" transform="translate(125 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">16</text>
+          <g class="gift" transform="translate(121 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-green)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">16</text>
           </g>
-          <g class="gift" transform="translate(200 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">18</text>
+          <g class="gift" transform="translate(200 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-gold)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">18</text>
           </g>
-          <g class="gift gift-target" transform="translate(275 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#ffe9a4" stroke-width="4"/>
-            <rect x="-25" y="0" width="50" height="42" rx="3" fill="#b52d36" stroke="#ffe9a4" stroke-width="3"/>
-            <path d="M0 0 V42 M-25 13 H25" stroke="#ffe9a4" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#ffe9a4" font-size="22" font-weight="800">20</text>
+          <g class="gift" transform="translate(279 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-red)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">20</text>
           </g>
-          <g class="gift" transform="translate(350 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">22</text>
+          <g class="gift" transform="translate(358 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-green)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">22</text>
           </g>
-          <g class="gift" transform="translate(425 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">24</text>
+          <g class="gift" transform="translate(437 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-gold)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">24</text>
           </g>
-          <g class="gift" transform="translate(500 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">26</text>
+          <g class="gift" transform="translate(516 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-red)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">12</text>
           </g>
-          <g class="gift" transform="translate(575 500)">
-            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
-            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">28</text>
+          <g class="gift" transform="translate(595 573)" filter="url(#subtle-shadow)">
+            <path d="M0 3 C-22 -10 -17 -23 -8 -20 C-2 -18 0 -6 0 3 C0 -6 2 -18 8 -20 C17 -23 22 -10 0 3" fill="none" stroke="#e8d7a1" stroke-width="3.5"/>
+            <rect x="-20" y="4" width="40" height="32" rx="3" fill="url(#gift-green)" stroke="#e8d7a1" stroke-width="1.5"/>
+            <path d="M0 4 V36 M-20 15 H20" stroke="#e8d7a1" stroke-width="3.5"/>
+            <text x="0" y="54" text-anchor="middle" fill="#fff8e9" font-size="16" font-weight="700">10</text>
           </g>
         </svg>
       </div>
