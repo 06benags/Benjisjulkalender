@@ -1,5 +1,10 @@
 const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
+const puzzleOverlay = document.querySelector("#puzzle-overlay");
+const puzzleClose = document.querySelector("#puzzle-close");
+const puzzleAnswerForm = document.querySelector("#puzzle-answer-form");
+const puzzleAnswerInput = document.querySelector("#puzzle-answer");
+const puzzleFeedback = document.querySelector("#puzzle-feedback");
 const overlay = document.querySelector("#letter-overlay");
 const envelope = document.querySelector("#envelope");
 const letter = document.querySelector("#letter");
@@ -8,6 +13,20 @@ const answerForm = document.querySelector("#answer-form");
 const answerInput = document.querySelector("#door-answer");
 const answerFeedback = document.querySelector("#answer-feedback");
 const sceneTransition = document.querySelector("#scene-transition");
+
+function openPuzzle() {
+  if (!puzzleOverlay) return;
+  puzzleOverlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  puzzleAnswerInput?.focus();
+}
+
+function closePuzzle() {
+  if (!puzzleOverlay) return;
+  puzzleOverlay.hidden = true;
+  document.body.style.overflow = "";
+  seventhDoor?.focus();
+}
 
 function openLetter() {
   if (!overlay || !envelope || !letter) return;
@@ -47,6 +66,31 @@ if (firstDoor && overlay && envelope && letter && closeButton) {
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !overlay.hidden) closeLetter();
+  });
+}
+
+if (seventhDoor && puzzleOverlay && puzzleClose) {
+  seventhDoor.addEventListener("click", openPuzzle);
+  puzzleClose.addEventListener("click", closePuzzle);
+  puzzleOverlay.addEventListener("click", (event) => {
+    if (event.target === puzzleOverlay) closePuzzle();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !puzzleOverlay.hidden) closePuzzle();
+  });
+}
+
+if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
+  puzzleAnswerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    puzzleFeedback.classList.remove("is-correct", "is-wrong");
+    if (Number(puzzleAnswerInput.value) === 20) {
+      puzzleFeedback.textContent = "Rätt! Presenten har nummer 20.";
+      puzzleFeedback.classList.add("is-correct");
+    } else {
+      puzzleFeedback.textContent = "Inte riktigt. Följ snöret från stjärnan hela vägen ner.";
+      puzzleFeedback.classList.add("is-wrong");
+    }
   });
 }
 
