@@ -516,3 +516,112 @@ body::after {
     transition-duration: 150ms;
   }
 }
+
+
+/* Lucka 7: visuellt snörpussel */
+.puzzle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(2, 12, 16, .94);
+  backdrop-filter: blur(7px);
+}
+
+.puzzle-overlay[hidden] { display: none !important; }
+
+.string-puzzle {
+  position: relative;
+  width: min(100%, 820px);
+  max-height: 94vh;
+  overflow-y: auto;
+  padding: clamp(22px, 4vw, 38px);
+  border: 2px solid #d6bd7b;
+  border-radius: 18px;
+  color: #fff8e9;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(133,188,202,.16), transparent 55%),
+    linear-gradient(160deg, #123b35, #071e24 70%);
+  box-shadow: 0 25px 80px rgba(0,0,0,.65), inset 0 0 0 5px rgba(244,215,139,.05);
+}
+
+.puzzle-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e7c879;
+  border-radius: 50%;
+  color: #fff8e9;
+  background: #7c222a;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.puzzle-kicker {
+  margin: 4px 0 8px;
+  color: #f4d78b;
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+}
+
+.string-puzzle h2 {
+  clear: both;
+  margin: 8px 0 12px;
+  color: #fff5d7;
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+
+.puzzle-instructions, .puzzle-footer {
+  max-width: 620px;
+  margin: 0 auto 14px;
+  color: #e6e1d1;
+  line-height: 1.55;
+}
+
+.string-maze {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto 10px;
+  padding: 8px;
+  border: 1px solid rgba(244,215,139,.25);
+  border-radius: 12px;
+  background: rgba(0,0,0,.22);
+}
+
+.string-maze svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.string-lines path {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.45));
+}
+
+.gift-target {
+  filter: drop-shadow(0 0 8px rgba(255,220,100,.45));
+}
+
+.puzzle-footer {
+  margin-top: 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .puzzle-overlay { padding: 8px; align-items: flex-start; }
+  .string-puzzle { max-height: 98vh; padding: 18px 12px; }
+  .puzzle-instructions { font-size: .94rem; }
+  .string-maze { padding: 3px; }
+}
