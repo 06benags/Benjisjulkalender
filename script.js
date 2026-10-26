@@ -59,15 +59,15 @@ if (answerForm && answerInput && answerFeedback) {
         "Korrekt!",
         "Rätt!",
         "Bra jobbat!",
-        "En lucka närmare jul! 🎄",
-        "Vem är som du? ✨",
+        "En lucka närmare jul!",
+        "Vem är som du?",
         "Tjusigt!",
         "Snyggt löst!",
         "Strålande!",
         "Precis rätt!",
         "Full pott!",
         "Du knäckte den!",
-        "Julmagiskt! 🎅"
+        "Julmagiskt!"
       ];
       const messageIndex = Math.floor(Math.random() * correctMessages.length);
       answerFeedback.textContent = correctMessages[messageIndex];
