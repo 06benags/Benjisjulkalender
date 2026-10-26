@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=16">
-  <script src="script.js?v=16" defer></script>
+  <link rel="stylesheet" href="style.css?v=17">
+  <script src="script.js?v=17" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -44,63 +44,68 @@
       <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
       <p class="puzzle-kicker">LUCKA 7</p>
       <h2 id="puzzle-title">Vilken present är din?</h2>
-      <p class="puzzle-instructions">Börja vid stjärnan och följ snöret uppifrån och hela vägen ner. Snörena korsar varandra, men byt bara spår där de sitter ihop.</p>
+      <p class="puzzle-instructions">Börja vid stjärnan och följ just det snöret hela vägen ner. Det finns åtta snören och många förgreningar. Håll koll på varje byte och tappa inte bort dig vid korsningarna.</p>
       <div class="string-maze">
-        <svg viewBox="0 0 640 570" role="img" aria-label="Ett visuellt snörpussel med sex snören som leder till sex presenter">
+        <svg viewBox="0 0 640 570" role="img" aria-label="Ett svårt snörpussel med åtta färgade snören, många tvärförbindelser och åtta numrerade presenter">
           <defs>
             <filter id="string-glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <g class="string-lines" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="7">
-            <path d="M70 48 C65 150 76 240 70 330 S76 430 70 495" stroke="#e85b55"/>
-            <path d="M170 48 C178 130 162 240 170 330 S164 430 170 495" stroke="#4ec8bd"/>
-            <path d="M270 48 C263 150 278 250 270 350 S276 430 270 495" stroke="#f3ca66"/>
-            <path d="M370 48 C378 150 362 250 370 350 S364 430 370 495" stroke="#9d8df2"/>
-            <path d="M470 48 C463 150 478 250 470 350 S476 430 470 495" stroke="#f39c55"/>
-            <path d="M570 48 C578 150 562 250 570 350 S564 430 570 495" stroke="#82c86c"/>
-            <path d="M70 90 H170 M370 90 H470 M170 150 H270 M470 150 H570 M270 210 H370 M70 210 H170 M370 270 H470 M170 270 H270 M470 330 H570 M70 330 H170 M470 390 H570 M270 390 H370 M370 450 H470 M70 450 H170" stroke="#e9ddbd" stroke-width="5"/>
-          </g>
+          <rect x="14" y="42" width="612" height="514" rx="12" fill="rgba(0,0,0,.16)" stroke="rgba(244,215,139,.15)"/>
+          <g class="string-lines" fill="none" stroke-linecap="round" stroke-linejoin="round">\n            <path d="M50 48 C45 95 55 125 50 160 S55 235 50 275 S45 360 50 400 S54 465 50 495" stroke="#e85b55" stroke-width="7"/>\n            <path d="M125 48 C120 95 130 125 125 160 S130 235 125 275 S120 360 125 400 S129 465 125 495" stroke="#4ec8bd" stroke-width="7"/>\n            <path d="M200 48 C195 95 205 125 200 160 S205 235 200 275 S195 360 200 400 S204 465 200 495" stroke="#f3ca66" stroke-width="7"/>\n            <path d="M275 48 C270 95 280 125 275 160 S280 235 275 275 S270 360 275 400 S279 465 275 495" stroke="#9d8df2" stroke-width="7"/>\n            <path d="M350 48 C345 95 355 125 350 160 S355 235 350 275 S345 360 350 400 S354 465 350 495" stroke="#f39c55" stroke-width="7"/>\n            <path d="M425 48 C420 95 430 125 425 160 S430 235 425 275 S420 360 425 400 S429 465 425 495" stroke="#82c86c" stroke-width="7"/>\n            <path d="M500 48 C495 95 505 125 500 160 S505 235 500 275 S495 360 500 400 S504 465 500 495" stroke="#ef78a8" stroke-width="7"/>\n            <path d="M575 48 C570 95 580 125 575 160 S580 235 575 275 S570 360 575 400 S579 465 575 495" stroke="#78b7ec" stroke-width="7"/>\n            <path d="M50 70 H125" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M50 70 H125" stroke="#e85b55" stroke-width="2.5"/>\n            <path d="M500 93 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 93 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M125 116 H200" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M125 116 H200" stroke="#4ec8bd" stroke-width="2.5"/>\n            <path d="M350 139 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 139 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M200 162 H275" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M200 162 H275" stroke="#f3ca66" stroke-width="2.5"/>\n            <path d="M50 185 H125" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M50 185 H125" stroke="#e85b55" stroke-width="2.5"/>\n            <path d="M425 208 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 208 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M275 231 H350" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M275 231 H350" stroke="#9d8df2" stroke-width="2.5"/>\n            <path d="M125 254 H200" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M125 254 H200" stroke="#4ec8bd" stroke-width="2.5"/>\n            <path d="M350 277 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 277 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M500 300 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 300 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M425 323 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 323 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M200 346 H275" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M200 346 H275" stroke="#f3ca66" stroke-width="2.5"/>\n            <path d="M500 369 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 369 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M500 392 H575" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M500 392 H575" stroke="#ef78a8" stroke-width="2.5"/>\n            <path d="M425 415 H500" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M425 415 H500" stroke="#82c86c" stroke-width="2.5"/>\n            <path d="M350 438 H425" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M350 438 H425" stroke="#f39c55" stroke-width="2.5"/>\n            <path d="M275 461 H350" stroke="#f8e7b7" stroke-width="6"/>\n            <path d="M275 461 H350" stroke="#9d8df2" stroke-width="2.5"/>\n          </g>
           <g class="start-marker">
-            <path d="M70 17 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#f6d77e" stroke="#fff4ce" stroke-width="1.5"/>
-            <text x="91" y="34" fill="#fff4ce" font-size="15" font-weight="700">BÖRJA HÄR</text>
+            <path d="M50 13 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#f6d77e" stroke="#fff4ce" stroke-width="1.5"/>
+            <text x="72" y="31" fill="#fff4ce" font-size="15" font-weight="700">BÖRJA HÄR</text>
           </g>
-          <g class="gift" transform="translate(70 500)">
-            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#b52d36" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
-            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">14</text>
+          <g class="gift" transform="translate(50 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">14</text>
           </g>
-          <g class="gift" transform="translate(170 500)">
-            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-23 13 H23" stroke="#fff0bc" stroke-width="5"/>
-            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#fff0bc" stroke-width="4"/>
-            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">16</text>
+          <g class="gift" transform="translate(125 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">16</text>
           </g>
-          <g class="gift" transform="translate(270 500)">
-            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
-            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">18</text>
+          <g class="gift" transform="translate(200 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">18</text>
           </g>
-          <g class="gift gift-target" transform="translate(370 500)">
-            <rect x="-25" y="-2" width="50" height="46" rx="3" fill="#b52d36" stroke="#ffe9a4" stroke-width="3"/>
-            <path d="M0 -2 V44 M-25 13 H25" stroke="#ffe9a4" stroke-width="6"/>
-            <path d="M0 0 C-26 -17 -23 -28 -11 -23 C-2 -19 0 -6 0 0 M0 0 C26 -17 23 -28 11 -23 C2 -19 0 -6 0 0" fill="none" stroke="#ffe9a4" stroke-width="4"/>
-            <text x="0" y="64" text-anchor="middle" fill="#ffe9a4" font-size="21" font-weight="800">20</text>
+          <g class="gift gift-target" transform="translate(275 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#ffe9a4" stroke-width="4"/>
+            <rect x="-25" y="0" width="50" height="42" rx="3" fill="#b52d36" stroke="#ffe9a4" stroke-width="3"/>
+            <path d="M0 0 V42 M-25 13 H25" stroke="#ffe9a4" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#ffe9a4" font-size="22" font-weight="800">20</text>
           </g>
-          <g class="gift" transform="translate(470 500)">
-            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
-            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">22</text>
+          <g class="gift" transform="translate(350 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">22</text>
           </g>
-          <g class="gift" transform="translate(570 500)">
-            <rect x="-23" y="0" width="46" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
-            <path d="M0 0 V42 M-23 13 H23" stroke="#f6d98d" stroke-width="5"/>
-            <path d="M0 1 C-24 -15 -22 -25 -10 -20 C-2 -17 0 -5 0 1 M0 1 C24 -15 22 -25 10 -20 C2 -17 0 -5 0 1" fill="none" stroke="#f6d98d" stroke-width="4"/>
-            <text x="0" y="62" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">24</text>
+          <g class="gift" transform="translate(425 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">24</text>
+          </g>
+          <g class="gift" transform="translate(500 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#28785b" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">26</text>
+          </g>
+          <g class="gift" transform="translate(575 500)">
+            <path d="M-7 -7 C-24 -22 -20 -32 -10 -28 C-3 -25 -2 -13 0 -5 C2 -13 3 -25 10 -28 C20 -32 24 -22 7 -7" fill="none" stroke="#f6d98d" stroke-width="4"/>
+            <rect x="-22" y="0" width="44" height="42" rx="3" fill="#b78a35" stroke="#f6d98d" stroke-width="2"/>
+            <path d="M0 0 V42 M-22 13 H22" stroke="#f6d98d" stroke-width="5"/>
+            <text x="0" y="64" text-anchor="middle" fill="#fff8e9" font-size="18" font-weight="700">28</text>
           </g>
         </svg>
       </div>
