@@ -7,6 +7,7 @@ const closeButton = document.querySelector(".letter-close");
 const answerForm = document.querySelector("#answer-form");
 const answerInput = document.querySelector("#door-answer");
 const answerFeedback = document.querySelector("#answer-feedback");
+const sceneTransition = document.querySelector("#scene-transition");
 
 function openLetter() {
   if (!overlay || !envelope || !letter) return;
@@ -74,12 +75,32 @@ if (answerForm && answerInput && answerFeedback) {
       answerFeedback.textContent = "Lucka 7 är upplåst! " + correctMessages[messageIndex];
       answerFeedback.classList.add("is-correct");
       window.setTimeout(() => {
-        closeLetter();
-        if (seventhDoor) {
-          seventhDoor.classList.add("is-unlocked");
-          seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
-          seventhDoor.focus();
+        if (!sceneTransition) {
+          closeLetter();
+          seventhDoor?.classList.add("is-unlocked");
+          seventhDoor?.setAttribute("aria-label", "Lucka 7, upplåst");
+          seventhDoor?.focus();
+          return;
         }
+
+        sceneTransition.hidden = false;
+        requestAnimationFrame(() => sceneTransition.classList.add("is-visible"));
+
+        window.setTimeout(() => {
+          closeLetter();
+          if (seventhDoor) {
+            seventhDoor.classList.add("is-unlocked");
+            seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
+          }
+
+          window.setTimeout(() => {
+            sceneTransition.classList.remove("is-visible");
+            window.setTimeout(() => {
+              sceneTransition.hidden = true;
+              seventhDoor?.focus();
+            }, 650);
+          }, 180);
+        }, 650);
       }, 1000);
     } else {
       answerFeedback.textContent = "Inte riktigt! Läs brevet noggrant och försök igen.";
