@@ -65,7 +65,7 @@ function resetHints() {
 
 hintToggle.addEventListener("click", () => {
   const hints = [
-    "Om man läst texten noggrant kan man se att orden "tar sin början" står i röd text. Vad kan det syfta på? Kanske ska man titta på något i början av varje mening ...",
+    "Om man läst texten noggrant kan man se att orden ’tar sin början’ står i röd text. Vad kan det syfta på? Kanske ska man titta på något i början av varje mening ...",
     "Tänk på vad en mening har allra först. Gör samma sak med mening efter mening och lägg ihop det ni hittar, i rätt ordning.",
     "Så löser ni det: läs första bokstaven i varje mening i brevtexten uppifrån och ned. Bokstäverna bildar orden NÄSTA LUCKA ÄR SJU. Svaret är lucka 7."
   ];
