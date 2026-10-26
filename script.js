@@ -35,11 +35,6 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
-if (seventhDoor && localStorage.getItem("door-7-unlocked") === "true") {
-  seventhDoor.classList.add("is-unlocked");
-  seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
-}
-
 if (firstDoor && overlay && envelope && letter && closeButton) {
   firstDoor.addEventListener("click", openLetter);
   envelope.addEventListener("click", revealLetter);
@@ -83,7 +78,6 @@ if (answerForm && answerInput && answerFeedback) {
         if (seventhDoor) {
           seventhDoor.classList.add("is-unlocked");
           seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
-          localStorage.setItem("door-7-unlocked", "true");
           seventhDoor.focus();
         }
       }, 1000);
