@@ -458,3 +458,25 @@ body::after {
   .hint-option { padding: 9px 11px; }
   .answer-form { padding: 13px; }
 }
+
+.letter-content strong.red-clue { color: #b51f2e; font-weight: 800; }
+.hint-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 22px;
+  border: 1px solid #e7c879;
+  border-radius: 999px;
+  color: #fff5d7;
+  background: linear-gradient(135deg, #b52d36, #8f1f2b 55%, #651b27);
+  box-shadow: 0 5px 0 #4d1720, 0 8px 18px rgba(77,23,32,.24), inset 0 1px 0 rgba(255,255,255,.2);
+  font-size: 1.06rem;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.hint-toggle::before { content: "✦"; color: #f7d987; }
+.hint-toggle::after { content: "❄"; position: absolute; top: -8px; right: 10px; color: #e4f6f4; }
+.hint-toggle:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 7px 0 #4d1720, 0 12px 22px rgba(77,23,32,.3); }
+.hint-toggle:disabled { cursor: default; opacity: .78; }
+.hint-options { margin-top: 15px; }
+.hint-text { border-left-color: #b52d36; background: linear-gradient(135deg, rgba(255,250,239,.82), rgba(244,225,190,.58)); }
