@@ -65,9 +65,9 @@ function resetHints() {
 
 hintToggle.addEventListener("click", () => {
   const hints = [
-    "Tomtens lilla egenhet kan vara viktigare än själva berättelsen. Fundera på vad som återkommer i texten.",
-    "Titta på hur varje mening börjar. Ta vara på något från början av mening efter mening, i den ordning de står.",
-    "Så gör ni: läs den allra första bokstaven i varje mening i brevet, uppifrån och ned. Bokstäverna bildar ”NÄSTA LUCKA ÄR SJU”. Rätt svar är alltså lucka 7."
+    "Om man läst texten noggrant kan man se att orden "tar sin början" står i röd text. Vad kan det syfta på? Kanske ska man titta på något i början av varje mening ...",
+    "Tänk på vad en mening har allra först. Gör samma sak med mening efter mening och lägg ihop det ni hittar, i rätt ordning.",
+    "Så löser ni det: läs första bokstaven i varje mening i brevtexten uppifrån och ned. Bokstäverna bildar orden NÄSTA LUCKA ÄR SJU. Svaret är lucka 7."
   ];
 
   hintOptions.hidden = false;
