@@ -480,3 +480,17 @@ body::after {
 .hint-toggle:disabled { cursor: default; opacity: .78; }
 .hint-options { margin-top: 15px; }
 .hint-text { border-left-color: #b52d36; background: linear-gradient(135deg, rgba(255,250,239,.82), rgba(244,225,190,.58)); }
+
+
+/* Lucka 7 lyser när den har låsts upp. */
+.door.is-unlocked {
+  border-color: #fff2b0;
+  filter: brightness(1.35);
+  box-shadow: 0 0 0 3px rgba(255, 232, 145, .7), 0 0 24px rgba(255, 220, 100, .9), inset 0 0 18px rgba(255, 245, 190, .35);
+  animation: door-unlocked 1s ease-in-out 2;
+}
+
+@keyframes door-unlocked {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
