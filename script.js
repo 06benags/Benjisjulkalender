@@ -55,7 +55,22 @@ if (answerForm && answerInput && answerFeedback) {
     answerFeedback.classList.remove("is-correct", "is-wrong");
 
     if (answer === 7) {
-      answerFeedback.textContent = "Rätt svar! Imorgon ska ni öppna lucka 7. 🎄";
+      const correctMessages = [
+        "Korrekt!",
+        "Rätt!",
+        "Bra jobbat!",
+        "En lucka närmare jul! 🎄",
+        "Vem är som du? ✨",
+        "Tjusigt!",
+        "Snyggt löst!",
+        "Strålande!",
+        "Precis rätt!",
+        "Full pott!",
+        "Du knäckte den!",
+        "Julmagiskt! 🎅"
+      ];
+      const messageIndex = Math.floor(Math.random() * correctMessages.length);
+      answerFeedback.textContent = correctMessages[messageIndex];
       answerFeedback.classList.add("is-correct");
     } else {
       answerFeedback.textContent = "Inte riktigt! Läs brevet noggrant och försök igen.";
