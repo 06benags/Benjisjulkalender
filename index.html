@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=19">
-  <script src="script.js?v=21" defer></script>
+  <link rel="stylesheet" href="style.css?v=20">
+  <script src="script.js?v=22" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -46,7 +46,7 @@
       <span class="envelope-label">Till dig...</span>
       <span class="envelope-hint">Tryck för att öppna</span>
     </button>
-    <section class="string-puzzle letter" id="puzzle-letter" role="dialog" aria-modal="true" aria-labelledby="puzzle-title" hidden> role="dialog" aria-modal="true" aria-labelledby="puzzle-title">
+    <section class="string-puzzle letter" id="puzzle-letter" role="dialog" aria-modal="true" aria-labelledby="puzzle-title" hidden>
       <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
       <p class="puzzle-kicker">LUCKA 7</p>
       <h2 id="puzzle-title">Vilken present är din?</h2>
@@ -127,6 +127,34 @@
         </div>
         <p class="answer-feedback" id="puzzle-feedback" aria-live="polite"></p>
       </form>
+    </section>
+  </div>
+
+  <div class="letter-overlay" id="cipher-overlay" hidden>
+    <button class="envelope" id="cipher-envelope" type="button" aria-label="Öppna brevet till lucka 20">
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">✦</span>
+      <span class="envelope-label">Hemligt meddelande</span>
+      <span class="envelope-hint">Tryck för att öppna</span>
+    </button>
+    <section class="letter cipher-letter" id="cipher-letter" role="dialog" aria-modal="true" aria-labelledby="cipher-title" hidden>
+      <button class="letter-close" id="cipher-close" type="button" aria-label="Stäng brevet">×</button>
+      <div class="letter-holly" aria-hidden="true">✦ ❄ ✦</div>
+      <p class="puzzle-kicker">LUCKA 20 • CHIFFERBREV</p>
+      <h2 id="cipher-title">Ett meddelande i kod</h2>
+      <p class="cipher-instructions">Morgondagens ledtråd är gömd här. Varje siffra står för en bokstav. Samma siffra betyder alltid samma bokstav. Några bokstäver är redan avslöjade – men bara på ett ställe. Skriv in en siffra och bokstaven du tror hör till den för att avslöja alla förekomster.</p>
+      <div id="cipher-message" class="cipher-message" aria-label="Chiffermeddelande"></div>
+      <form id="cipher-form" class="answer-form cipher-form">
+        <label for="cipher-number">Siffra</label>
+        <div class="cipher-controls">
+          <input id="cipher-number" type="number" min="1" max="29" placeholder="Siffra" required>
+          <label class="cipher-letter-label" for="cipher-guess">Bokstav</label>
+          <input id="cipher-guess" type="text" maxlength="1" autocapitalize="characters" placeholder="A" required>
+          <button type="submit">Avslöja</button>
+        </div>
+        <p id="cipher-feedback" class="answer-feedback" aria-live="polite"></p>
+      </form>
+      <p class="cipher-footer">När du har knäckt hela meddelandet ser du vilken lucka som ska öppnas härnäst.</p>
     </section>
   </div>
 
