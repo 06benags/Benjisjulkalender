@@ -254,10 +254,45 @@ const cipherCodes = (() => {
 function renderCipher() {
   if (!cipherMessage) return;
   cipherMessage.replaceChildren();
-  const seeded = new Set();
-  const words = cipherText.split(" ");
 
-  words.forEach((word, wordIndex) => {
+  const words = cipherText.split(" ");
+  const characters = [...words.join("")];
+  const occurrences = new Map();
+  characters.forEach((character, index) => {
+    const letter = character.toLocaleLowerCase("sv-SE");
+    if (!occurrences.has(letter)) occurrences.set(letter, []);
+    occurrences.get(letter).push(index);
+  });
+
+  // Välj en synlig ledtråd per unik bokstav, utspridd över hela meddelandet.
+  const seedPositions = new Set();
+  const entries = [...occurrences.entries()];
+  const targets = entries.map((_, index) =>
+    entries.length === 1 ? 0 : Math.round(index * (characters.length - 1) / (entries.length - 1))
+  );
+  targets.forEach((target) => {
+    let bestLetter = null;
+    let bestPosition = null;
+    let bestDistance = Infinity;
+    occurrences.forEach((positions, letter) => {
+      if (positions.some((position) => seedPositions.has(position))) return;
+      const available = positions.filter((position) => !seedPositions.has(position));
+      if (!available.length) return;
+      const position = available.reduce((best, candidate) =>
+        Math.abs(candidate - target) < Math.abs(best - target) ? candidate : best
+      );
+      const distance = Math.abs(position - target);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestLetter = letter;
+        bestPosition = position;
+      }
+    });
+    if (bestLetter !== null) seedPositions.add(bestPosition);
+  });
+
+  let flatIndex = 0;
+  words.forEach((word) => {
     const wordWrap = document.createElement("span");
     wordWrap.className = "cipher-word";
     [...word].forEach((character) => {
@@ -270,14 +305,14 @@ function renderCipher() {
       const charSlot = document.createElement("button");
       charSlot.type = "button";
       charSlot.className = "cipher-char";
-      charSlot.setAttribute("aria-label", seeded.has(letter) ? "Gissa bokstaven för siffra " + cipherCodes[letter] : "Synlig bokstav " + character);
-      if (!seeded.has(letter)) {
+      if (seedPositions.has(flatIndex)) {
         charSlot.textContent = character.toLocaleUpperCase("sv-SE");
         charSlot.classList.add("is-revealed", "is-seed");
-        seeded.add(letter);
+        charSlot.setAttribute("aria-label", "Synlig bokstav " + character);
       } else {
         charSlot.textContent = "_";
         charSlot.classList.add("is-blank");
+        charSlot.setAttribute("aria-label", "Gissa bokstaven för siffra " + cipherCodes[letter]);
       }
 
       const numberSlot = document.createElement("span");
@@ -285,6 +320,7 @@ function renderCipher() {
       numberSlot.textContent = String(cipherCodes[letter]);
       cell.append(charSlot, numberSlot);
       wordWrap.append(cell);
+      flatIndex++;
     });
     cipherMessage.append(wordWrap);
   });
