@@ -230,3 +230,190 @@ if (answerForm && answerInput && answerFeedback) {
     }
   });
 }
+
+
+/* Lucka 20: chifferbrev där spelaren själv skriver in bokstavsgissningar. */
+const cipherOverlay = document.querySelector("#cipher-overlay");
+const cipherEnvelope = document.querySelector("#cipher-envelope");
+const cipherLetter = document.querySelector("#cipher-letter");
+const cipherClose = document.querySelector("#cipher-close");
+const cipherMessage = document.querySelector("#cipher-message");
+const cipherForm = document.querySelector("#cipher-form");
+const cipherNumber = document.querySelector("#cipher-number");
+const cipherGuess = document.querySelector("#cipher-guess");
+const cipherFeedback = document.querySelector("#cipher-feedback");
+const eleventhDoor = document.querySelectorAll(".door")[10];
+const cipherText = "Morgondagens lucka som ska öppnas är luckan med två ettor";
+const cipherAlphabet = "abcdefghijklmnopqrstuvwxyzåäö";
+const cipherCodes = (() => {
+  const map = {};
+  [...cipherAlphabet].forEach((letter, index) => { map[letter] = index + 1; });
+  map.a = 7;
+  map.g = 1;
+  return map;
+})();
+const cipherSeeds = new Set(["a", "e", "o", "r", "s", "t", "n", "l"]);
+const cipherRevealed = new Set();
+
+function renderCipher() {
+  if (!cipherMessage) return;
+  cipherMessage.replaceChildren();
+  cipherRevealed.clear();
+  const seeded = new Set();
+
+  [...cipherText].forEach((character) => {
+    if (character === " ") {
+      const space = document.createElement("span");
+      space.className = "cipher-space";
+      space.setAttribute("aria-hidden", "true");
+      cipherMessage.append(space);
+      return;
+    }
+    const letter = character.toLocaleLowerCase("sv-SE");
+    if (!cipherCodes[letter]) {
+      const punctuation = document.createElement("span");
+      punctuation.className = "cipher-punctuation";
+      punctuation.textContent = character;
+      cipherMessage.append(punctuation);
+      return;
+    }
+
+    const cell = document.createElement("span");
+    cell.className = "cipher-cell";
+    cell.dataset.letter = letter;
+    cell.dataset.number = String(cipherCodes[letter]);
+
+    const charSlot = document.createElement("span");
+    charSlot.className = "cipher-char";
+    if (cipherSeeds.has(letter) && !seeded.has(letter)) {
+      charSlot.textContent = character;
+      charSlot.classList.add("is-revealed");
+      seeded.add(letter);
+    } else {
+      charSlot.textContent = "_";
+    }
+
+    const numberSlot = document.createElement("span");
+    numberSlot.className = "cipher-number";
+    numberSlot.textContent = String(cipherCodes[letter]);
+    cell.append(charSlot, numberSlot);
+    cipherMessage.append(cell);
+  });
+}
+
+function openCipher() {
+  if (!cipherOverlay) return;
+  cipherOverlay.hidden = false;
+  cipherEnvelope.hidden = false;
+  cipherEnvelope.classList.remove("is-opening");
+  cipherLetter.hidden = true;
+  document.body.style.overflow = "hidden";
+  renderCipher();
+  if (cipherFeedback) {
+    cipherFeedback.textContent = "";
+    cipherFeedback.classList.remove("is-correct", "is-wrong");
+  }
+}
+
+function revealCipherLetter() {
+  if (!cipherEnvelope || !cipherLetter) return;
+  cipherEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    cipherEnvelope.hidden = true;
+    cipherLetter.hidden = false;
+    cipherNumber?.focus();
+  }, 650);
+}
+
+function closeCipher() {
+  if (!cipherOverlay) return;
+  cipherOverlay.hidden = true;
+  cipherEnvelope.hidden = false;
+  cipherEnvelope.classList.remove("is-opening");
+  cipherLetter.hidden = true;
+  document.body.style.overflow = "";
+  twentiethDoor?.focus();
+}
+
+function finishCipher() {
+  if (cipherForm) {
+    cipherForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+    cipherNumber.disabled = true;
+    cipherGuess.disabled = true;
+  }
+  window.setTimeout(() => {
+    if (!sceneTransition) {
+      closeCipher();
+      eleventhDoor?.classList.add("is-unlocked");
+      eleventhDoor?.setAttribute("aria-label", "Lucka 11, markerad");
+      eleventhDoor?.focus();
+      return;
+    }
+    sceneTransition.hidden = false;
+    requestAnimationFrame(() => sceneTransition.classList.add("is-visible"));
+    window.setTimeout(() => {
+      closeCipher();
+      eleventhDoor?.classList.add("is-unlocked");
+      eleventhDoor?.setAttribute("aria-label", "Lucka 11, markerad");
+      window.setTimeout(() => {
+        sceneTransition.classList.remove("is-visible");
+        window.setTimeout(() => {
+          sceneTransition.hidden = true;
+          eleventhDoor?.focus();
+          cipherNumber.disabled = false;
+          cipherGuess.disabled = false;
+          cipherForm?.querySelector('button[type="submit"]')?.removeAttribute("disabled");
+        }, 650);
+      }, 180);
+    }, 650);
+  }, 1100);
+}
+
+if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherClose) {
+  twentiethDoor.addEventListener("click", openCipher);
+  cipherEnvelope.addEventListener("click", revealCipherLetter);
+  cipherClose.addEventListener("click", closeCipher);
+  cipherOverlay.addEventListener("click", (event) => {
+    if (event.target === cipherOverlay) closeCipher();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !cipherOverlay.hidden) closeCipher();
+  });
+}
+
+if (cipherForm && cipherNumber && cipherGuess && cipherFeedback && cipherMessage) {
+  cipherForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    cipherFeedback.classList.remove("is-correct", "is-wrong");
+    const number = Number(cipherNumber.value);
+    const guess = cipherGuess.value.trim().toLocaleLowerCase("sv-SE");
+    const correctLetter = Object.keys(cipherCodes).find((letter) => cipherCodes[letter] === number);
+
+    if (!correctLetter || guess.length !== 1 || !cipherAlphabet.includes(guess) || cipherCodes[guess] !== number) {
+      cipherFeedback.textContent = "Inte riktigt – den bokstaven hör inte till den siffran. Försök igen!";
+      cipherFeedback.classList.add("is-wrong");
+      return;
+    }
+
+    cipherMessage.querySelectorAll('.cipher-cell[data-number="' + number + '"]').forEach((cell) => {
+      const slot = cell.querySelector(".cipher-char");
+      slot.textContent = cell.dataset.letter.toLocaleUpperCase("sv-SE");
+      slot.classList.add("is-revealed");
+    });
+    cipherRevealed.add(correctLetter);
+    cipherFeedback.textContent = "Rätt! Alla rutor med siffran " + number + " är avslöjade.";
+    cipherFeedback.classList.add("is-correct");
+    cipherNumber.value = "";
+    cipherGuess.value = "";
+
+    const allRevealed = [...cipherMessage.querySelectorAll(".cipher-cell")].every((cell) =>
+      cell.querySelector(".cipher-char").classList.contains("is-revealed")
+    );
+    if (allRevealed) {
+      cipherFeedback.textContent = "Du knäckte meddelandet! Morgondagens lucka är lucka 11.";
+      finishCipher();
+    } else {
+      cipherNumber.focus();
+    }
+  });
+}
