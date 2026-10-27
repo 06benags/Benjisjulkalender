@@ -422,6 +422,7 @@ if (cipherMessage && cipherFeedback) {
         return;
       }
       if (guess === cell.dataset.letter && cipherCodes[guess] === Number(cell.dataset.number)) {
+        input.replaceWith(button);
         revealCipherGuess(cell, input);
       } else {
         cipherFeedback.textContent = "Inte riktigt – försök igen!";
