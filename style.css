@@ -772,24 +772,24 @@ body::after {
 }
 
 
-/* Mer luft mellan orden och klickbara streck i chifferbrevet. */
+/* Mer luft mellan orden och bokstavsrutorna i chifferbrevet. */
 .cipher-message {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 17px;
-  padding: 22px 12px;
+  gap: 20px;
+  padding: 24px 14px;
 }
 .cipher-word {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 7px 5px;
+  gap: 10px 10px;
 }
 .cipher-cell {
-  width: 28px;
-  min-width: 24px;
-  gap: 5px;
+  width: 34px;
+  min-width: 30px;
+  gap: 6px;
 }
 .cipher-char {
   appearance: none;
@@ -840,8 +840,8 @@ body::after {
 }
 .cipher-form .answer-feedback { margin-top: 12px; }
 @media (max-width: 560px) {
-  .cipher-message { gap: 14px; padding: 16px 4px; }
-  .cipher-word { gap: 6px 3px; }
-  .cipher-cell { width: 23px; min-width: 20px; }
-  .cipher-inline-input { width: 23px; height: 27px; font-size: 1rem; }
+  .cipher-message { gap: 17px; padding: 18px 6px; }
+  .cipher-word { gap: 8px 6px; }
+  .cipher-cell { width: 27px; min-width: 24px; }
+  .cipher-inline-input { width: 27px; height: 27px; font-size: 1rem; }
 }
