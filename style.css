@@ -625,3 +625,43 @@ body::after {
   .puzzle-instructions { font-size: .94rem; }
   .string-maze { padding: 3px; }
 }
+
+
+/* Lucka 7-pusslet presenteras som ett julbrev efter att kuvertet öppnats. */
+.string-puzzle.letter {
+  border: 1px solid #d0ad6a;
+  color: #3c2a18;
+  background:
+    radial-gradient(ellipse at 8% 5%, rgba(255,255,255,.75), transparent 32%),
+    radial-gradient(ellipse at 95% 90%, rgba(194,145,69,.15), transparent 35%),
+    repeating-linear-gradient(0deg, rgba(128,91,43,.025) 0, rgba(128,91,43,.025) 1px, transparent 1px, transparent 4px),
+    #fff1ce;
+  box-shadow: 0 25px 90px rgba(0,0,0,.55);
+}
+.string-puzzle.letter .puzzle-kicker { color: #1d6945; }
+.string-puzzle.letter h2 { color: #174d38; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
+.string-puzzle.letter h2::after {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 2px;
+  margin: 14px auto 0;
+  background: linear-gradient(90deg, transparent, #bd9145, transparent);
+}
+.string-puzzle.letter .puzzle-instructions,
+.string-puzzle.letter .puzzle-footer { color: #49351f; }
+.string-puzzle.letter .puzzle-close {
+  border-color: #b58a4d;
+  color: #fff4da;
+  background: #8f2929;
+}
+.string-puzzle.letter .answer-form {
+  border-color: rgba(181,138,77,.55);
+  background: rgba(255,255,255,.28);
+}
+.string-puzzle.letter .answer-form label { color: #174d38; }
+.string-puzzle.letter .answer-controls input {
+  border-color: #b58a4d;
+  color: #3c2a18;
+  background: #fffaf0;
+}
