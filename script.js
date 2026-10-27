@@ -2,6 +2,8 @@ const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
 const twentiethDoor = document.querySelectorAll(".door")[19];
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
+const puzzleEnvelope = document.querySelector("#puzzle-envelope");
+const puzzleLetter = document.querySelector("#puzzle-letter");
 const puzzleClose = document.querySelector("#puzzle-close");
 const puzzleAnswerForm = document.querySelector("#puzzle-answer-form");
 const puzzleAnswerInput = document.querySelector("#puzzle-answer");
@@ -18,13 +20,32 @@ const sceneTransition = document.querySelector("#scene-transition");
 function openPuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = false;
+  if (puzzleEnvelope) {
+    puzzleEnvelope.hidden = false;
+    puzzleEnvelope.classList.remove("is-opening");
+  }
+  if (puzzleLetter) puzzleLetter.hidden = true;
   document.body.style.overflow = "hidden";
-  puzzleAnswerInput?.focus();
+}
+
+function revealPuzzleLetter() {
+  if (!puzzleEnvelope || !puzzleLetter) return;
+  puzzleEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    puzzleEnvelope.hidden = true;
+    puzzleLetter.hidden = false;
+    puzzleAnswerInput?.focus();
+  }, 650);
 }
 
 function closePuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = true;
+  if (puzzleEnvelope) {
+    puzzleEnvelope.hidden = false;
+    puzzleEnvelope.classList.remove("is-opening");
+  }
+  if (puzzleLetter) puzzleLetter.hidden = true;
   document.body.style.overflow = "";
   seventhDoor?.focus();
 }
@@ -72,6 +93,7 @@ if (firstDoor && overlay && envelope && letter && closeButton) {
 
 if (seventhDoor && puzzleOverlay && puzzleClose) {
   seventhDoor.addEventListener("click", openPuzzle);
+  puzzleEnvelope?.addEventListener("click", revealPuzzleLetter);
   puzzleClose.addEventListener("click", closePuzzle);
   puzzleOverlay.addEventListener("click", (event) => {
     if (event.target === puzzleOverlay) closePuzzle();
