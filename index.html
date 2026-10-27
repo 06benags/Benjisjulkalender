@@ -144,16 +144,10 @@
       <h2 id="cipher-title">Ett meddelande i kod</h2>
       <p class="cipher-instructions">Morgondagens ledtråd är gömd här. Varje siffra står för en bokstav. Samma siffra betyder alltid samma bokstav. Några bokstäver är redan avslöjade – men bara på ett ställe. Skriv in en siffra och bokstaven du tror hör till den för att avslöja alla förekomster.</p>
       <div id="cipher-message" class="cipher-message" aria-label="Chiffermeddelande"></div>
-      <form id="cipher-form" class="answer-form cipher-form">
-        <label for="cipher-number">Siffra</label>
-        <div class="cipher-controls">
-          <input id="cipher-number" type="number" min="1" max="29" placeholder="Siffra" required>
-          <label class="cipher-letter-label" for="cipher-guess">Bokstav</label>
-          <input id="cipher-guess" type="text" maxlength="1" autocapitalize="characters" placeholder="A" required>
-          <button type="submit">Avslöja</button>
-        </div>
+      <div class="answer-form cipher-form">
+        <p class="cipher-howto">Tryck på ett tomt streck och skriv bokstaven du tror ska stå där. Tryck Enter för att kontrollera.</p>
         <p id="cipher-feedback" class="answer-feedback" aria-live="polite"></p>
-      </form>
+      </div>
       <p class="cipher-footer">När du har knäckt hela meddelandet ser du vilken lucka som ska öppnas härnäst.</p>
     </section>
   </div>
