@@ -665,3 +665,108 @@ body::after {
   color: #3c2a18;
   background: #fffaf0;
 }
+
+
+/* Chifferbrevet i lucka 20 – samma pergamentstil som lucka 1. */
+.cipher-letter {
+  width: min(100%, 900px);
+}
+.cipher-letter .puzzle-kicker { color: #1d6945; }
+.cipher-instructions {
+  color: #49351f;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+.cipher-message {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 7px 5px;
+  margin: 22px 0;
+  padding: 18px 12px;
+  border: 1px solid rgba(181,138,77,.45);
+  border-radius: 8px;
+  background: rgba(255,255,255,.25);
+}
+.cipher-cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25px;
+  min-width: 20px;
+  gap: 4px;
+}
+.cipher-char {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 31px;
+  border-bottom: 2px solid #76512e;
+  color: #3c2a18;
+  font: 700 1.1rem Georgia, serif;
+  text-transform: uppercase;
+}
+.cipher-char.is-revealed {
+  border-bottom-color: transparent;
+  color: #174d38;
+}
+.cipher-number {
+  color: #a12e2b;
+  font: 700 .72rem/1 Arial, sans-serif;
+}
+.cipher-space { width: 9px; height: 31px; }
+.cipher-punctuation {
+  display: inline-flex;
+  align-items: flex-end;
+  height: 31px;
+  padding-bottom: 2px;
+  color: #3c2a18;
+  font: 700 1.1rem Georgia, serif;
+}
+.cipher-form { margin-top: 14px; }
+.cipher-controls {
+  display: grid;
+  grid-template-columns: minmax(72px, .7fr) auto minmax(70px, .7fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+.cipher-controls input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #b58a4d;
+  border-radius: 6px;
+  color: #3c2a18;
+  background: #fffaf0;
+  font: 1rem Georgia, serif;
+}
+.cipher-controls button {
+  padding: 10px 14px;
+  border: 1px solid #d2b36b;
+  border-radius: 7px;
+  color: #fff6dc;
+  background: linear-gradient(145deg, #236448, #123d32);
+  font: 700 1rem Georgia, serif;
+  cursor: pointer;
+}
+.cipher-controls button:disabled { opacity: .6; cursor: default; }
+.cipher-letter-label {
+  margin: 0 !important;
+}
+.cipher-footer {
+  margin: 18px 0 0;
+  color: #49351f;
+  font-style: italic;
+  line-height: 1.5;
+}
+@media (max-width: 560px) {
+  .cipher-message { gap: 6px 3px; padding: 12px 6px; }
+  .cipher-cell { width: 21px; min-width: 18px; }
+  .cipher-char { height: 27px; font-size: 1rem; }
+  .cipher-number { font-size: .65rem; }
+  .cipher-controls { grid-template-columns: minmax(58px, .8fr) auto minmax(54px, .8fr); }
+  .cipher-controls button { grid-column: 1 / -1; }
+  .cipher-controls .cipher-letter-label { justify-self: end; }
+}
