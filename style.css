@@ -770,3 +770,78 @@ body::after {
   .cipher-controls button { grid-column: 1 / -1; }
   .cipher-controls .cipher-letter-label { justify-self: end; }
 }
+
+
+/* Mer luft mellan orden och klickbara streck i chifferbrevet. */
+.cipher-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+  padding: 22px 12px;
+}
+.cipher-word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px 5px;
+}
+.cipher-cell {
+  width: 28px;
+  min-width: 24px;
+  gap: 5px;
+}
+.cipher-char {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid #76512e;
+  border-radius: 0;
+  background: transparent;
+  cursor: default;
+}
+.cipher-char.is-blank {
+  cursor: text;
+  border-bottom-color: #9b2f2f;
+  transition: background .15s ease, border-color .15s ease;
+}
+.cipher-char.is-blank:hover,
+.cipher-char.is-blank:focus-visible {
+  outline: none;
+  background: rgba(181,138,77,.18);
+  border-bottom-color: #174d38;
+}
+.cipher-char.is-seed {
+  cursor: default;
+}
+.cipher-inline-input {
+  width: 28px;
+  min-width: 0;
+  height: 31px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid #174d38;
+  border-radius: 0;
+  outline: none;
+  color: #174d38;
+  background: rgba(255,255,255,.42);
+  text-align: center;
+  text-transform: uppercase;
+  font: 700 1.1rem Georgia, serif;
+}
+.cipher-inline-input.cipher-input-wrong {
+  border-bottom-color: #a12e2b;
+  background: rgba(161,46,43,.12);
+}
+.cipher-howto {
+  margin: 0;
+  color: #49351f;
+  line-height: 1.5;
+}
+.cipher-form .answer-feedback { margin-top: 12px; }
+@media (max-width: 560px) {
+  .cipher-message { gap: 14px; padding: 16px 4px; }
+  .cipher-word { gap: 6px 3px; }
+  .cipher-cell { width: 23px; min-width: 20px; }
+  .cipher-inline-input { width: 23px; height: 27px; font-size: 1rem; }
+}
