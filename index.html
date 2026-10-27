@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
   <link rel="stylesheet" href="style.css?v=18">
-  <script src="script.js?v=20" defer></script>
+  <script src="script.js?v=21" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -39,8 +39,14 @@
   <div class="scene-transition" id="scene-transition" aria-hidden="true" hidden></div>
 
 
-  <div class="puzzle-overlay" id="puzzle-overlay" hidden>
-    <section class="string-puzzle" role="dialog" aria-modal="true" aria-labelledby="puzzle-title">
+  <div class="puzzle-overlay letter-overlay" id="puzzle-overlay" hidden>
+    <button class="envelope" id="puzzle-envelope" type="button" aria-label="Öppna brevet till lucka 7">
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">✦</span>
+      <span class="envelope-label">Till dig...</span>
+      <span class="envelope-hint">Tryck för att öppna</span>
+    </button>
+    <section class="string-puzzle letter" id="puzzle-letter" role="dialog" aria-modal="true" aria-labelledby="puzzle-title" hidden> role="dialog" aria-modal="true" aria-labelledby="puzzle-title">
       <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
       <p class="puzzle-kicker">LUCKA 7</p>
       <h2 id="puzzle-title">Vilken present är din?</h2>
