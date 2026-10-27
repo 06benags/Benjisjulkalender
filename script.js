@@ -110,6 +110,8 @@ if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
       window.setTimeout(() => {
         if (!sceneTransition) {
           closePuzzle();
+          seventhDoor?.classList.remove("is-unlocked");
+          seventhDoor?.setAttribute("aria-label", "Lucka 7");
           twentiethDoor?.classList.add("is-unlocked");
           twentiethDoor?.setAttribute("aria-label", "Lucka 20, markerad");
           twentiethDoor?.focus();
@@ -124,6 +126,8 @@ if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
         window.setTimeout(() => {
           closePuzzle();
           if (twentiethDoor) {
+            seventhDoor?.classList.remove("is-unlocked");
+            seventhDoor?.setAttribute("aria-label", "Lucka 7");
             twentiethDoor.classList.add("is-unlocked");
             twentiethDoor.setAttribute("aria-label", "Lucka 20, markerad");
           }
