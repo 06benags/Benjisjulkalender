@@ -232,15 +232,12 @@ if (answerForm && answerInput && answerFeedback) {
 }
 
 
-/* Lucka 20: chifferbrev där spelaren själv skriver in bokstavsgissningar. */
+/* Lucka 20: chifferbrev med klickbara streck. */
 const cipherOverlay = document.querySelector("#cipher-overlay");
 const cipherEnvelope = document.querySelector("#cipher-envelope");
 const cipherLetter = document.querySelector("#cipher-letter");
 const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
-const cipherForm = document.querySelector("#cipher-form");
-const cipherNumber = document.querySelector("#cipher-number");
-const cipherGuess = document.querySelector("#cipher-guess");
 const cipherFeedback = document.querySelector("#cipher-feedback");
 const eleventhDoor = document.querySelectorAll(".door")[10];
 const cipherText = "Morgondagens lucka som ska öppnas är luckan med två ettor";
@@ -248,56 +245,48 @@ const cipherAlphabet = "abcdefghijklmnopqrstuvwxyzåäö";
 const cipherCodes = (() => {
   const map = {};
   [...cipherAlphabet].forEach((letter, index) => { map[letter] = index + 1; });
+  // En unik kod per bokstav, med A = 7.
   map.a = 7;
   map.g = 1;
   return map;
 })();
-const cipherSeeds = new Set(["a", "e", "o", "r", "s", "t", "n", "l"]);
-const cipherRevealed = new Set();
 
 function renderCipher() {
   if (!cipherMessage) return;
   cipherMessage.replaceChildren();
-  cipherRevealed.clear();
   const seeded = new Set();
+  const words = cipherText.split(" ");
 
-  [...cipherText].forEach((character) => {
-    if (character === " ") {
-      const space = document.createElement("span");
-      space.className = "cipher-space";
-      space.setAttribute("aria-hidden", "true");
-      cipherMessage.append(space);
-      return;
-    }
-    const letter = character.toLocaleLowerCase("sv-SE");
-    if (!cipherCodes[letter]) {
-      const punctuation = document.createElement("span");
-      punctuation.className = "cipher-punctuation";
-      punctuation.textContent = character;
-      cipherMessage.append(punctuation);
-      return;
-    }
+  words.forEach((word, wordIndex) => {
+    const wordWrap = document.createElement("span");
+    wordWrap.className = "cipher-word";
+    [...word].forEach((character) => {
+      const letter = character.toLocaleLowerCase("sv-SE");
+      const cell = document.createElement("span");
+      cell.className = "cipher-cell";
+      cell.dataset.letter = letter;
+      cell.dataset.number = String(cipherCodes[letter]);
 
-    const cell = document.createElement("span");
-    cell.className = "cipher-cell";
-    cell.dataset.letter = letter;
-    cell.dataset.number = String(cipherCodes[letter]);
+      const charSlot = document.createElement("button");
+      charSlot.type = "button";
+      charSlot.className = "cipher-char";
+      charSlot.setAttribute("aria-label", seeded.has(letter) ? "Gissa bokstaven för siffra " + cipherCodes[letter] : "Synlig bokstav " + character);
+      if (!seeded.has(letter)) {
+        charSlot.textContent = character.toLocaleUpperCase("sv-SE");
+        charSlot.classList.add("is-revealed", "is-seed");
+        seeded.add(letter);
+      } else {
+        charSlot.textContent = "_";
+        charSlot.classList.add("is-blank");
+      }
 
-    const charSlot = document.createElement("span");
-    charSlot.className = "cipher-char";
-    if (cipherSeeds.has(letter) && !seeded.has(letter)) {
-      charSlot.textContent = character;
-      charSlot.classList.add("is-revealed");
-      seeded.add(letter);
-    } else {
-      charSlot.textContent = "_";
-    }
-
-    const numberSlot = document.createElement("span");
-    numberSlot.className = "cipher-number";
-    numberSlot.textContent = String(cipherCodes[letter]);
-    cell.append(charSlot, numberSlot);
-    cipherMessage.append(cell);
+      const numberSlot = document.createElement("span");
+      numberSlot.className = "cipher-number";
+      numberSlot.textContent = String(cipherCodes[letter]);
+      cell.append(charSlot, numberSlot);
+      wordWrap.append(cell);
+    });
+    cipherMessage.append(wordWrap);
   });
 }
 
@@ -321,7 +310,7 @@ function revealCipherLetter() {
   window.setTimeout(() => {
     cipherEnvelope.hidden = true;
     cipherLetter.hidden = false;
-    cipherNumber?.focus();
+    cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
   }, 650);
 }
 
@@ -336,11 +325,6 @@ function closeCipher() {
 }
 
 function finishCipher() {
-  if (cipherForm) {
-    cipherForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
-    cipherNumber.disabled = true;
-    cipherGuess.disabled = true;
-  }
   window.setTimeout(() => {
     if (!sceneTransition) {
       closeCipher();
@@ -360,13 +344,45 @@ function finishCipher() {
         window.setTimeout(() => {
           sceneTransition.hidden = true;
           eleventhDoor?.focus();
-          cipherNumber.disabled = false;
-          cipherGuess.disabled = false;
-          cipherForm?.querySelector('button[type="submit"]')?.removeAttribute("disabled");
         }, 650);
       }, 180);
     }, 650);
   }, 1100);
+}
+
+function revealCipherGuess(cell, input) {
+  const guess = input.value.trim().toLocaleLowerCase("sv-SE");
+  const number = Number(cell.dataset.number);
+  const expectedLetter = cell.dataset.letter;
+  if (guess.length !== 1) return;
+
+  if (guess !== expectedLetter || cipherCodes[guess] !== number) {
+    cipherFeedback.textContent = "Inte riktigt – försök igen!";
+    cipherFeedback.classList.remove("is-correct");
+    cipherFeedback.classList.add("is-wrong");
+    input.classList.add("cipher-input-wrong");
+    return;
+  }
+
+  cipherMessage.querySelectorAll('.cipher-cell[data-number="' + number + '"]').forEach((matchingCell) => {
+    const button = matchingCell.querySelector(".cipher-char");
+    button.textContent = matchingCell.dataset.letter.toLocaleUpperCase("sv-SE");
+    button.classList.remove("is-blank");
+    button.classList.add("is-revealed");
+    button.setAttribute("aria-label", "Avslöjad bokstav " + button.textContent);
+    button.disabled = true;
+  });
+  cipherFeedback.textContent = "Rätt bokstav! Alla rutor med siffran " + number + " är ifyllda.";
+  cipherFeedback.classList.remove("is-wrong");
+  cipherFeedback.classList.add("is-correct");
+
+  const allRevealed = [...cipherMessage.querySelectorAll(".cipher-cell")].every((item) =>
+    item.querySelector(".cipher-char").classList.contains("is-revealed")
+  );
+  if (allRevealed) {
+    cipherFeedback.textContent = "Du knäckte meddelandet! Morgondagens lucka är lucka 11.";
+    finishCipher();
+  }
 }
 
 if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherClose) {
@@ -381,39 +397,56 @@ if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherCl
   });
 }
 
-if (cipherForm && cipherNumber && cipherGuess && cipherFeedback && cipherMessage) {
-  cipherForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    cipherFeedback.classList.remove("is-correct", "is-wrong");
-    const number = Number(cipherNumber.value);
-    const guess = cipherGuess.value.trim().toLocaleLowerCase("sv-SE");
-    const correctLetter = Object.keys(cipherCodes).find((letter) => cipherCodes[letter] === number);
+if (cipherMessage && cipherFeedback) {
+  cipherMessage.addEventListener("click", (event) => {
+    const button = event.target.closest(".cipher-char.is-blank");
+    if (!button || button.disabled) return;
+    const cell = button.closest(".cipher-cell");
+    if (!cell || cell.querySelector(".cipher-inline-input")) return;
 
-    if (!correctLetter || guess.length !== 1 || !cipherAlphabet.includes(guess) || cipherCodes[guess] !== number) {
-      cipherFeedback.textContent = "Inte riktigt – den bokstaven hör inte till den siffran. Försök igen!";
-      cipherFeedback.classList.add("is-wrong");
-      return;
-    }
+    const input = document.createElement("input");
+    input.className = "cipher-inline-input";
+    input.type = "text";
+    input.maxLength = 1;
+    input.autocomplete = "off";
+    input.autocapitalize = "characters";
+    input.setAttribute("aria-label", "Skriv bokstav för siffra " + cell.dataset.number);
+    button.replaceWith(input);
+    input.focus();
 
-    cipherMessage.querySelectorAll('.cipher-cell[data-number="' + number + '"]').forEach((cell) => {
-      const slot = cell.querySelector(".cipher-char");
-      slot.textContent = cell.dataset.letter.toLocaleUpperCase("sv-SE");
-      slot.classList.add("is-revealed");
+    const check = () => {
+      if (!input.isConnected) return;
+      const guess = input.value.trim().toLocaleLowerCase("sv-SE");
+      if (!guess) {
+        input.replaceWith(button);
+        return;
+      }
+      if (guess === cell.dataset.letter && cipherCodes[guess] === Number(cell.dataset.number)) {
+        revealCipherGuess(cell, input);
+      } else {
+        cipherFeedback.textContent = "Inte riktigt – försök igen!";
+        cipherFeedback.classList.remove("is-correct");
+        cipherFeedback.classList.add("is-wrong");
+        input.classList.add("cipher-input-wrong");
+        window.setTimeout(() => {
+          if (!input.isConnected) return;
+          input.replaceWith(button);
+          button.focus();
+        }, 700);
+      }
+    };
+
+    input.addEventListener("keydown", (keyEvent) => {
+      if (keyEvent.key === "Enter") {
+        keyEvent.preventDefault();
+        check();
+      } else if (keyEvent.key === "Escape") {
+        input.replaceWith(button);
+        button.focus();
+      }
     });
-    cipherRevealed.add(correctLetter);
-    cipherFeedback.textContent = "Rätt! Alla rutor med siffran " + number + " är avslöjade.";
-    cipherFeedback.classList.add("is-correct");
-    cipherNumber.value = "";
-    cipherGuess.value = "";
-
-    const allRevealed = [...cipherMessage.querySelectorAll(".cipher-cell")].every((cell) =>
-      cell.querySelector(".cipher-char").classList.contains("is-revealed")
-    );
-    if (allRevealed) {
-      cipherFeedback.textContent = "Du knäckte meddelandet! Morgondagens lucka är lucka 11.";
-      finishCipher();
-    } else {
-      cipherNumber.focus();
-    }
+    input.addEventListener("blur", () => {
+      if (input.isConnected && !input.value.trim()) input.replaceWith(button);
+    });
   });
 }
