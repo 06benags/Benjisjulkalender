@@ -1,5 +1,6 @@
 const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
+const twentiethDoor = document.querySelectorAll(".door")[19];
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
 const puzzleClose = document.querySelector("#puzzle-close");
 const puzzleAnswerForm = document.querySelector("#puzzle-answer-form");
@@ -109,9 +110,9 @@ if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
       window.setTimeout(() => {
         if (!sceneTransition) {
           closePuzzle();
-          seventhDoor?.classList.add("is-unlocked");
-          seventhDoor?.setAttribute("aria-label", "Lucka 7, upplåst");
-          seventhDoor?.focus();
+          twentiethDoor?.classList.add("is-unlocked");
+          twentiethDoor?.setAttribute("aria-label", "Lucka 20, markerad");
+          twentiethDoor?.focus();
           puzzleAnswerInput.disabled = false;
           puzzleAnswerForm.querySelector('button[type="submit"]')?.removeAttribute("disabled");
           return;
@@ -122,16 +123,16 @@ if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
 
         window.setTimeout(() => {
           closePuzzle();
-          if (seventhDoor) {
-            seventhDoor.classList.add("is-unlocked");
-            seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
+          if (twentiethDoor) {
+            twentiethDoor.classList.add("is-unlocked");
+            twentiethDoor.setAttribute("aria-label", "Lucka 20, markerad");
           }
 
           window.setTimeout(() => {
             sceneTransition.classList.remove("is-visible");
             window.setTimeout(() => {
               sceneTransition.hidden = true;
-              seventhDoor?.focus();
+              twentiethDoor?.focus();
               puzzleAnswerInput.disabled = false;
               puzzleAnswerForm.querySelector('button[type="submit"]')?.removeAttribute("disabled");
             }, 650);
