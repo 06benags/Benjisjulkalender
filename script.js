@@ -84,9 +84,60 @@ if (puzzleAnswerForm && puzzleAnswerInput && puzzleFeedback) {
   puzzleAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     puzzleFeedback.classList.remove("is-correct", "is-wrong");
+
     if (Number(puzzleAnswerInput.value) === 20) {
-      puzzleFeedback.textContent = "Rätt! Presenten har nummer 20.";
+      const correctMessages = [
+        "Korrekt!",
+        "Rätt!",
+        "Bra jobbat!",
+        "En lucka närmare jul!",
+        "Vem är som du?",
+        "Tjusigt!",
+        "Snyggt löst!",
+        "Strålande!",
+        "Precis rätt!",
+        "Full pott!",
+        "Du knäckte den!",
+        "Julmagiskt!"
+      ];
+      const messageIndex = Math.floor(Math.random() * correctMessages.length);
+      puzzleFeedback.textContent = "Du hittade rätt present! " + correctMessages[messageIndex];
       puzzleFeedback.classList.add("is-correct");
+      puzzleAnswerInput.disabled = true;
+      puzzleAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+
+      window.setTimeout(() => {
+        if (!sceneTransition) {
+          closePuzzle();
+          seventhDoor?.classList.add("is-unlocked");
+          seventhDoor?.setAttribute("aria-label", "Lucka 7, upplåst");
+          seventhDoor?.focus();
+          puzzleAnswerInput.disabled = false;
+          puzzleAnswerForm.querySelector('button[type="submit"]')?.removeAttribute("disabled");
+          return;
+        }
+
+        sceneTransition.hidden = false;
+        requestAnimationFrame(() => sceneTransition.classList.add("is-visible"));
+
+        window.setTimeout(() => {
+          closePuzzle();
+          if (seventhDoor) {
+            seventhDoor.classList.add("is-unlocked");
+            seventhDoor.setAttribute("aria-label", "Lucka 7, upplåst");
+          }
+
+          window.setTimeout(() => {
+            sceneTransition.classList.remove("is-visible");
+            window.setTimeout(() => {
+              sceneTransition.hidden = true;
+              seventhDoor?.focus();
+              puzzleAnswerInput.disabled = false;
+              puzzleAnswerForm.querySelector('button[type="submit"]')?.removeAttribute("disabled");
+            }, 650);
+          }, 180);
+        }, 650);
+      }, 1000);
     } else {
       puzzleFeedback.textContent = "Inte riktigt. Följ snöret från stjärnan hela vägen ner.";
       puzzleFeedback.classList.add("is-wrong");
