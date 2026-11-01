@@ -1045,53 +1045,90 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 
 
 
-/* Juligare, mer taktilt kuvert för lucka 1. */
+
+/* Stilrent kuvert i präglat julpapper – utan symboler. */
 .christmas-envelope {
-  isolation: isolate; perspective: 900px;
-  border: 2px solid #d8bd7c; border-radius: 7px 7px 12px 12px;
-  background: radial-gradient(ellipse at 18% 18%, rgba(255,255,255,.82), transparent 42%), repeating-linear-gradient(0deg, rgba(105,72,34,.035) 0 1px, transparent 1px 4px), linear-gradient(145deg, #fff8e8 0%, #f2dfb7 52%, #dfc18b 100%);
-  box-shadow: 0 30px 75px rgba(0,0,0,.48), 0 8px 18px rgba(0,0,0,.22), inset 0 0 0 5px rgba(255,255,255,.34), inset 0 -8px 18px rgba(112,73,31,.12);
+  position: relative;
+  isolation: isolate;
+  perspective: 1100px;
+  overflow: visible;
+  width: min(84vw, 390px);
+  aspect-ratio: 1.48 / 1;
+  border: 1px solid #b9945d;
+  border-radius: 3px 3px 7px 7px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.68), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(95,67,37,.025) 0 1px, transparent 1px 5px),
+    linear-gradient(145deg, #f8edda, #e8d2ad 65%, #ddc39a);
+  box-shadow: 0 28px 65px rgba(0,0,0,.42), 0 5px 12px rgba(0,0,0,.2), inset 0 0 0 5px rgba(255,255,255,.23);
+  cursor: pointer;
 }
-.christmas-envelope::before { z-index: 2; background: linear-gradient(32deg, transparent 49%, rgba(135,91,43,.24) 49.7%, rgba(255,250,230,.7) 50%, transparent 50.8%), linear-gradient(-32deg, transparent 49%, rgba(135,91,43,.24) 49.7%, rgba(255,250,230,.7) 50%, transparent 50.8%); }
-.christmas-envelope::after { z-index: 3; background: linear-gradient(145deg, transparent 49%, rgba(155,104,49,.28) 49.7%, rgba(255,255,255,.65) 50%, transparent 50.8%); }
-.christmas-envelope .envelope-insert {
-  position: absolute; z-index: 1; left: 10%; bottom: 8%; width: 80%; height: 84%;
-  display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 12% 8% 10%;
-  border: 1px solid #d7bd83; color: #1b563d; background: linear-gradient(160deg, #fffdf3, #f5e8c9);
-  box-shadow: 0 2px 9px rgba(76,48,22,.2); font: 700 .82rem Georgia,serif; letter-spacing: .18em;
-  transform: translateY(38%) scale(.94); opacity: 0;
+.christmas-envelope::before,
+.christmas-envelope::after { content:""; position:absolute; inset:0; pointer-events:none; }
+.christmas-envelope::before {
+  z-index:2;
+  background:
+    linear-gradient(32deg, transparent 49.4%, rgba(133,99,59,.25) 49.8%, rgba(255,255,255,.45) 50.2%, transparent 50.7%),
+    linear-gradient(-32deg, transparent 49.4%, rgba(133,99,59,.25) 49.8%, rgba(255,255,255,.45) 50.2%, transparent 50.7%);
 }
-.christmas-envelope .envelope-insert span:first-child, .christmas-envelope .envelope-insert span:last-child { color: #b48a42; font-size: 1.15rem; }
+.christmas-envelope::after {
+  z-index:3;
+  background: linear-gradient(145deg, transparent 49.4%, rgba(137,99,52,.18) 49.8%, rgba(255,255,255,.35) 50.2%, transparent 50.7%);
+}
+.christmas-envelope .envelope-paper {
+  position:absolute; z-index:1; left:12%; bottom:5%; width:76%; height:82%;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding-top:13%; box-sizing:border-box;
+  border:1px solid #d0b98f;
+  color:#70563a; background:linear-gradient(160deg,#fffdf7,#f2e8d5);
+  box-shadow:0 2px 9px rgba(68,47,26,.22);
+  font:italic 1.08rem Georgia,serif;
+  transform:translateY(34%); opacity:0;
+}
 .christmas-envelope .envelope-flap {
-  z-index: 4; height: 62%; background: linear-gradient(160deg, #fff0c9, #dfbd7a 82%);
-  border-bottom: 1px solid rgba(130,84,34,.24); transform-origin: top center; backface-visibility: visible;
-  transition: transform .82s cubic-bezier(.2,.72,.18,1); filter: drop-shadow(0 5px 5px rgba(73,44,18,.2));
+  position:absolute; z-index:4; left:0; right:0; top:0; height:62%;
+  background:linear-gradient(160deg,#fff4df,#e4c99c);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transform:rotateX(0);
+  transition:transform .9s cubic-bezier(.2,.72,.18,1);
+  filter:drop-shadow(0 5px 5px rgba(67,45,23,.2));
+  backface-visibility:visible;
 }
 .christmas-envelope .envelope-seal {
-  z-index: 5; top: 49%; width: 58px; height: 58px; color: #ffe9b0;
-  background: radial-gradient(circle at 32% 24%, #d66c57, #9d2630 62%, #651a25); border: 2px solid #e9ca80;
-  box-shadow: 0 4px 0 rgba(82,28,24,.22), 0 7px 13px rgba(50,20,16,.28), inset 0 1px 3px rgba(255,255,255,.35);
-  transition: opacity .24s ease, transform .35s ease;
+  position:absolute; z-index:5; left:50%; top:48%;
+  width:45px; height:45px; box-sizing:border-box;
+  transform:translate(-50%,-50%);
+  border:2px solid #e2c58d; border-radius:50%;
+  background:radial-gradient(circle at 32% 25%,#c85c50,#8f2930 72%);
+  box-shadow:0 3px 7px rgba(53,23,19,.28),inset 0 1px 3px rgba(255,255,255,.3);
+  transition:opacity .22s ease,transform .3s ease;
 }
-.christmas-envelope .envelope-holly { position: absolute; z-index: 6; top: 9%; left: 0; right: 0; color: #276343; font: 1.1rem Georgia,serif; letter-spacing: .35em; text-shadow: 0 1px 0 rgba(255,255,255,.75); pointer-events: none; }
-.christmas-envelope .envelope-hint { bottom: -48px; }
-.christmas-envelope.is-opening { animation: christmas-envelope-exit 1.18s cubic-bezier(.25,.7,.2,1) forwards; pointer-events: none; }
-.christmas-envelope.is-opening .envelope-flap { transform: rotateX(180deg); }
-.christmas-envelope.is-opening .envelope-insert { animation: christmas-letter-rise .92s .12s cubic-bezier(.2,.72,.2,1) forwards; }
-.christmas-envelope.is-opening .envelope-seal { opacity: 0; transform: translate(-50%,-50%) scale(1.45) rotate(-18deg); }
-.christmas-envelope.is-opening .envelope-holly, .christmas-envelope.is-opening .envelope-hint { opacity: 0; transition: opacity .2s ease; }
-@keyframes christmas-letter-rise {
-  0% { opacity: 0; transform: translateY(38%) scale(.94); }
-  35% { opacity: 1; transform: translateY(12%) scale(.98); }
-  100% { opacity: 1; transform: translateY(-36%) scale(1); }
+.christmas-envelope .envelope-hint {
+  bottom:-44px; color:#fff5df; font:1rem Georgia,serif;
+  text-shadow:0 2px 8px #000;
 }
-@keyframes christmas-envelope-exit {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  72% { transform: translateY(7px) scale(1.01); opacity: 1; }
-  100% { transform: translateY(24px) scale(.96); opacity: 0; }
+.christmas-envelope.is-opening { animation:envelope-settle 1.2s ease forwards; pointer-events:none; }
+.christmas-envelope.is-opening .envelope-flap { transform:rotateX(180deg); }
+.christmas-envelope.is-opening .envelope-paper {
+  animation:paper-slide-out .95s .18s cubic-bezier(.18,.72,.2,1) forwards;
 }
-@media (prefers-reduced-motion: reduce) {
-  .christmas-envelope.is-opening { animation-duration: .2s; }
-  .christmas-envelope.is-opening .envelope-insert { animation-duration: .2s; }
-  .christmas-envelope .envelope-flap { transition-duration: .2s; }
+.christmas-envelope.is-opening .envelope-seal {
+  opacity:0; transform:translate(-50%,-50%) scale(.65);
+}
+.christmas-envelope.is-opening .envelope-hint { opacity:0; transition:opacity .2s ease; }
+@keyframes paper-slide-out {
+  0% { opacity:0; transform:translateY(34%); }
+  30% { opacity:1; transform:translateY(8%); }
+  75% { opacity:1; transform:translateY(-44%); }
+  100% { opacity:1; transform:translateY(-52%); }
+}
+@keyframes envelope-settle {
+  0%,70% { transform:translateY(0); opacity:1; }
+  100% { transform:translateY(12px); opacity:0; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .christmas-envelope.is-opening { animation-duration:.2s; }
+  .christmas-envelope.is-opening .envelope-paper { animation-duration:.2s; }
+  .christmas-envelope .envelope-flap { transition-duration:.2s; }
 }
