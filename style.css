@@ -1231,3 +1231,80 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   background: radial-gradient(circle at 30% 22%, #e77a65 0%, #b52f30 38%, #791c25 78%, #55141b 100%);
   box-shadow: 0 5px 9px rgba(47,19,13,.4), inset 0 3px 4px rgba(255,255,255,.3), inset 0 -5px 7px rgba(45,5,8,.35);
 }
+
+
+/* Kuvert med riktig papperskropp, vikta hörn och tredimensionell öppning */
+.envelope {
+  isolation: isolate;
+  perspective: 1000px;
+  border: 1px solid #b99661;
+  border-radius: 9px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.72), transparent 38%),
+    radial-gradient(ellipse at 50% 8%, #fff9e9 0%, #f5e7ca 58%, #dfc69a 100%);
+  box-shadow: 0 30px 65px rgba(0,0,0,.46), 0 9px 18px rgba(56,34,16,.22), inset 0 1px 3px rgba(255,255,255,.95), inset 0 -8px 16px rgba(113,75,35,.15);
+  transition: transform .35s ease, filter .35s ease;
+}
+.envelope:hover {
+  transform: translateY(-5px) rotate(-.5deg);
+  filter: brightness(1.035);
+}
+.envelope::before {
+  z-index: 1;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(32deg, transparent 49.1%, rgba(133,91,48,.28) 49.7%, rgba(255,255,255,.56) 50.1%, transparent 50.9%),
+    linear-gradient(-32deg, transparent 49.1%, rgba(133,91,48,.25) 49.7%, rgba(255,255,255,.52) 50.1%, transparent 50.9%),
+    linear-gradient(180deg, transparent 58%, rgba(128,85,39,.09) 100%);
+}
+.envelope::after {
+  z-index: 1;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(145deg, transparent 48.8%, rgba(128,83,39,.2) 49.6%, rgba(255,255,255,.42) 50.1%, transparent 51.1%);
+}
+.envelope-flap {
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 62%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0%;
+  transform: rotateX(0deg);
+  backface-visibility: visible;
+  background: linear-gradient(160deg, #fff9e9 0%, #f1dfbd 48%, #d9b77f 100%);
+  filter: drop-shadow(0 3px 3px rgba(76,48,22,.24));
+  transition: transform .9s cubic-bezier(.2,.72,.22,1), filter .7s ease;
+}
+.envelope-seal {
+  z-index: 3;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #d9ad69;
+  background: radial-gradient(circle at 30% 22%, #e77a66 0%, #b52e30 42%, #781b24 82%);
+  box-shadow: 0 5px 9px rgba(47,19,13,.38), inset 0 3px 4px rgba(255,255,255,.3), inset 0 -4px 7px rgba(45,5,8,.32);
+  transition: opacity .3s ease, transform .45s ease;
+}
+.envelope.is-opening {
+  animation: envelope-open-lift 1s cubic-bezier(.22,.7,.25,1) forwards;
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+  filter: drop-shadow(0 -2px 2px rgba(76,48,22,.16));
+}
+.envelope.is-opening .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -35%) scale(.72);
+}
+@keyframes envelope-open-lift {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  28% { transform: translateY(-3px) scale(1.015); opacity: 1; }
+  72% { transform: translateY(-13px) scale(1.035); opacity: 1; }
+  100% { transform: translateY(-24px) scale(.96); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope.is-opening { animation-duration: .1s; }
+  .envelope.is-opening .envelope-flap { transition-duration: .1s; }
+}
