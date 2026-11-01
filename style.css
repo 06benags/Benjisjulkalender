@@ -118,12 +118,31 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 
 .letter-close:hover { background: #6e1c22; }
 
-.letter-holly {
-  margin: 0 0 12px;
-  color: #1d6945;
+.letter-date {
+  margin: 0 0 16px;
+  color: #8b6740;
   text-align: center;
-  font-size: 1.3rem;
-  letter-spacing: .5em;
+  font: italic 500 1.35rem/1.2 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: .12em;
+  text-transform: none;
+}
+.letter h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: .035em;
+  text-transform: none;
+}
+.letter-content {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.72;
+  letter-spacing: .012em;
+}
+.letter-content p {
+  margin: 0 0 1.05em;
+  text-indent: 1.2em;
 }
 
 .letter h2 {
