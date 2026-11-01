@@ -686,16 +686,33 @@ function buildLetterMaze() {
     step = previous.get(step);
   }
 
-  // Meddelandet ligger utan mellanrum. Efter sista bokstaven fortsätter
-  // den tomma gången hela vägen ut genom öppningen på höger ytterkant.
-  const route = fullRoute;
-  const exitCell = route[route.length - 1];
-  exitCell.walls[1] = false;
+  // Lösningsvägen slutar exakt vid meddelandets sista bokstav.
+  const route = fullRoute.slice(0, mazePhrase.length);
   const routeLetters = new Map();
-  route.slice(0, mazePhrase.length).forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
-  // Efter sista bokstaven lämnas den återstående delen av rätt väg tom,
-  // så att lösaren kan följa gången hela vägen till utgången.
-  const exitCorridor = new Set(route.slice(mazePhrase.length));
+  route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+
+  // Skapa en kort, tom utgång direkt efter sista bokstaven till närmaste kant.
+  const exitCell = route[route.length - 1];
+  const edgeOptions = [
+    { distance: exitCell.r, dr: -1, dc: 0, wall: 0, opposite: 2 },
+    { distance: cols - 1 - exitCell.c, dr: 0, dc: 1, wall: 1, opposite: 3 },
+    { distance: rows - 1 - exitCell.r, dr: 1, dc: 0, wall: 2, opposite: 0 },
+    { distance: exitCell.c, dr: 0, dc: -1, wall: 3, opposite: 1 }
+  ];
+  const exitDirection = edgeOptions.reduce((best, option) =>
+    option.distance < best.distance ? option : best
+  );
+  const exitCorridor = new Set();
+  let corridorCell = exitCell;
+  while (corridorCell.r !== (exitDirection.dr < 0 ? 0 : exitDirection.dr > 0 ? rows - 1 : corridorCell.r) ||
+         corridorCell.c !== (exitDirection.dc < 0 ? 0 : exitDirection.dc > 0 ? cols - 1 : corridorCell.c)) {
+    const next = cells[corridorCell.r + exitDirection.dr][corridorCell.c + exitDirection.dc];
+    corridorCell.walls[exitDirection.wall] = false;
+    next.walls[exitDirection.opposite] = false;
+    corridorCell = next;
+    exitCorridor.add(corridorCell);
+  }
+  corridorCell.walls[exitDirection.wall] = false;
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
