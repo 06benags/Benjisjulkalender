@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=43">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
-  <script src="script.js?v=42" defer></script>
+  <script src="script.js?v=43" defer></script>
 </head>
 <body>
   <div id="snowfall" aria-hidden="true"></div>
@@ -17,7 +17,7 @@
     <h1>Benjis julkalender</h1>
     <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
   </header>
-  <main class="calendar" aria-label="Julkalender med 24 luckor">
+  <main><div class="calendar" id="calendar" aria-label="Julkalender med 24 luckor">
     <button class="door" type="button" aria-label="Öppna lucka 1" data-door="1"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">01</span><span class="door-label">December</span></button>
     <button class="door" type="button" aria-label="Lucka 2"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">02</span><span class="door-label">December</span></button>
     <button class="door" type="button" aria-label="Lucka 3"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">03</span><span class="door-label">December</span></button>
@@ -42,7 +42,7 @@
     <button class="door" type="button" aria-label="Lucka 22"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">22</span><span class="door-label">December</span></button>
     <button class="door" type="button" aria-label="Lucka 23"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">23</span><span class="door-label">December</span></button>
     <button class="door" type="button" aria-label="Lucka 24"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">24</span><span class="door-label">December</span></button>
-  </main>
+  </div></main>
   <footer>BENJIS JULKALENDER &nbsp;·&nbsp; 24 LUCKOR &nbsp;·&nbsp; DECEMBER</footer>
 
   <div class="sudoku-overlay" id="sudoku-overlay" hidden>
