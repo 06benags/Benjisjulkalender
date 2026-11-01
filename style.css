@@ -1085,3 +1085,16 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 .letter::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #a77a48, #79552f);
 }
+
+
+/* Slightly larger handwritten letter typography */
+.letter-date {
+  font-size: clamp(2.2rem, 5vw, 2.55rem);
+}
+.letter h2 {
+  font-size: clamp(2.1rem, 5.5vw, 2.9rem);
+}
+.letter-content {
+  font-size: clamp(1.3rem, 3.2vw, 1.6rem);
+  line-height: 1.5;
+}
