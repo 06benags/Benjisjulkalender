@@ -239,7 +239,7 @@ const cipherLetter = document.querySelector("#cipher-letter");
 const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
 const cipherFeedback = document.querySelector("#cipher-feedback");
-const eleventhDoor = document.querySelectorAll(".door")[10];
+const eleventhDoor = document.querySelector('[data-door="11"]');
 const cipherText = "Morgondagens lucka som ska öppnas är luckan med två ettor";
 const cipherAlphabet = "abcdefghijklmnopqrstuvwxyzåäö";
 const cipherCodes = (() => {
