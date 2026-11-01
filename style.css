@@ -992,7 +992,7 @@ body::after {
 
 /* Lucka 9 – bokstavslabyrint */
 .maze-letter {
-  width: min(98vw, 1500px);
+  width: min(98vw, 1800px);
   padding: clamp(18px, 4vw, 34px);
 }
 .maze-close {
@@ -1025,7 +1025,7 @@ body::after {
 }
 .letter-maze {
   width: 100%;
-  max-width: 1400px;
+  max-width: none;
   margin-inline: auto;
   overflow-x: auto;
   overflow-y: hidden;
@@ -1035,9 +1035,9 @@ body::after {
 }
 .letter-maze svg {
   display: block;
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
+  width: 1680px;
+  min-width: 1680px;
+  max-width: none;
   height: auto;
 }
 .maze-walls line {
@@ -1047,7 +1047,7 @@ body::after {
 }
 .maze-letters text {
   fill: #49351f;
-  font: 700 20px Georgia, "Times New Roman", serif;
+  font: 700 30px Georgia, "Times New Roman", serif;
   text-anchor: middle;
   dominant-baseline: middle;
 }
@@ -1058,6 +1058,6 @@ body::after {
 }
 @media (max-width: 600px) {
   .maze-letter { width: 98vw; padding: 16px 10px; }
-  .letter-maze svg { min-width: 900px; }
-  .maze-letters text { font-size: 20px; }
+  .letter-maze svg { width: 1680px; min-width: 1680px; }
+  .maze-letters text { font-size: 30px; }
 }
