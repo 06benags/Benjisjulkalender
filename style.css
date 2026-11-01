@@ -952,6 +952,10 @@ body::after {
   color: #a12e2b;
   background: #f8dada;
 }
+.sudoku-cell.is-correct {
+  color: #17633e;
+  background: #dff1df;
+}
 .sudoku-cell.is-red-clue {
   color: #c0182b !important;
   background: #ffe0df !important;
