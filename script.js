@@ -779,6 +779,16 @@ if (ninthDoor && mazeOverlay && mazeClose) {
   mazeOverlay.addEventListener("click", (event) => {
     if (event.target === mazeOverlay) closeLetterMaze();
   });
+  const mazeDialog = mazeOverlay.querySelector(".maze-letter");
+  mazeHost?.addEventListener("click", () => {
+    mazeDialog?.classList.toggle("maze-expanded");
+    mazeHost?.setAttribute(
+      "aria-label",
+      mazeDialog?.classList.contains("maze-expanded")
+        ? "Förstorad labyrint. Tryck för att återställa storleken."
+        : "Labyrint. Tryck för att förstora."
+    );
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
   });
