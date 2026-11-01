@@ -930,7 +930,8 @@ body::after {
   text-align: center;
   font: 700 clamp(.9rem, 3.7vw, 1.35rem) Georgia, serif;
 }
-.sudoku-cell:nth-child(3n) { border-right: 2px solid #49351f; }
+.sudoku-cell:nth-child(9n + 3),
+.sudoku-cell:nth-child(9n + 6) { border-right: 2px solid #49351f; }
 .sudoku-cell:nth-child(9n) { border-right: 0; }
 .sudoku-cell:nth-child(n+19):nth-child(-n+27),
 .sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid #49351f; }
