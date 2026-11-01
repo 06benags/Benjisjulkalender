@@ -626,12 +626,12 @@ function setMazeExpanded(expanded) {
     expanded ? "Förstorad labyrint." : "Labyrint. Tryck för att förstora."
   );
   if (!expanded) mazeHost.style.setProperty("--maze-zoom", "1");
-  const controls = mazeHost.querySelector(".maze-zoom-controls");
+  const controls = mazeOverlay?.querySelector(".maze-zoom-controls");
   if (controls) controls.hidden = !expanded;
 }
 
 function addMazeZoomControls() {
-  if (!mazeHost || mazeHost.querySelector(".maze-zoom-controls")) return;
+  if (!mazeHost || !mazeOverlay || mazeOverlay.querySelector(".maze-zoom-controls")) return;
   const controls = document.createElement("div");
   controls.className = "maze-zoom-controls";
   controls.hidden = true;
@@ -649,7 +649,7 @@ function addMazeZoomControls() {
     mazeHost.dataset.zoom = next.toFixed(1);
     mazeHost.style.setProperty("--maze-zoom", next.toFixed(1));
   });
-  mazeHost.append(controls);
+  mazeOverlay.append(controls);
 }
 
 function buildLetterMaze() {
