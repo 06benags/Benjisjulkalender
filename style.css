@@ -988,3 +988,70 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .sudoku-cell.is-red-clue { animation: none; }
 }
+
+
+/* Lucka 9 – bokstavslabyrint */
+.maze-letter {
+  width: min(100%, 820px);
+  padding: clamp(18px, 4vw, 34px);
+}
+.maze-close {
+  float: right;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #b58a4d;
+  border-radius: 50%;
+  color: #593d23;
+  background: rgba(255,255,255,.45);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.maze-letter h2 {
+  margin: 5px 0 10px;
+  font: 700 clamp(1.5rem, 4vw, 2rem) Georgia, "Times New Roman", serif;
+}
+.maze-instructions, .maze-hint {
+  line-height: 1.5;
+}
+.maze-start-end {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 3px 4px;
+  color: #79551f;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.letter-maze {
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid #b58a4d;
+  border-radius: 5px;
+  background: #fff8e8;
+}
+.letter-maze svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.maze-walls line {
+  stroke: #3b3429;
+  stroke-width: 3;
+  stroke-linecap: square;
+}
+.maze-letters text {
+  fill: #49351f;
+  font: 700 15px Georgia, "Times New Roman", serif;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.maze-hint {
+  margin-bottom: 0;
+  color: #77552d;
+  font-size: .88rem;
+}
+@media (max-width: 480px) {
+  .maze-letter { padding: 16px 10px; }
+  .maze-letters text { font-size: 14px; }
+}
