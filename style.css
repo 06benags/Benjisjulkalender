@@ -995,6 +995,18 @@ body::after {
   width: min(100%, 660px);
   padding: clamp(18px, 4vw, 34px);
 }
+.maze-letter.maze-expanded {
+  width: min(98vw, 1500px);
+}
+.maze-expanded .letter-maze {
+  max-width: none;
+}
+.letter-maze {
+  cursor: zoom-in;
+}
+.maze-expanded .letter-maze {
+  cursor: zoom-out;
+}
 .maze-close {
   float: right;
   width: 38px;
