@@ -616,7 +616,7 @@ if (eleventhDoor && sudokuOverlay && sudokuClose) {
 const mazeOverlay = document.querySelector("#maze-overlay");
 const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
-const mazePhrase = "LUCKAN SOM DU SKA ÖPPNA IMORGON ÄR ÅTTA ADDERAT MED ÅTTA.";
+const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRÅTTAADDERATMEDÅTTA";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
@@ -686,27 +686,20 @@ function buildLetterMaze() {
     step = previous.get(step);
   }
 
-  // Slutet placeras direkt efter sista bokstaven. Vägen fortsätter inte förbi MÅL.
-  const route = fullRoute.slice(0, mazePhrase.length);
-  const goal = route[route.length - 1];
-  const nextAfterGoal = fullRoute[route.length];
-  if (nextAfterGoal) {
-    const dr = nextAfterGoal.r - goal.r;
-    const dc = nextAfterGoal.c - goal.c;
-    const direction = directions.find((item) => item.dr === dr && item.dc === dc);
-    if (direction) {
-      goal.walls[direction.wall] = true;
-      nextAfterGoal.walls[direction.opposite] = true;
-    }
-  }
+  // Meddelandet ligger utan mellanrum. Efter sista bokstaven fortsätter
+  // den tomma gången hela vägen ut genom öppningen på höger ytterkant.
+  const route = fullRoute;
+  const exitCell = route[route.length - 1];
+  exitCell.walls[1] = false;
   const routeLetters = new Map();
-  route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+  route.slice(0, mazePhrase.length).forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+  const blankExitPath = new Set(route.slice(mazePhrase.length));
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Svår bokstavslabyrint med en utgång direkt efter meddelandets sista bokstav");
+  svg.setAttribute("aria-label", "Svår bokstavslabyrint. Följ bokstäverna utan mellanrum och fortsätt sedan längs den tomma gången ut ur labyrinten.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
@@ -729,21 +722,15 @@ function buildLetterMaze() {
     });
 
     let letter = routeLetters.get(cell);
-    if (letter === undefined) letter = letters[Math.floor(random() * letters.length)];
-    if (letter !== " ") {
+    if (letter === undefined && !blankExitPath.has(cell)) {
+      letter = letters[Math.floor(random() * letters.length)];
+    }
+    if (letter) {
       const text = document.createElementNS(ns, "text");
       text.setAttribute("x", x + size / 2);
       text.setAttribute("y", y + size / 2);
       text.textContent = letter;
       textGroup.append(text);
-    }
-    if (cell === goal) {
-      const exit = document.createElementNS(ns, "text");
-      exit.setAttribute("class", "maze-exit-mark");
-      exit.setAttribute("x", x + size / 2);
-      exit.setAttribute("y", y + size - 3);
-      exit.textContent = "MÅL";
-      textGroup.append(exit);
     }
   });
 
