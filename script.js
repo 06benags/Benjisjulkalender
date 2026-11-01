@@ -622,7 +622,7 @@ function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
   const rows = 27;
   const cols = 41;
-  const size = 40;
+  const size = 26;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
   const cells = Array.from({ length: rows }, (_, r) =>
