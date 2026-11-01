@@ -867,3 +867,95 @@ if (ninthDoor && mazeOverlay && mazeClose) {
     if (!mazeHost.classList.contains("maze-expanded")) setMazeExpanded(true);
   });
 }
+
+
+/* Riktigt fallande snö: individuella flingor med varierande form, djup och fart. */
+(() => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canvas = document.createElement("canvas");
+  canvas.id = "real-snow";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return;
+
+  let width = 0, height = 0, flakes = [], lastTime = 0, frame = 0;
+  const rand = (min, max) => min + Math.random() * (max - min);
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = reduceMotion ? 55 : Math.min(190, Math.max(75, Math.round(width * height / 8500)));
+    flakes = Array.from({ length: count }, () => makeFlake(true));
+  }
+
+  function makeFlake(initial = false) {
+    const radius = rand(.65, 3.15);
+    return {
+      x: rand(0, width), y: initial ? rand(-height, height) : rand(-45, -8),
+      r: radius, vy: rand(.35, 1.8) + radius * .48,
+      vx: rand(-.34, .34), sway: rand(.25, 1.25),
+      phase: rand(0, Math.PI * 2), spin: rand(-.018, .018),
+      rotation: rand(0, Math.PI * 2), alpha: rand(.35, .9),
+      blur: radius < 1.15 ? .15 : radius > 2.5 ? .35 : 0
+    };
+  }
+
+  function drawFlake(f) {
+    ctx.save();
+    ctx.translate(f.x, f.y);
+    ctx.rotate(f.rotation);
+    ctx.globalAlpha = f.alpha;
+    ctx.shadowColor = "rgba(230,245,255,.8)";
+    ctx.shadowBlur = f.r > 2 ? 5 : 2;
+    ctx.fillStyle = "#fff";
+    if (f.r < 1.15) {
+      ctx.beginPath(); ctx.arc(0, 0, f.r, 0, Math.PI * 2); ctx.fill();
+    } else {
+      /* Sex små kristallarmar och en mjuk, ljus kärna. */
+      ctx.strokeStyle = "rgba(255,255,255,.94)";
+      ctx.lineWidth = Math.max(.55, f.r * .24);
+      ctx.lineCap = "round";
+      for (let arm = 0; arm < 6; arm++) {
+        ctx.save();
+        ctx.rotate(arm * Math.PI / 3);
+        ctx.beginPath();
+        ctx.moveTo(0, 0); ctx.lineTo(0, -f.r * 1.65);
+        ctx.moveTo(0, -f.r * .82); ctx.lineTo(-f.r * .38, -f.r * 1.16);
+        ctx.moveTo(0, -f.r * .82); ctx.lineTo(f.r * .38, -f.r * 1.16);
+        ctx.stroke();
+        ctx.restore();
+      }
+      ctx.beginPath(); ctx.arc(0, 0, f.r * .28, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function animate(time) {
+    if (document.hidden) { lastTime = time; requestAnimationFrame(animate); return; }
+    const delta = Math.min((time - (lastTime || time)) / 16.67, 2);
+    lastTime = time;
+    ctx.clearRect(0, 0, width, height);
+    flakes.forEach((f) => {
+      f.phase += .012 * delta;
+      f.x += (f.vx + Math.sin(f.phase) * f.sway * .22) * delta;
+      f.y += f.vy * delta;
+      f.rotation += f.spin * delta;
+      if (f.y > height + 12 || f.x < -20 || f.x > width + 20) {
+        Object.assign(f, makeFlake(false));
+        if (f.x < 0 || f.x > width) f.x = rand(0, width);
+      }
+      drawFlake(f);
+    });
+    if (!reduceMotion || frame++ % 3 === 0) requestAnimationFrame(animate);
+  }
+
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+  if (!reduceMotion) requestAnimationFrame(animate);
+  else { flakes.forEach(drawFlake); }
+})();
