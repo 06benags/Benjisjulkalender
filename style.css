@@ -1025,7 +1025,7 @@ body::after {
 }
 .letter-maze {
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
   border: 2px solid #b58a4d;
   border-radius: 5px;
   background: #fff8e8;
@@ -1033,7 +1033,8 @@ body::after {
 .letter-maze svg {
   display: block;
   width: 100%;
-  min-width: 820px;
+  min-width: 0;
+  max-width: 100%;
   height: auto;
 }
 .maze-walls line {
