@@ -67,7 +67,7 @@ function revealLetter() {
     envelope.hidden = true;
     letter.hidden = false;
     closeButton?.focus();
-  }, 1180);
+  }, 350);
 }
 
 function closeLetter() {
