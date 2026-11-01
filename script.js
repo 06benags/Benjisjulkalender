@@ -625,7 +625,16 @@ function setMazeExpanded(expanded) {
     "aria-label",
     expanded ? "Förstorad labyrint." : "Labyrint. Tryck för att förstora."
   );
-  if (!expanded) {\n    mazeHost.style.setProperty("--maze-zoom", "1");\n    mazeHost.dataset.panX = "0";\n    mazeHost.dataset.panY = "0";\n    mazeHost.style.setProperty("--maze-pan-x", "0px");\n    mazeHost.style.setProperty("--maze-pan-y", "0px");\n    mazeHost.style.cursor = "zoom-in";\n  } else {\n    mazeHost.style.cursor = "grab";\n  }
+  if (!expanded) {
+    mazeHost.style.setProperty("--maze-zoom", "1");
+    mazeHost.dataset.panX = "0";
+    mazeHost.dataset.panY = "0";
+    mazeHost.style.setProperty("--maze-pan-x", "0px");
+    mazeHost.style.setProperty("--maze-pan-y", "0px");
+    mazeHost.style.cursor = "zoom-in";
+  } else {
+    mazeHost.style.cursor = "grab";
+  }
   const controls = mazeOverlay?.querySelector(".maze-zoom-controls");
   if (controls) controls.hidden = !expanded;
 }
