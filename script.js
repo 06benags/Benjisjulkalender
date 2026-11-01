@@ -625,9 +625,50 @@ function setMazeExpanded(expanded) {
     "aria-label",
     expanded ? "Förstorad labyrint." : "Labyrint. Tryck för att förstora."
   );
-  if (!expanded) mazeHost.style.setProperty("--maze-zoom", "1");
+  if (!expanded) {\n    mazeHost.style.setProperty("--maze-zoom", "1");\n    mazeHost.dataset.panX = "0";\n    mazeHost.dataset.panY = "0";\n    mazeHost.style.setProperty("--maze-pan-x", "0px");\n    mazeHost.style.setProperty("--maze-pan-y", "0px");\n    mazeHost.style.cursor = "zoom-in";\n  } else {\n    mazeHost.style.cursor = "grab";\n  }
   const controls = mazeOverlay?.querySelector(".maze-zoom-controls");
   if (controls) controls.hidden = !expanded;
+}
+
+let mazeDrag = null;
+let suppressMazeClick = false;
+
+function attachMazePanning() {
+  if (!mazeHost) return;
+  mazeHost.addEventListener("pointerdown", (event) => {
+    if (!mazeHost.classList.contains("maze-expanded") || event.button !== 0) return;
+    mazeDrag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      panX: Number(mazeHost.dataset.panX || 0),
+      panY: Number(mazeHost.dataset.panY || 0),
+      moved: false
+    };
+    mazeHost.setPointerCapture(event.pointerId);
+    mazeHost.style.cursor = "grabbing";
+  });
+
+  mazeHost.addEventListener("pointermove", (event) => {
+    if (!mazeDrag || event.pointerId !== mazeDrag.pointerId) return;
+    const dx = event.clientX - mazeDrag.startX;
+    const dy = event.clientY - mazeDrag.startY;
+    if (Math.abs(dx) + Math.abs(dy) > 3) mazeDrag.moved = true;
+    if (!mazeDrag.moved) return;
+    mazeHost.dataset.panX = String(mazeDrag.panX + dx);
+    mazeHost.dataset.panY = String(mazeDrag.panY + dy);
+    mazeHost.style.setProperty("--maze-pan-x", mazeHost.dataset.panX + "px");
+    mazeHost.style.setProperty("--maze-pan-y", mazeHost.dataset.panY + "px");
+  });
+
+  const stopDragging = (event) => {
+    if (!mazeDrag || event.pointerId !== mazeDrag.pointerId) return;
+    suppressMazeClick = mazeDrag.moved;
+    mazeDrag = null;
+    mazeHost.style.cursor = "grab";
+  };
+  mazeHost.addEventListener("pointerup", stopDragging);
+  mazeHost.addEventListener("pointercancel", stopDragging);
 }
 
 function addMazeZoomControls() {
