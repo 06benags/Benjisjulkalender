@@ -616,7 +616,7 @@ if (eleventhDoor && sudokuOverlay && sudokuClose) {
 const mazeOverlay = document.querySelector("#maze-overlay");
 const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
-const mazePhrase = "NÄSTA LUCKA ÄR ÅTTA PLUS ÅTTA";
+const mazePhrase = "LUCKAN SOM DU SKA ÖPPNA IMORGON ÄR ÅTTA ADDERAT MED ÅTTA.";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
