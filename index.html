@@ -5,37 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
   <link rel="stylesheet" href="style.css?v=36">
-  <script src="script.js?v=41" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script src="script.js?v=42" defer></script>
 </head>
 <body>
-  <h1 class="page-title">Benjis julkalender</h1>
+  <div id="snowfall" aria-hidden="true"></div>
+  <header>
+    <p class="eyebrow">En julkalender i 24 delar</p>
+    <h1>Benjis julkalender</h1>
+    <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
+  </header>
   <main class="calendar" aria-label="Julkalender med 24 luckor">
-    <button class="door" type="button" aria-label="Öppna lucka 1" data-door="1">1</button>
-    <button class="door" type="button" aria-label="Lucka 2">2</button>
-    <button class="door" type="button" aria-label="Lucka 3">3</button>
-    <button class="door" type="button" aria-label="Lucka 4">4</button>
-    <button class="door" type="button" aria-label="Lucka 5">5</button>
-    <button class="door" type="button" aria-label="Lucka 6">6</button>
-    <button class="door" type="button" aria-label="Lucka 7">7</button>
-    <button class="door" type="button" aria-label="Lucka 8">8</button>
-    <button class="door" type="button" aria-label="Lucka 9">9</button>
-    <button class="door" type="button" aria-label="Lucka 10">10</button>
-    <button class="door" type="button" aria-label="Lucka 11" data-door="11">11</button>
-    <button class="door" type="button" aria-label="Lucka 12">12</button>
-    <button class="door" type="button" aria-label="Lucka 13">13</button>
-    <button class="door" type="button" aria-label="Lucka 14">14</button>
-    <button class="door" type="button" aria-label="Lucka 15">15</button>
-    <button class="door" type="button" aria-label="Lucka 16">16</button>
-    <button class="door" type="button" aria-label="Lucka 17">17</button>
-    <button class="door" type="button" aria-label="Lucka 18">18</button>
-    <button class="door" type="button" aria-label="Lucka 19">19</button>
-    <button class="door" type="button" aria-label="Lucka 20">20</button>
-    <button class="door" type="button" aria-label="Lucka 21">21</button>
-    <button class="door" type="button" aria-label="Lucka 22">22</button>
-    <button class="door" type="button" aria-label="Lucka 23">23</button>
-    <button class="door" type="button" aria-label="Lucka 24">24</button>
+    <button class="door" type="button" aria-label="Öppna lucka 1" data-door="1"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">01</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 2"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">02</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 3"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">03</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 4"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">04</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 5"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">05</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 6"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">06</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 7"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">07</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 8"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">08</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 9"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">09</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 10"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">10</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 11" data-door="11"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">11</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 12"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">12</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 13"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">13</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 14"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">14</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 15"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">15</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 16"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">16</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 17"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">17</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 18"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">18</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 19"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">19</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 20"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">20</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 21"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">21</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 22"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">22</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 23"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">23</span><span class="door-label">December</span></button>
+    <button class="door" type="button" aria-label="Lucka 24"><span class="corner" aria-hidden="true">✦</span><span class="star" aria-hidden="true">✧</span><span class="number">24</span><span class="door-label">December</span></button>
   </main>
-
+  <footer>BENJIS JULKALENDER &nbsp;·&nbsp; 24 LUCKOR &nbsp;·&nbsp; DECEMBER</footer>
 
   <div class="sudoku-overlay" id="sudoku-overlay" hidden>
     <section class="sudoku-letter" role="dialog" aria-modal="true" aria-labelledby="sudoku-title">
@@ -210,5 +218,27 @@
 
     </section>
   </div>
+<script>
+/* Samma fallande snöflingor som på Julkalendermordet. */
+(() => {
+  const snow = document.getElementById("snowfall");
+  if (!snow) return;
+  const symbols = ["❄", "✦", "❅", "·"];
+  for (let i = 0; i < 75; i++) {
+    const flake = document.createElement("span");
+    flake.className = "snowflake";
+    flake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    flake.style.setProperty("--left", Math.random() * 100 + "%");
+    flake.style.setProperty("--size", 7 + Math.random() * 15 + "px");
+    flake.style.setProperty("--opacity", (0.22 + Math.random() * 0.65).toFixed(2));
+    flake.style.setProperty("--duration", 13 + Math.random() * 24 + "s");
+    flake.style.setProperty("--delay", -Math.random() * 35 + "s");
+    flake.style.setProperty("--drift1", Math.random() * 80 - 40 + "px");
+    flake.style.setProperty("--drift2", Math.random() * 120 - 60 + "px");
+    flake.style.setProperty("--drift3", Math.random() * 100 - 50 + "px");
+    snow.appendChild(flake);
+  }
+})();
+</script>
 </body>
 </html>
