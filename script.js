@@ -693,6 +693,9 @@ function buildLetterMaze() {
   exitCell.walls[1] = false;
   const routeLetters = new Map();
   route.slice(0, mazePhrase.length).forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+  // Efter sista bokstaven lämnas den återstående delen av rätt väg tom,
+  // så att lösaren kan följa gången hela vägen till utgången.
+  const exitCorridor = new Set(route.slice(mazePhrase.length));
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
@@ -721,9 +724,8 @@ function buildLetterMaze() {
     });
 
     let letter = routeLetters.get(cell);
-    if (letter === undefined) {
-      // Alla rutor får bokstäver; meddelandets bokstäver på rätt väg
-      // lämnas orörda så att meningen fortfarande går att läsa.
+    if (letter === undefined && !exitCorridor.has(cell)) {
+      // Övriga rutor får slumpbokstäver som vilseleder utan att ändra texten.
       letter = letters[Math.floor(random() * letters.length)];
     }
     if (letter) {
