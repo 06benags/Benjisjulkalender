@@ -852,14 +852,9 @@ function closeLetterMaze() {
 if (ninthDoor && mazeOverlay && mazeClose) {
   ninthDoor.addEventListener("click", openLetterMaze);
   mazeClose.addEventListener("click", closeLetterMaze);
-  mazeOverlay.addEventListener("click", (event) => {
-    if (event.target === mazeOverlay) closeLetterMaze();
-  });
+  // Labyrinten lämnas endast via kryssknappen.
   mazeHost?.addEventListener("click", (event) => {
     if (event.target.closest(".maze-zoom-controls")) return;
-    setMazeExpanded(!mazeHost.classList.contains("maze-expanded"));
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
+    if (!mazeHost.classList.contains("maze-expanded")) setMazeExpanded(true);
   });
 }
