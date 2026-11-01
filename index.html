@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=24">
-  <script src="script.js?v=28" defer></script>
+  <link rel="stylesheet" href="style.css?v=25">
+  <script src="script.js?v=29" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -47,6 +47,19 @@
       <div class="sudoku-actions">
         <p class="sudoku-feedback" id="sudoku-feedback" aria-live="polite"></p>
       </div>
+    </section>
+  </div>
+
+
+  <div class="letter-overlay maze-overlay" id="maze-overlay" hidden>
+    <section class="letter maze-letter" role="dialog" aria-modal="true" aria-labelledby="maze-title">
+      <button class="maze-close" id="maze-close" type="button" aria-label="Stäng labyrinten">×</button>
+      <p class="puzzle-kicker">LUCKA 9</p>
+      <h2 id="maze-title">Bokstavslabyrinten</h2>
+      <p class="maze-instructions">Börja vid START och hitta vägen genom labyrinten till MÅL. Läs bokstäverna längs vägen i rätt ordning. Se upp – det finns många lockande villospår!</p>
+      <div class="maze-start-end"><span>START</span><span>MÅL</span></div>
+      <div class="letter-maze" id="letter-maze" role="img" aria-label="Labyrint med bokstäver i gångarna. Följ vägen från start till mål."></div>
+      <p class="maze-hint">Följ gångarna noga. Alla bokstäver hör inte till meddelandet.</p>
     </section>
   </div>
 
