@@ -1137,3 +1137,12 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   background: linear-gradient(160deg, #fff0ca 0%, #e8cb91 65%, #d4ad6d 100%);
   filter: drop-shadow(0 3px 3px rgba(80,45,20,.2));
 }
+
+
+/* Rundade hörn på själva brevet som visas när kuvertet öppnas */
+.letter {
+  border-radius: 22px;
+  overflow: auto;
+  clip-path: inset(0 round 22px);
+  box-shadow: 0 25px 90px rgba(0,0,0,.48), 0 3px 12px rgba(76,48,20,.18);
+}
