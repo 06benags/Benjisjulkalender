@@ -487,3 +487,128 @@ if (cipherMessage && cipherFeedback) {
     });
   });
 }
+
+
+/* Lucka 11: klassiskt 9×9-sudoku. */
+const sudokuOverlay = document.querySelector("#sudoku-overlay");
+const sudokuBoard = document.querySelector("#sudoku-board");
+const sudokuClose = document.querySelector("#sudoku-close");
+const sudokuCheck = document.querySelector("#sudoku-check");
+const sudokuFeedback = document.querySelector("#sudoku-feedback");
+const ninthDoor = document.querySelectorAll(".door")[8];
+const sudokuPuzzle = [
+  "530070000",
+  "600195000",
+  "098000060",
+  "800060003",
+  "400803001",
+  "700020006",
+  "060000280",
+  "000419005",
+  "000080079"
+];
+const sudokuSolution = [
+  "534678912",
+  "672195348",
+  "198342567",
+  "859761423",
+  "426853791",
+  "713924856",
+  "961537284",
+  "287419635",
+  "345286179"
+];
+
+function renderSudoku() {
+  if (!sudokuBoard || sudokuBoard.childElementCount) return;
+  sudokuPuzzle.forEach((row, rowIndex) => {
+    [...row].forEach((digit, colIndex) => {
+      const cell = document.createElement("input");
+      cell.className = "sudoku-cell";
+      cell.type = "text";
+      cell.inputMode = "numeric";
+      cell.autocomplete = "off";
+      cell.maxLength = 1;
+      cell.dataset.row = String(rowIndex);
+      cell.dataset.col = String(colIndex);
+      cell.setAttribute("aria-label", `Rad ${rowIndex + 1}, kolumn ${colIndex + 1}`);
+      if (digit !== "0") {
+        cell.value = digit;
+        cell.disabled = true;
+        cell.classList.add("is-given");
+      } else {
+        cell.addEventListener("input", () => {
+          cell.value = cell.value.replace(/[^1-9]/g, "").slice(0, 1);
+          cell.classList.remove("is-wrong");
+        });
+      }
+      sudokuBoard.append(cell);
+    });
+  });
+}
+
+function openSudoku() {
+  if (!sudokuOverlay) return;
+  renderSudoku();
+  sudokuOverlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  sudokuBoard?.querySelector("input:not(:disabled)")?.focus();
+}
+
+function closeSudoku() {
+  if (!sudokuOverlay) return;
+  sudokuOverlay.hidden = true;
+  document.body.style.overflow = "";
+  eleventhDoor?.focus();
+}
+
+function checkSudoku() {
+  if (!sudokuBoard || !sudokuFeedback) return;
+  const cells = [...sudokuBoard.querySelectorAll(".sudoku-cell")];
+  let complete = true;
+  let correct = true;
+  cells.forEach((cell) => {
+    const row = Number(cell.dataset.row);
+    const col = Number(cell.dataset.col);
+    const expected = sudokuSolution[row][col];
+    const value = cell.value.trim();
+    cell.classList.remove("is-wrong");
+    if (!value) complete = false;
+    if (value !== expected) {
+      correct = false;
+      if (value) cell.classList.add("is-wrong");
+    }
+  });
+
+  if (!complete) {
+    sudokuFeedback.textContent = "Det finns fortfarande tomma rutor. Fortsätt!";
+    sudokuFeedback.className = "sudoku-feedback is-wrong";
+    return;
+  }
+  if (!correct) {
+    sudokuFeedback.textContent = "Inte riktigt ännu – de markerade rutorna behöver ses över.";
+    sudokuFeedback.className = "sudoku-feedback is-wrong";
+    return;
+  }
+
+  const clueCell = sudokuBoard.querySelector('.sudoku-cell[data-row="0"][data-col="6"]');
+  clueCell?.classList.add("is-red-clue");
+  sudokuFeedback.textContent = "Helt rätt! Snyggt löst.";
+  sudokuFeedback.className = "sudoku-feedback is-correct";
+  sudokuCheck.disabled = true;
+  cells.forEach((cell) => { cell.disabled = true; });
+  ninthDoor?.classList.add("is-unlocked");
+  ninthDoor?.setAttribute("aria-label", "Lucka 9, markerad");
+}
+
+if (eleventhDoor && sudokuOverlay && sudokuClose && sudokuCheck) {
+  eleventhDoor.addEventListener("click", openSudoku);
+  sudokuClose.addEventListener("click", closeSudoku);
+  sudokuCheck.addEventListener("click", checkSudoku);
+  sudokuOverlay.addEventListener("click", (event) => {
+    if (event.target === sudokuOverlay) closeSudoku();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !sudokuOverlay.hidden) closeSudoku();
+  });
+}
