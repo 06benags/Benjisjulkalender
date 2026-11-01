@@ -722,8 +722,12 @@ function buildLetterMaze() {
     });
 
     let letter = routeLetters.get(cell);
-    if (letter === undefined && !blankExitPath.has(cell)) {
-      letter = letters[Math.floor(random() * letters.length)];
+    if (letter === undefined) {
+      // Fyll även utgångsgången visuellt, men med stjärnor så att
+      // den fortfarande går att skilja från meddelandets bokstäver.
+      letter = blankExitPath.has(cell)
+        ? "✦"
+        : letters[Math.floor(random() * letters.length)];
     }
     if (letter) {
       const text = document.createElementNS(ns, "text");
