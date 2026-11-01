@@ -691,7 +691,10 @@ function buildLetterMaze() {
   const routeLetters = new Map();
   route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
 
-  // Skapa en kort, tom utgång direkt efter sista bokstaven till närmaste kant.
+  // Hela fortsättningen av den ursprungliga lösningsvägen ska vara tom.
+  const exitCorridor = new Set(fullRoute.slice(mazePhrase.length));
+
+  // Förläng den tomma gången från lösningsvägens slut till närmaste ytterkant.
   const exitCell = route[route.length - 1];
   const edgeOptions = [
     { distance: exitCell.r, dr: -1, dc: 0, wall: 0, opposite: 2 },
