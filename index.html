@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=23">
-  <script src="script.js?v=26" defer></script>
+  <link rel="stylesheet" href="style.css?v=24">
+  <script src="script.js?v=27" defer></script>
 </head>
 <body>
   <h1 class="page-title">Benjis julkalender</h1>
@@ -35,6 +35,21 @@
     <button class="door" type="button" aria-label="Lucka 23">23</button>
     <button class="door" type="button" aria-label="Lucka 24">24</button>
   </main>
+
+
+  <div class="sudoku-overlay" id="sudoku-overlay" hidden>
+    <section class="sudoku-letter" role="dialog" aria-modal="true" aria-labelledby="sudoku-title">
+      <button class="sudoku-close" id="sudoku-close" type="button" aria-label="Stäng sudoku">×</button>
+      <p class="sudoku-kicker">LUCKA 11</p>
+      <h2 id="sudoku-title">Ett klassiskt sudoku</h2>
+      <p class="sudoku-instructions">Fyll i rutorna så att varje rad, kolumn och 3×3-ruta innehåller siffrorna 1–9 exakt en gång.</p>
+      <div class="sudoku-board" id="sudoku-board" role="group" aria-label="Sudokubräde med nio rader och nio kolumner"></div>
+      <div class="sudoku-actions">
+        <button class="sudoku-check" id="sudoku-check" type="button">Kontrollera</button>
+        <p class="sudoku-feedback" id="sudoku-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+  </div>
 
   <div class="scene-transition" id="scene-transition" aria-hidden="true" hidden></div>
 
