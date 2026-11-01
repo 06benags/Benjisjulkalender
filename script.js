@@ -611,3 +611,147 @@ if (eleventhDoor && sudokuOverlay && sudokuClose) {
     if (event.key === "Escape" && !sudokuOverlay.hidden) closeSudoku();
   });
 }
+ 
+/* Lucka 9: bokstavslabyrint som leder vidare till lucka 16. */
+const mazeOverlay = document.querySelector("#maze-overlay");
+const mazeClose = document.querySelector("#maze-close");
+const mazeHost = document.querySelector("#letter-maze");
+const mazePhrase = "NÄSTA LUCKA ÄR EN ÅTTA PLUS ÅTTA";
+
+function buildLetterMaze() {
+  if (!mazeHost || mazeHost.childElementCount) return;
+  const rows = 9;
+  const cols = 13;
+  const size = 38;
+  const pad = 24;
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
+  const cells = Array.from({ length: rows }, (_, r) =>
+    Array.from({ length: cols }, (_, c) => ({
+      r, c, walls: [true, true, true, true], visited: false
+    }))
+  );
+  const directions = [
+    { dr: -1, dc: 0, wall: 0, opposite: 2 },
+    { dr: 0, dc: 1, wall: 1, opposite: 3 },
+    { dr: 1, dc: 0, wall: 2, opposite: 0 },
+    { dr: 0, dc: -1, wall: 3, opposite: 1 }
+  ];
+  let seed = 123456;
+  const random = () => {
+    seed ^= seed << 13;
+    seed ^= seed >>> 17;
+    seed ^= seed << 5;
+    return (seed >>> 0) / 4294967296;
+  };
+
+  const stack = [cells[0][0]];
+  cells[0][0].visited = true;
+  while (stack.length) {
+    const current = stack[stack.length - 1];
+    const options = directions.map((direction) => ({
+      direction,
+      next: cells[current.r + direction.dr]?.[current.c + direction.dc]
+    })).filter((item) => item.next && !item.next.visited);
+    if (!options.length) {
+      stack.pop();
+      continue;
+    }
+    const choice = options[Math.floor(random() * options.length)];
+    current.walls[choice.direction.wall] = false;
+    choice.next.walls[choice.direction.opposite] = false;
+    choice.next.visited = true;
+    stack.push(choice.next);
+  }
+
+  cells[0][0].walls[3] = false;
+  cells[rows - 1][cols - 1].walls[1] = false;
+  const queue = [cells[0][0]];
+  const previous = new Map([[cells[0][0], null]]);
+  for (let index = 0; index < queue.length; index++) {
+    const current = queue[index];
+    if (current === cells[rows - 1][cols - 1]) break;
+    directions.forEach((direction) => {
+      const next = cells[current.r + direction.dr]?.[current.c + direction.dc];
+      if (next && !current.walls[direction.wall] && !previous.has(next)) {
+        previous.set(next, current);
+        queue.push(next);
+      }
+    });
+  }
+  const route = [];
+  let step = cells[rows - 1][cols - 1];
+  while (step) {
+    route.unshift(step);
+    step = previous.get(step);
+  }
+  const routeLetters = new Map();
+  route.slice(0, mazePhrase.length).forEach((cell, index) => {
+    routeLetters.set(cell, mazePhrase[index]);
+  });
+
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", "Bokstavslabyrint från start till mål");
+  const wallGroup = document.createElementNS(ns, "g");
+  wallGroup.setAttribute("class", "maze-walls");
+  const textGroup = document.createElementNS(ns, "g");
+  textGroup.setAttribute("class", "maze-letters");
+
+  cells.flat().forEach((cell) => {
+    const x = pad + cell.c * size;
+    const y = pad + cell.r * size;
+    cell.walls.forEach((hasWall, wallIndex) => {
+      if (!hasWall) return;
+      const line = document.createElementNS(ns, "line");
+      const coords = [
+        [x, y, x + size, y],
+        [x + size, y, x + size, y + size],
+        [x, y + size, x + size, y + size],
+        [x, y, x, y + size]
+      ][wallIndex];
+      ["x1", "y1", "x2", "y2"].forEach((attribute, i) => line.setAttribute(attribute, coords[i]));
+      wallGroup.append(line);
+    });
+
+    let letter = routeLetters.get(cell);
+    if (letter === undefined) letter = letters[Math.floor(random() * letters.length)];
+    if (letter === " ") return;
+    const text = document.createElementNS(ns, "text");
+    text.setAttribute("x", x + size / 2);
+    text.setAttribute("y", y + size / 2 + 5);
+    text.textContent = letter;
+    textGroup.append(text);
+  });
+
+  svg.append(wallGroup, textGroup);
+  mazeHost.append(svg);
+}
+
+function openLetterMaze() {
+  if (!mazeOverlay) return;
+  buildLetterMaze();
+  mazeOverlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  mazeClose?.focus();
+}
+
+function closeLetterMaze() {
+  if (!mazeOverlay) return;
+  mazeOverlay.hidden = true;
+  document.body.style.overflow = "";
+  ninthDoor?.focus();
+}
+
+if (ninthDoor && mazeOverlay && mazeClose) {
+  ninthDoor.addEventListener("click", openLetterMaze);
+  mazeClose.addEventListener("click", closeLetterMaze);
+  mazeOverlay.addEventListener("click", (event) => {
+    if (event.target === mazeOverlay) closeLetterMaze();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
+  });
+}
+
