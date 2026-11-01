@@ -1097,7 +1097,9 @@ body::after {
 /* Kontroller för förstoring av bokstavslabyrinten. */
 .letter-maze.maze-expanded {
   overflow: auto;
-  transform: translate(calc(-50% + var(--maze-pan-x, 0px)), calc(-50% + var(--maze-pan-y, 0px))) scale(var(--maze-zoom, 1));\n  touch-action: none;\n  cursor: grab;
+  transform: translate(calc(-50% + var(--maze-pan-x, 0px)), calc(-50% + var(--maze-pan-y, 0px))) scale(var(--maze-zoom, 1));
+  touch-action: none;
+  cursor: grab;
   transform-origin: center center;
 }
 .maze-zoom-controls {
