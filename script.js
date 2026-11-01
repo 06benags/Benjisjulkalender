@@ -618,6 +618,40 @@ const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
 const mazePhrase = "OMDUADDERARÅTTAPLUSNIOOCHSEDANTARBORTETTOCHLÄGGERTILLTREFÖRATTSEDANTABORTTRESÅVETDUVILKENLUCKADUSKAÖPPNAIMORGON";
 
+function setMazeExpanded(expanded) {
+  if (!mazeHost) return;
+  mazeHost.classList.toggle("maze-expanded", expanded);
+  mazeHost.setAttribute(
+    "aria-label",
+    expanded ? "Förstorad labyrint." : "Labyrint. Tryck för att förstora."
+  );
+  if (!expanded) mazeHost.style.setProperty("--maze-zoom", "1");
+  const controls = mazeHost.querySelector(".maze-zoom-controls");
+  if (controls) controls.hidden = !expanded;
+}
+
+function addMazeZoomControls() {
+  if (!mazeHost || mazeHost.querySelector(".maze-zoom-controls")) return;
+  const controls = document.createElement("div");
+  controls.className = "maze-zoom-controls";
+  controls.hidden = true;
+  controls.innerHTML = '<button type="button" class="maze-zoom-close" aria-label="Stäng förstoring">×</button><button type="button" class="maze-zoom-out" aria-label="Zooma ut">−</button><button type="button" class="maze-zoom-in" aria-label="Zooma in">+</button>';
+  controls.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const button = event.target.closest("button");
+    if (!button) return;
+    if (button.classList.contains("maze-zoom-close")) {
+      setMazeExpanded(false);
+      return;
+    }
+    const current = Number(mazeHost.dataset.zoom || 1);
+    const next = Math.max(0.7, Math.min(1.6, current + (button.classList.contains("maze-zoom-in") ? 0.1 : -0.1)));
+    mazeHost.dataset.zoom = next.toFixed(1);
+    mazeHost.style.setProperty("--maze-zoom", next.toFixed(1));
+  });
+  mazeHost.append(controls);
+}
+
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
   const rows = 27;
@@ -756,6 +790,7 @@ function buildLetterMaze() {
 
   svg.append(wallGroup, textGroup);
   mazeHost.append(svg);
+  addMazeZoomControls();
 }
 
 function openLetterMaze() {
@@ -779,14 +814,9 @@ if (ninthDoor && mazeOverlay && mazeClose) {
   mazeOverlay.addEventListener("click", (event) => {
     if (event.target === mazeOverlay) closeLetterMaze();
   });
-  mazeHost?.addEventListener("click", () => {
-    mazeHost.classList.toggle("maze-expanded");
-    mazeHost.setAttribute(
-      "aria-label",
-      mazeHost.classList.contains("maze-expanded")
-        ? "Förstorad labyrint. Tryck för att återställa storleken."
-        : "Labyrint. Tryck för att förstora."
-    );
+  mazeHost?.addEventListener("click", (event) => {
+    if (event.target.closest(".maze-zoom-controls")) return;
+    setMazeExpanded(!mazeHost.classList.contains("maze-expanded"));
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
