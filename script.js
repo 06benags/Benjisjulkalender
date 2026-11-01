@@ -493,7 +493,6 @@ if (cipherMessage && cipherFeedback) {
 const sudokuOverlay = document.querySelector("#sudoku-overlay");
 const sudokuBoard = document.querySelector("#sudoku-board");
 const sudokuClose = document.querySelector("#sudoku-close");
-const sudokuCheck = document.querySelector("#sudoku-check");
 const sudokuFeedback = document.querySelector("#sudoku-feedback");
 const ninthDoor = document.querySelectorAll(".door")[8];
 const sudokuPuzzle = [
@@ -539,7 +538,7 @@ function renderSudoku() {
       } else {
         cell.addEventListener("input", () => {
           cell.value = cell.value.replace(/[^1-9]/g, "").slice(0, 1);
-          cell.classList.remove("is-wrong");
+          checkSudokuCell(cell);
         });
       }
       sudokuBoard.append(cell);
@@ -562,49 +561,49 @@ function closeSudoku() {
   eleventhDoor?.focus();
 }
 
-function checkSudoku() {
-  if (!sudokuBoard || !sudokuFeedback) return;
-  const cells = [...sudokuBoard.querySelectorAll(".sudoku-cell")];
-  let complete = true;
-  let correct = true;
-  cells.forEach((cell) => {
-    const row = Number(cell.dataset.row);
-    const col = Number(cell.dataset.col);
-    const expected = sudokuSolution[row][col];
-    const value = cell.value.trim();
-    cell.classList.remove("is-wrong");
-    if (!value) complete = false;
-    if (value !== expected) {
-      correct = false;
-      if (value) cell.classList.add("is-wrong");
-    }
-  });
-
-  if (!complete) {
-    sudokuFeedback.textContent = "Det finns fortfarande tomma rutor. Fortsätt!";
-    sudokuFeedback.className = "sudoku-feedback is-wrong";
-    return;
-  }
-  if (!correct) {
-    sudokuFeedback.textContent = "Inte riktigt ännu – de markerade rutorna behöver ses över.";
-    sudokuFeedback.className = "sudoku-feedback is-wrong";
-    return;
-  }
-
+function finishSudoku() {
   const clueCell = sudokuBoard.querySelector('.sudoku-cell[data-row="0"][data-col="6"]');
   clueCell?.classList.add("is-red-clue");
   sudokuFeedback.textContent = "Helt rätt! Snyggt löst.";
-  sudokuFeedback.className = "sudoku-feedback is-correct";
-  sudokuCheck.disabled = true;
-  cells.forEach((cell) => { cell.disabled = true; });
+  sudokuFeedback.className = "sudoku-feedback is-correct is-complete";
+  sudokuBoard.querySelectorAll(".sudoku-cell").forEach((cell) => { cell.disabled = true; });
   ninthDoor?.classList.add("is-unlocked");
   ninthDoor?.setAttribute("aria-label", "Lucka 9, markerad");
 }
 
-if (eleventhDoor && sudokuOverlay && sudokuClose && sudokuCheck) {
+function checkSudokuCell(cell) {
+  if (!cell || !sudokuFeedback || sudokuFeedback.classList.contains("is-complete")) return;
+  const row = Number(cell.dataset.row);
+  const col = Number(cell.dataset.col);
+  const value = cell.value.trim();
+
+  cell.classList.remove("is-wrong", "is-correct");
+  if (!value) {
+    sudokuFeedback.textContent = "Fyll i siffrorna en i taget.";
+    sudokuFeedback.className = "sudoku-feedback";
+    return;
+  }
+
+  if (value === sudokuSolution[row][col]) {
+    cell.classList.add("is-correct");
+    sudokuFeedback.textContent = "Rätt siffra!";
+    sudokuFeedback.className = "sudoku-feedback is-correct";
+  } else {
+    cell.classList.add("is-wrong");
+    sudokuFeedback.textContent = "Inte riktigt – prova en annan siffra.";
+    sudokuFeedback.className = "sudoku-feedback is-wrong";
+    return;
+  }
+
+  const allCorrect = [...sudokuBoard.querySelectorAll(".sudoku-cell")].every((item) =>
+    item.value.trim() === sudokuSolution[Number(item.dataset.row)][Number(item.dataset.col)]
+  );
+  if (allCorrect) finishSudoku();
+}
+
+if (eleventhDoor && sudokuOverlay && sudokuClose) {
   eleventhDoor.addEventListener("click", openSudoku);
   sudokuClose.addEventListener("click", closeSudoku);
-  sudokuCheck.addEventListener("click", checkSudoku);
   sudokuOverlay.addEventListener("click", (event) => {
     if (event.target === sudokuOverlay) closeSudoku();
   });
