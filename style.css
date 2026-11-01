@@ -999,14 +999,27 @@ body::after {
   cursor: zoom-in;
 }
 .letter-maze.maze-expanded {
+  position: fixed;
+  z-index: 10000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 1100px, 123.8vh);
   max-width: none;
-  max-height: 65vh;
+  max-height: 86vh;
   overflow: auto;
+  padding: 8px;
+  border: 3px solid #b58a4d;
+  border-radius: 8px;
+  background: #fff8e8;
+  box-shadow: 0 0 0 100vmax rgba(20, 16, 10, .82), 0 12px 45px rgba(0,0,0,.35);
   cursor: zoom-out;
 }
 .letter-maze.maze-expanded svg {
-  width: min(1100px, 180vw);
+  display: block;
+  width: 100%;
   max-width: none;
+  height: auto;
 }
 .maze-close {
   float: right;
