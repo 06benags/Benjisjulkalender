@@ -616,13 +616,13 @@ if (eleventhDoor && sudokuOverlay && sudokuClose) {
 const mazeOverlay = document.querySelector("#maze-overlay");
 const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
-const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRÅTTAADDERATMEDÅTTA";
+const mazePhrase = "OMDUADDERARÅTTAPLUSNIOOCHSEDANTARBORTETTOCHLÄGGERTILLTREFÖRATTSEDANTABORTTRESÅVETDUVILKENLUCKADUSKAÖPPNAIMORGON";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-  const rows = 15;
-  const cols = 21;
-  const size = 30;
+  const rows = 21;
+  const cols = 31;
+  const size = 26;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
   const cells = Array.from({ length: rows }, (_, r) =>
