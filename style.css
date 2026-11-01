@@ -1098,3 +1098,42 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   font-size: clamp(1.3rem, 3.2vw, 1.6rem);
   line-height: 1.5;
 }
+
+
+/* Brevtexten läses naturligt från vänster till höger, inte centrerad */
+.letter-content {
+  text-align: left;
+  direction: ltr;
+}
+.letter-content p {
+  text-align: left;
+}
+
+/* Mjukare, mer taktilt kuvert med rundade hörn och pappersdjup */
+.envelope {
+  border: 1px solid #b88b50;
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.72), transparent 58%),
+    linear-gradient(155deg, #fff4dc 0%, #f2dfb8 48%, #dfbd83 100%);
+  box-shadow:
+    0 26px 65px rgba(0,0,0,.42),
+    0 7px 15px rgba(58,35,17,.2),
+    inset 0 1px 2px rgba(255,255,255,.9),
+    inset 0 -3px 8px rgba(128,83,35,.12);
+}
+.envelope::before {
+  border-radius: 14px;
+  background:
+    linear-gradient(32deg, transparent 49.2%, rgba(142,96,46,.32) 49.8%, rgba(255,248,228,.55) 50.2%, transparent 51%),
+    linear-gradient(-32deg, transparent 49.2%, rgba(142,96,46,.28) 49.8%, rgba(255,248,228,.5) 50.2%, transparent 51%);
+}
+.envelope::after {
+  border-radius: 14px;
+  background: linear-gradient(145deg, transparent 48.8%, rgba(173,124,61,.24) 49.7%, rgba(255,250,232,.55) 50.2%, transparent 51.2%);
+}
+.envelope-flap {
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(160deg, #fff0ca 0%, #e8cb91 65%, #d4ad6d 100%);
+  filter: drop-shadow(0 3px 3px rgba(80,45,20,.2));
+}
