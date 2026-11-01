@@ -693,7 +693,6 @@ function buildLetterMaze() {
   exitCell.walls[1] = false;
   const routeLetters = new Map();
   route.slice(0, mazePhrase.length).forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
-  const blankExitPath = new Set(route.slice(mazePhrase.length));
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
@@ -723,11 +722,9 @@ function buildLetterMaze() {
 
     let letter = routeLetters.get(cell);
     if (letter === undefined) {
-      // Fyll även utgångsgången visuellt, men med stjärnor så att
-      // den fortfarande går att skilja från meddelandets bokstäver.
-      letter = blankExitPath.has(cell)
-        ? "✦"
-        : letters[Math.floor(random() * letters.length)];
+      // Alla rutor får bokstäver; meddelandets bokstäver på rätt väg
+      // lämnas orörda så att meningen fortfarande går att läsa.
+      letter = letters[Math.floor(random() * letters.length)];
     }
     if (letter) {
       const text = document.createElementNS(ns, "text");
