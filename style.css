@@ -1091,35 +1091,45 @@ body::after {
   transform-origin: center center;
 }
 .maze-zoom-controls {
-  position: absolute;
-  z-index: 3;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 7px;
+  position: fixed;
+  z-index: 10002;
+  inset: 0;
+  display: block;
+  pointer-events: none;
 }
 .maze-zoom-controls[hidden] { display: none !important; }
 .maze-zoom-controls button {
+  position: fixed;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border: 1px solid #b58a4d;
   border-radius: 50%;
   color: #fff8e8;
   background: #174d38;
-  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,.28);
   font: 700 1.7rem/1 Georgia, serif;
   cursor: pointer;
+  pointer-events: auto;
 }
 .maze-zoom-controls .maze-zoom-close {
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
   color: #fff8e8;
   background: #8f2929;
   font-size: 1.8rem;
 }
+.maze-zoom-controls .maze-zoom-out {
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(18px, env(safe-area-inset-bottom));
+}
+.maze-zoom-controls .maze-zoom-in {
+  left: max(68px, calc(env(safe-area-inset-left) + 68px));
+  bottom: max(18px, env(safe-area-inset-bottom));
+}
 .maze-zoom-controls button:hover { filter: brightness(1.15); }
 @media (max-width: 480px) {
-  .maze-zoom-controls { top: 6px; right: 6px; gap: 5px; }
-  .maze-zoom-controls button { width: 34px; height: 34px; font-size: 1.45rem; }
+  .maze-zoom-controls button { width: 40px; height: 40px; font-size: 1.5rem; }
 }
