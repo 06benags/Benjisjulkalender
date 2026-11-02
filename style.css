@@ -1515,3 +1515,23 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   transform: rotateX(178deg);
   filter: drop-shadow(0 -3px 4px rgba(75,45,20,.2));
 }
+
+
+/* Tillbaka till det klassiska spetsiga kuvertlocket – bara tydligare kanter */
+.envelope {
+  box-shadow:
+    0 28px 65px rgba(0,0,0,.48),
+    0 8px 18px rgba(47,29,13,.2),
+    inset 0 0 0 2px rgba(116,72,37,.28),
+    inset 0 1px 2px rgba(255,255,255,.95),
+    inset 0 -8px 18px rgba(92,55,25,.22) !important;
+}
+.envelope-flap {
+  left: 0 !important;
+  right: 0 !important;
+  height: 64% !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, 100% 0, 50% 100%) !important;
+  background: linear-gradient(160deg, #f5e6c8 0%, #e5c995 55%, #c9a36b 100%) !important;
+  filter: drop-shadow(0 4px 4px rgba(65,37,17,.38)) !important;
+}
