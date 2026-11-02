@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=54">
+  <link rel="stylesheet" href="style.css?v=56">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
-  <script src="script.js?v=48" defer></script>
+  <script src="script.js?v=50" defer></script>
 </head>
 <body>
   <div id="snowfall" aria-hidden="true"></div>
@@ -75,10 +75,14 @@
 
 
   <div class="puzzle-overlay letter-overlay" id="puzzle-overlay" hidden>
-    <button class="envelope" id="puzzle-envelope" type="button" aria-label="Öppna brevet till lucka 7">
-      <span class="envelope-flap"></span>
-      <span class="envelope-seal" aria-hidden="true"></span>
-    </button>
+    <div class="envelope-stage">
+      <button class="envelope" id="puzzle-envelope" type="button" aria-label="Öppna brevet till lucka 7">
+        <span class="envelope-paper" aria-hidden="true"></span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-seal" aria-hidden="true"></span>
+      </button>
+      <p class="envelope-hint">Klicka på brevet för att öppna</p>
+    </div>
     <section class="string-puzzle letter" id="puzzle-letter" role="dialog" aria-modal="true" aria-labelledby="puzzle-title" hidden>
       <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
       <p class="puzzle-kicker">LUCKA 7</p>
@@ -164,10 +168,14 @@
   </div>
 
   <div class="letter-overlay" id="cipher-overlay" hidden>
-    <button class="envelope" id="cipher-envelope" type="button" aria-label="Öppna brevet till lucka 20">
-      <span class="envelope-flap"></span>
-      <span class="envelope-seal" aria-hidden="true"></span>
-    </button>
+    <div class="envelope-stage">
+      <button class="envelope" id="cipher-envelope" type="button" aria-label="Öppna brevet till lucka 20">
+        <span class="envelope-paper" aria-hidden="true"></span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-seal" aria-hidden="true"></span>
+      </button>
+      <p class="envelope-hint">Klicka på brevet för att öppna</p>
+    </div>
     <section class="letter cipher-letter" id="cipher-letter" role="dialog" aria-modal="true" aria-labelledby="cipher-title" hidden>
       <button class="letter-close" id="cipher-close" type="button" aria-label="Stäng brevet">×</button>
       <div class="letter-date">1 december</div>
@@ -184,10 +192,14 @@
   </div>
 
   <div class="letter-overlay" id="letter-overlay" hidden>
-    <button class="envelope" id="envelope" type="button" aria-label="Öppna brevet">
-      <span class="envelope-flap"></span>
-      <span class="envelope-seal" aria-hidden="true"></span>
-    </button>
+    <div class="envelope-stage">
+      <button class="envelope" id="envelope" type="button" aria-label="Öppna brevet">
+        <span class="envelope-paper" aria-hidden="true"></span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-seal" aria-hidden="true"></span>
+      </button>
+      <p class="envelope-hint">Klicka på brevet för att öppna</p>
+    </div>
 
     <section class="letter" id="letter" role="dialog" aria-modal="true" aria-labelledby="letter-title" hidden>
       <button class="letter-close" type="button" aria-label="Stäng brevet">×</button>
