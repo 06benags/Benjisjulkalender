@@ -1603,3 +1603,8 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 #puzzle-overlay {
   align-items: center !important;
 }
+
+/* Svarsrubriken i lucka 7 ska vara vänsterställd, som i lucka 1. */
+#puzzle-answer-form > label {
+  text-align: left !important;
+}
