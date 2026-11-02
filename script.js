@@ -21,6 +21,7 @@ function openPuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = false;
   if (puzzleEnvelope) {
+    puzzleEnvelope.parentElement.hidden = false;
     puzzleEnvelope.hidden = false;
     puzzleEnvelope.classList.remove("is-opening");
   }
@@ -32,6 +33,7 @@ function revealPuzzleLetter() {
   if (!puzzleEnvelope || !puzzleLetter) return;
   puzzleEnvelope.classList.add("is-opening");
   window.setTimeout(() => {
+    puzzleEnvelope.parentElement.hidden = true;
     puzzleEnvelope.hidden = true;
     puzzleLetter.hidden = false;
     puzzleAnswerInput?.focus();
@@ -53,6 +55,7 @@ function closePuzzle() {
 function openLetter() {
   if (!overlay || !envelope || !letter) return;
   overlay.hidden = false;
+  envelope.parentElement.hidden = false;
   envelope.hidden = false;
   letter.hidden = true;
   envelope.classList.remove("is-opening");
@@ -64,6 +67,7 @@ function revealLetter() {
   if (!envelope || !letter) return;
   envelope.classList.add("is-opening");
   window.setTimeout(() => {
+    envelope.parentElement.hidden = true;
     envelope.hidden = true;
     letter.hidden = false;
     closeButton?.focus();
@@ -344,6 +348,7 @@ function revealCipherLetter() {
   if (!cipherEnvelope || !cipherLetter) return;
   cipherEnvelope.classList.add("is-opening");
   window.setTimeout(() => {
+    cipherEnvelope.parentElement.hidden = true;
     cipherEnvelope.hidden = true;
     cipherLetter.hidden = false;
     cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
@@ -353,6 +358,7 @@ function revealCipherLetter() {
 function closeCipher() {
   if (!cipherOverlay) return;
   cipherOverlay.hidden = true;
+  cipherEnvelope.parentElement.hidden = false;
   cipherEnvelope.hidden = false;
   cipherEnvelope.classList.remove("is-opening");
   cipherLetter.hidden = true;
