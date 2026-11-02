@@ -35,7 +35,7 @@ function revealPuzzleLetter() {
     puzzleEnvelope.hidden = true;
     puzzleLetter.hidden = false;
     puzzleAnswerInput?.focus();
-  }, 650);
+  }, 1650);
 }
 
 function closePuzzle() {
@@ -67,7 +67,7 @@ function revealLetter() {
     envelope.hidden = true;
     letter.hidden = false;
     closeButton?.focus();
-  }, 1000);
+  }, 1650);
 }
 
 function closeLetter() {
@@ -347,7 +347,7 @@ function revealCipherLetter() {
     cipherEnvelope.hidden = true;
     cipherLetter.hidden = false;
     cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
-  }, 650);
+  }, 1650);
 }
 
 function closeCipher() {
