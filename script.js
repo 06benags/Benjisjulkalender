@@ -37,13 +37,14 @@ function revealPuzzleLetter() {
     puzzleEnvelope.hidden = true;
     puzzleLetter.hidden = false;
     puzzleAnswerInput?.focus();
-  }, 1650);
+  }, 1900);
 }
 
 function closePuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = true;
   if (puzzleEnvelope) {
+    puzzleEnvelope.parentElement.hidden = false;
     puzzleEnvelope.hidden = false;
     puzzleEnvelope.classList.remove("is-opening");
   }
@@ -71,7 +72,7 @@ function revealLetter() {
     envelope.hidden = true;
     letter.hidden = false;
     closeButton?.focus();
-  }, 1650);
+  }, 1900);
 }
 
 function closeLetter() {
@@ -352,7 +353,7 @@ function revealCipherLetter() {
     cipherEnvelope.hidden = true;
     cipherLetter.hidden = false;
     cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
-  }, 1650);
+  }, 1900);
 }
 
 function closeCipher() {
