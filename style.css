@@ -517,7 +517,10 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 .string-maze svg,
 .string-maze-image {
   display: block;
-  width: 100%;
+  width: min(100%, 390px);
+  max-height: 42vh;
+  object-fit: contain;
+  margin: 0 auto;
   height: auto;
   overflow: visible;
   border-radius: 8px;
