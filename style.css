@@ -1421,3 +1421,141 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
     animation-delay: 0ms !important;
   }
 }
+
+
+/* En enhetlig, julig brevöppning – blankt kuvert, instruktion under */
+.envelope-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.envelope-hint {
+  position: static;
+  margin: 0;
+  color: #fff4dc;
+  font: 600 1.05rem Georgia, serif;
+  letter-spacing: .015em;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0,0,0,.9);
+}
+.envelope {
+  position: relative;
+  display: block;
+  width: min(82vw, 360px);
+  aspect-ratio: 1.48 / 1;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  isolation: isolate;
+  border: 5px solid #f0d69a;
+  border-radius: 9px;
+  background:
+    linear-gradient(145deg, #a83232 0%, #842329 58%, #641b25 100%);
+  box-shadow: 0 24px 52px rgba(0,0,0,.48), inset 0 1px 2px rgba(255,255,255,.25), inset 0 -8px 16px rgba(38,4,10,.24);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 900px;
+  transition: transform .25s ease, filter .25s ease;
+}
+.envelope::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: 3px;
+  background:
+    linear-gradient(32deg, transparent 49%, rgba(54,8,16,.42) 49.7%, rgba(255,231,191,.22) 50.2%, transparent 51%),
+    linear-gradient(-32deg, transparent 49%, rgba(54,8,16,.4) 49.7%, rgba(255,231,191,.2) 50.2%, transparent 51%);
+  pointer-events: none;
+}
+.envelope::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: 3px;
+  background: linear-gradient(145deg, transparent 49%, rgba(255,220,160,.14) 50%, transparent 51%);
+  pointer-events: none;
+}
+.envelope-paper {
+  position: absolute;
+  z-index: 3;
+  left: 12%;
+  bottom: 8%;
+  width: 76%;
+  height: 78%;
+  border: 1px solid #d7c5a2;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(105deg, #fffdf5 0%, #f5ecd9 52%, #fffaf0 100%);
+  box-shadow: 0 3px 10px rgba(30,12,8,.3);
+  opacity: 0;
+  transform: translateY(46%) scale(.96);
+  transition: transform 1.35s cubic-bezier(.2,.72,.2,1) .25s, opacity .35s ease .25s;
+  pointer-events: none;
+}
+.envelope-flap {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0;
+  transform: rotateX(0deg);
+  backface-visibility: visible;
+  background: linear-gradient(160deg, #f8e5bc 0%, #e6c98f 60%, #c9a66b 100%);
+  filter: drop-shadow(0 4px 4px rgba(25,7,9,.3));
+  transition: transform 1.05s cubic-bezier(.22,.72,.18,1) .12s;
+  pointer-events: none;
+}
+.envelope-seal {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 47%;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  transform: translate(-50%,-50%);
+  border: 2px solid #e9c77d;
+  border-radius: 50%;
+  color: #f7dfad;
+  background: radial-gradient(circle at 30% 22%, #e56f5b, #a92730 55%, #681923 100%);
+  box-shadow: 0 4px 9px rgba(35,5,10,.4), inset 0 2px 4px rgba(255,255,255,.25), inset 0 -3px 5px rgba(30,0,5,.3);
+  font: 25px Georgia, serif;
+  transition: opacity .35s ease, transform .45s ease;
+}
+.envelope:not(.is-opening):hover {
+  transform: translateY(-3px);
+  filter: brightness(1.04);
+}
+.envelope.is-opening .envelope-paper {
+  opacity: 1;
+  transform: translateY(-43%) scale(1);
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+}
+.envelope.is-opening .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(.55) rotate(-20deg);
+}
+.envelope.is-opening {
+  animation: christmas-envelope-open 1.85s ease-in-out forwards;
+  pointer-events: none;
+}
+@keyframes christmas-envelope-open {
+  0%, 35% { transform: translateY(0) scale(1); opacity: 1; }
+  68% { transform: translateY(-5px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(.98); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope, .envelope-paper, .envelope-flap, .envelope-seal {
+    transition-duration: .01ms !important;
+  }
+  .envelope.is-opening { animation-duration: .01ms; }
+}
