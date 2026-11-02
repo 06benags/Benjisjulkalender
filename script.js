@@ -35,7 +35,9 @@ function revealPuzzleLetter() {
   window.setTimeout(() => {
     puzzleEnvelope.hidden = true;
     puzzleLetter.hidden = false;
-    puzzleAnswerInput?.focus();
+    puzzleLetter.scrollTop = 0;
+    window.scrollTo(0, 0);
+    puzzleAnswerInput?.focus({ preventScroll: true });
   }, 650);
 }
 
