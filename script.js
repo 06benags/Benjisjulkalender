@@ -1,4 +1,49 @@
+
+function openSecondLetter() {
+  if (!secondOverlay || !secondEnvelope || !secondLetter) return;
+  secondOverlay.hidden = false;
+  secondEnvelope.hidden = false;
+  secondLetter.hidden = true;
+  secondEnvelope.classList.remove("is-opening");
+  document.body.style.overflow = "hidden";
+  secondEnvelope.focus();
+}
+
+function revealSecondLetter() {
+  if (!secondEnvelope || !secondLetter) return;
+  secondEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    secondEnvelope.hidden = true;
+    secondLetter.hidden = false;
+    secondClose?.focus();
+  }, 1000);
+}
+
+function closeSecondLetter() {
+  if (!secondOverlay) return;
+  secondOverlay.hidden = true;
+  document.body.style.overflow = "";
+  secondDoor?.focus();
+}
+
+if (secondDoor && secondOverlay && secondEnvelope && secondLetter && secondClose) {
+  secondDoor.addEventListener("click", openSecondLetter);
+  secondEnvelope.addEventListener("click", revealSecondLetter);
+  secondClose.addEventListener("click", closeSecondLetter);
+  secondOverlay.addEventListener("click", (event) => {
+    if (event.target === secondOverlay) closeSecondLetter();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !secondOverlay.hidden) closeSecondLetter();
+  });
+}
+
 const firstDoor = document.querySelector('[data-door="1"]');
+const secondDoor = document.querySelectorAll(".door")[1];
+const secondOverlay = document.querySelector("#second-letter-overlay");
+const secondEnvelope = document.querySelector("#second-envelope");
+const secondLetter = document.querySelector("#second-letter");
+const secondClose = document.querySelector("#second-letter-close");
 const seventhDoor = document.querySelectorAll(".door")[6];
 const twentiethDoor = document.querySelectorAll(".door")[19];
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
