@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benjis julkalender</title>
-  <link rel="stylesheet" href="style.css?v=63">
+  <link rel="stylesheet" href="style.css?v=64">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
     </button>
     <section class="string-puzzle letter" id="puzzle-letter" role="dialog" aria-modal="true" aria-labelledby="puzzle-title" hidden>
       <button class="puzzle-close" id="puzzle-close" type="button" aria-label="Tillbaka till kalendern">×</button>
-      <p class="puzzle-kicker">LUCKA 7</p>
+      <div class="letter-date">2 december</div>
       <h2 id="puzzle-title">Vilken present är din?</h2>
       <p class="puzzle-instructions">Börja vid stjärnan och följ just det snöret hela vägen ner. Det finns åtta snören och många förgreningar. Håll koll på varje byte och tappa inte bort dig vid korsningarna.</p>
       <div class="string-maze">
@@ -185,19 +185,6 @@
     </section>
   </div>
 
-
-  <div class="letter-overlay" id="second-letter-overlay" hidden>
-    <button class="envelope" id="second-envelope" type="button" aria-label="Öppna brevet för lucka 2">
-      <span class="envelope-flap"></span>
-      <span class="envelope-seal">✦</span>
-      <span class="envelope-hint">Tryck för att öppna</span>
-    </button>
-    <section class="letter" id="second-letter" role="dialog" aria-modal="true" aria-labelledby="second-letter-title" hidden>
-      <button class="letter-close" id="second-letter-close" type="button" aria-label="Stäng brevet">×</button>
-      <div class="letter-date">2 december</div>
-      <h2 id="second-letter-title">Vilken present är din?</h2>
-    </section>
-  </div>
 
   <div class="letter-overlay" id="letter-overlay" hidden>
     <button class="envelope" id="envelope" type="button" aria-label="Öppna brevet">
