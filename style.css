@@ -1421,3 +1421,19 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
     animation-delay: 0ms !important;
   }
 }
+
+/* Kuvertet ska bara öppnas – inget brev ska glida ut. */
+.envelope.is-opening {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+.envelope.is-opening .envelope-paper {
+  opacity: 0 !important;
+  transform: translateY(42%) scale(.94) !important;
+  transition: none !important;
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+  transition: transform .65s ease;
+}
