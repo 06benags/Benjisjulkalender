@@ -2,12 +2,14 @@ const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
 const twentiethDoor = document.querySelectorAll(".door")[19];
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
+const puzzleEnvelope = document.querySelector("#puzzle-envelope");
 const puzzleLetter = document.querySelector("#puzzle-letter");
 const puzzleClose = document.querySelector("#puzzle-close");
 const puzzleAnswerForm = document.querySelector("#puzzle-answer-form");
 const puzzleAnswerInput = document.querySelector("#puzzle-answer");
 const puzzleFeedback = document.querySelector("#puzzle-feedback");
 const overlay = document.querySelector("#letter-overlay");
+const envelope = document.querySelector("#envelope");
 const letter = document.querySelector("#letter");
 const closeButton = document.querySelector("#letter .letter-close");
 const answerForm = document.querySelector("#answer-form");
@@ -16,27 +18,56 @@ const answerFeedback = document.querySelector("#answer-feedback");
 const sceneTransition = document.querySelector("#scene-transition");
 
 function openPuzzle() {
-  if (!puzzleOverlay || !puzzleLetter) return;
+  if (!puzzleOverlay) return;
   puzzleOverlay.hidden = false;
-  puzzleLetter.hidden = false;
-  puzzleAnswerInput?.focus();
+  if (puzzleEnvelope) {
+    puzzleEnvelope.hidden = false;
+    puzzleEnvelope.classList.remove("is-opening");
+  }
+  if (puzzleLetter) puzzleLetter.hidden = true;
   document.body.style.overflow = "hidden";
+}
+
+function revealPuzzleLetter() {
+  if (!puzzleEnvelope || !puzzleLetter) return;
+  puzzleEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    puzzleEnvelope.hidden = true;
+    puzzleLetter.hidden = false;
+    puzzleAnswerInput?.focus();
+  }, 650);
 }
 
 function closePuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = true;
+  if (puzzleEnvelope) {
+    puzzleEnvelope.hidden = false;
+    puzzleEnvelope.classList.remove("is-opening");
+  }
   if (puzzleLetter) puzzleLetter.hidden = true;
   document.body.style.overflow = "";
   seventhDoor?.focus();
 }
 
 function openLetter() {
-  if (!overlay || !letter) return;
+  if (!overlay || !envelope || !letter) return;
   overlay.hidden = false;
-  letter.hidden = false;
+  envelope.hidden = false;
+  letter.hidden = true;
+  envelope.classList.remove("is-opening");
   document.body.style.overflow = "hidden";
-  closeButton?.focus();
+  envelope.focus();
+}
+
+function revealLetter() {
+  if (!envelope || !letter) return;
+  envelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    envelope.hidden = true;
+    letter.hidden = false;
+    closeButton?.focus();
+  }, 1000);
 }
 
 function closeLetter() {
@@ -46,8 +77,9 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
-if (firstDoor && overlay && letter && closeButton) {
+if (firstDoor && overlay && envelope && letter && closeButton) {
   firstDoor.addEventListener("click", openLetter);
+  envelope.addEventListener("click", revealLetter);
   closeButton.addEventListener("click", closeLetter);
 
   overlay.addEventListener("click", (event) => {
@@ -61,6 +93,7 @@ if (firstDoor && overlay && letter && closeButton) {
 
 if (seventhDoor && puzzleOverlay && puzzleClose) {
   seventhDoor.addEventListener("click", openPuzzle);
+  puzzleEnvelope?.addEventListener("click", revealPuzzleLetter);
   puzzleClose.addEventListener("click", closePuzzle);
   puzzleOverlay.addEventListener("click", (event) => {
     if (event.target === puzzleOverlay) closePuzzle();
@@ -201,6 +234,7 @@ if (answerForm && answerInput && answerFeedback) {
 
 /* Lucka 20: chifferbrev med klickbara streck. */
 const cipherOverlay = document.querySelector("#cipher-overlay");
+const cipherEnvelope = document.querySelector("#cipher-envelope");
 const cipherLetter = document.querySelector("#cipher-letter");
 const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
@@ -293,21 +327,34 @@ function renderCipher() {
 }
 
 function openCipher() {
-  if (!cipherOverlay || !cipherLetter) return;
+  if (!cipherOverlay) return;
   cipherOverlay.hidden = false;
-  cipherLetter.hidden = false;
+  cipherEnvelope.hidden = false;
+  cipherEnvelope.classList.remove("is-opening");
+  cipherLetter.hidden = true;
   document.body.style.overflow = "hidden";
   renderCipher();
   if (cipherFeedback) {
     cipherFeedback.textContent = "";
     cipherFeedback.classList.remove("is-correct", "is-wrong");
   }
-  cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
+}
+
+function revealCipherLetter() {
+  if (!cipherEnvelope || !cipherLetter) return;
+  cipherEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    cipherEnvelope.hidden = true;
+    cipherLetter.hidden = false;
+    cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
+  }, 650);
 }
 
 function closeCipher() {
   if (!cipherOverlay) return;
   cipherOverlay.hidden = true;
+  cipherEnvelope.hidden = false;
+  cipherEnvelope.classList.remove("is-opening");
   cipherLetter.hidden = true;
   document.body.style.overflow = "";
   twentiethDoor?.focus();
@@ -374,8 +421,9 @@ function revealCipherGuess(cell, input) {
   }
 }
 
-if (twentiethDoor && cipherOverlay && cipherLetter && cipherClose) {
+if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherClose) {
   twentiethDoor.addEventListener("click", openCipher);
+  cipherEnvelope.addEventListener("click", revealCipherLetter);
   cipherClose.addEventListener("click", closeCipher);
   cipherOverlay.addEventListener("click", (event) => {
     if (event.target === cipherOverlay) closeCipher();
