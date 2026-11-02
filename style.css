@@ -514,11 +514,13 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   background: rgba(0,0,0,.22);
 }
 
-.string-maze svg {
+.string-maze svg,
+.string-maze-image {
   display: block;
   width: 100%;
   height: auto;
   overflow: visible;
+  border-radius: 8px;
 }
 
 .string-lines path {
