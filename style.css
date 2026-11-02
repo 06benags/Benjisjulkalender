@@ -1442,3 +1442,26 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   transform: rotateX(178deg);
   transition: transform .65s ease;
 }
+
+
+/* Polkagrisrand runt alla brevpapper */
+.letter {
+  border: 12px solid transparent;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, #fffdf5 0%, #f8eedc 55%, #fffaf0 100%) padding-box,
+    repeating-linear-gradient(45deg, #b83236 0 9px, #fff8e9 9px 18px) border-box;
+  box-shadow: 0 25px 90px rgba(0,0,0,.48), 0 3px 12px rgba(76,48,20,.18);
+}
+
+/* Instruktionen ligger alltid under kuvertet, aldrig ovanpå */
+.envelope-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -42px;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
