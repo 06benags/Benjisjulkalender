@@ -1479,3 +1479,13 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   border: 0 !important;
   background: linear-gradient(135deg, #fffdf5 0%, #f8eedc 55%, #fffaf0 100%) !important;
 }
+
+
+/* Polkagrisram både runt kuvertet och det öppnade brevpapperet */
+.letter {
+  border: 12px solid transparent !important;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, #fffdf5 0%, #f8eedc 55%, #fffaf0 100%) padding-box,
+    repeating-linear-gradient(45deg, #b83236 0 9px, #fff8e9 9px 18px) border-box !important;
+}
