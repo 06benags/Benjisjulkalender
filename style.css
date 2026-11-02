@@ -1598,3 +1598,8 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 #puzzle-overlay .letter {
   margin-top: 0;
 }
+
+/* Kuvertet i lucka 7 ska vara centrerat innan det öppnas. */
+#puzzle-overlay {
+  align-items: center !important;
+}
