@@ -18,26 +18,16 @@ const answerFeedback = document.querySelector("#answer-feedback");
 const sceneTransition = document.querySelector("#scene-transition");
 
 function openPuzzle() {
-  if (!puzzleOverlay) return;
+  if (!puzzleOverlay || !puzzleLetter) return;
   puzzleOverlay.hidden = false;
-  if (puzzleEnvelope) {
-    puzzleEnvelope.parentElement.hidden = false;
-    puzzleEnvelope.hidden = false;
-    puzzleEnvelope.classList.remove("is-opening");
-  }
-  if (puzzleLetter) puzzleLetter.hidden = true;
+  puzzleLetter.hidden = false;
+  puzzleEnvelope?.parentElement && (puzzleEnvelope.parentElement.hidden = true);
+  puzzleAnswerInput?.focus();
   document.body.style.overflow = "hidden";
 }
 
 function revealPuzzleLetter() {
-  if (!puzzleEnvelope || !puzzleLetter) return;
-  puzzleEnvelope.classList.add("is-opening");
-  window.setTimeout(() => {
-    puzzleEnvelope.parentElement.hidden = true;
-    puzzleEnvelope.hidden = true;
-    puzzleLetter.hidden = false;
-    puzzleAnswerInput?.focus();
-  }, 1650);
+  // Pusslet visas direkt när luckan öppnas.
 }
 
 function closePuzzle() {
@@ -53,25 +43,16 @@ function closePuzzle() {
 }
 
 function openLetter() {
-  if (!overlay || !envelope || !letter) return;
+  if (!overlay || !letter) return;
   overlay.hidden = false;
-  envelope.parentElement.hidden = false;
-  envelope.hidden = false;
-  letter.hidden = true;
-  envelope.classList.remove("is-opening");
+  letter.hidden = false;
+  envelope?.parentElement && (envelope.parentElement.hidden = true);
   document.body.style.overflow = "hidden";
-  envelope.focus();
+  closeButton?.focus();
 }
 
 function revealLetter() {
-  if (!envelope || !letter) return;
-  envelope.classList.add("is-opening");
-  window.setTimeout(() => {
-    envelope.parentElement.hidden = true;
-    envelope.hidden = true;
-    letter.hidden = false;
-    closeButton?.focus();
-  }, 1650);
+  // Inget kuvertsteg – innehållet visas direkt.
 }
 
 function closeLetter() {
@@ -331,36 +312,26 @@ function renderCipher() {
 }
 
 function openCipher() {
-  if (!cipherOverlay) return;
+  if (!cipherOverlay || !cipherLetter) return;
   cipherOverlay.hidden = false;
-  cipherEnvelope.hidden = false;
-  cipherEnvelope.classList.remove("is-opening");
-  cipherLetter.hidden = true;
+  cipherLetter.hidden = false;
+  cipherEnvelope?.parentElement && (cipherEnvelope.parentElement.hidden = true);
   document.body.style.overflow = "hidden";
   renderCipher();
   if (cipherFeedback) {
     cipherFeedback.textContent = "";
     cipherFeedback.classList.remove("is-correct", "is-wrong");
   }
+  cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
 }
 
 function revealCipherLetter() {
-  if (!cipherEnvelope || !cipherLetter) return;
-  cipherEnvelope.classList.add("is-opening");
-  window.setTimeout(() => {
-    cipherEnvelope.parentElement.hidden = true;
-    cipherEnvelope.hidden = true;
-    cipherLetter.hidden = false;
-    cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
-  }, 1650);
+  // Chifferuppgiften visas direkt när luckan öppnas.
 }
 
 function closeCipher() {
   if (!cipherOverlay) return;
   cipherOverlay.hidden = true;
-  cipherEnvelope.parentElement.hidden = false;
-  cipherEnvelope.hidden = false;
-  cipherEnvelope.classList.remove("is-opening");
   cipherLetter.hidden = true;
   document.body.style.overflow = "";
   twentiethDoor?.focus();
