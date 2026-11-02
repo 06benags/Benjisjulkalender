@@ -519,9 +519,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   display: block;
   width: 100%;
   max-width: 100%;
-  height: min(48vh, 420px);
-  object-fit: contain;
-  object-position: center;
+  height: auto;
   margin: 0 auto;
   overflow: visible;
   border-radius: 8px;
@@ -545,7 +543,6 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   .string-puzzle { max-height: 98vh; padding: 18px 12px; }
   .puzzle-instructions { font-size: .94rem; }
   .string-maze { padding: 3px; }
-  .string-maze-image { height: 34vh; }
 }
 
 
