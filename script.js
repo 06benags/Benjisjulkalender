@@ -78,29 +78,41 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
-if (firstDoor && overlay && envelope && letter && closeButton) {
-  firstDoor.addEventListener("click", openLetter);
-  envelope.addEventListener("click", revealLetter);
-  closeButton.addEventListener("click", closeLetter);
-
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) closeLetter();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !overlay.hidden) closeLetter();
+// Koppla luckornas klick via kalendern. Händelsedelegering gör att
+// enskilda luckor fortsätter fungera även om markupen ändras.
+const calendar = document.querySelector("#calendar");
+if (calendar) {
+  calendar.addEventListener("click", (event) => {
+    const door = event.target.closest(".door");
+    if (!door || !calendar.contains(door)) return;
+    const index = [...calendar.querySelectorAll(".door")].indexOf(door);
+    if (index === 0) openLetter();
+    else if (index === 6) openPuzzle();
+    else if (index === 8) openLetterMaze();
+    else if (index === 10) openSudoku();
+    else if (index === 19) openCipher();
   });
 }
 
-if (seventhDoor && puzzleOverlay && puzzleClose) {
-  seventhDoor.addEventListener("click", openPuzzle);
-  puzzleEnvelope?.addEventListener("click", revealPuzzleLetter);
+if (envelope && closeButton) {
+  envelope.addEventListener("click", revealLetter);
+  closeButton.addEventListener("click", closeLetter);
+  overlay?.addEventListener("click", (event) => {
+    if (event.target === overlay) closeLetter();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && overlay && !overlay.hidden) closeLetter();
+  });
+}
+
+if (puzzleEnvelope && puzzleClose) {
+  puzzleEnvelope.addEventListener("click", revealPuzzleLetter);
   puzzleClose.addEventListener("click", closePuzzle);
-  puzzleOverlay.addEventListener("click", (event) => {
+  puzzleOverlay?.addEventListener("click", (event) => {
     if (event.target === puzzleOverlay) closePuzzle();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !puzzleOverlay.hidden) closePuzzle();
+    if (event.key === "Escape" && puzzleOverlay && !puzzleOverlay.hidden) closePuzzle();
   });
 }
 
