@@ -1588,3 +1588,13 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
     repeating-linear-gradient(45deg, #b83236 0 9px, #fff8e9 9px 18px) border-box !important;
   box-shadow: 0 25px 90px rgba(0,0,0,.48), 0 3px 12px rgba(76,48,20,.18) !important;
 }
+
+/* Lucka 7: placera brevet direkt högst upp i vyn. */
+#puzzle-overlay {
+  align-items: flex-start !important;
+  overflow-y: auto;
+  padding-top: max(12px, env(safe-area-inset-top)) !important;
+}
+#puzzle-overlay .letter {
+  margin-top: 0;
+}
