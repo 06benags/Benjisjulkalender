@@ -2,14 +2,12 @@ const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
 const twentiethDoor = document.querySelectorAll(".door")[19];
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
-const puzzleEnvelope = document.querySelector("#puzzle-envelope");
 const puzzleLetter = document.querySelector("#puzzle-letter");
 const puzzleClose = document.querySelector("#puzzle-close");
 const puzzleAnswerForm = document.querySelector("#puzzle-answer-form");
 const puzzleAnswerInput = document.querySelector("#puzzle-answer");
 const puzzleFeedback = document.querySelector("#puzzle-feedback");
 const overlay = document.querySelector("#letter-overlay");
-const envelope = document.querySelector("#envelope");
 const letter = document.querySelector("#letter");
 const closeButton = document.querySelector("#letter .letter-close");
 const answerForm = document.querySelector("#answer-form");
@@ -21,22 +19,13 @@ function openPuzzle() {
   if (!puzzleOverlay || !puzzleLetter) return;
   puzzleOverlay.hidden = false;
   puzzleLetter.hidden = false;
-  puzzleEnvelope?.parentElement && (puzzleEnvelope.parentElement.hidden = true);
   puzzleAnswerInput?.focus();
   document.body.style.overflow = "hidden";
-}
-
-function revealPuzzleLetter() {
-  // Pusslet visas direkt när luckan öppnas.
 }
 
 function closePuzzle() {
   if (!puzzleOverlay) return;
   puzzleOverlay.hidden = true;
-  if (puzzleEnvelope) {
-    puzzleEnvelope.hidden = false;
-    puzzleEnvelope.classList.remove("is-opening");
-  }
   if (puzzleLetter) puzzleLetter.hidden = true;
   document.body.style.overflow = "";
   seventhDoor?.focus();
@@ -46,13 +35,8 @@ function openLetter() {
   if (!overlay || !letter) return;
   overlay.hidden = false;
   letter.hidden = false;
-  envelope?.parentElement && (envelope.parentElement.hidden = true);
   document.body.style.overflow = "hidden";
   closeButton?.focus();
-}
-
-function revealLetter() {
-  // Inget kuvertsteg – innehållet visas direkt.
 }
 
 function closeLetter() {
@@ -62,9 +46,8 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
-if (firstDoor && overlay && envelope && letter && closeButton) {
+if (firstDoor && overlay && letter && closeButton) {
   firstDoor.addEventListener("click", openLetter);
-  envelope.addEventListener("click", revealLetter);
   closeButton.addEventListener("click", closeLetter);
 
   overlay.addEventListener("click", (event) => {
@@ -78,7 +61,6 @@ if (firstDoor && overlay && envelope && letter && closeButton) {
 
 if (seventhDoor && puzzleOverlay && puzzleClose) {
   seventhDoor.addEventListener("click", openPuzzle);
-  puzzleEnvelope?.addEventListener("click", revealPuzzleLetter);
   puzzleClose.addEventListener("click", closePuzzle);
   puzzleOverlay.addEventListener("click", (event) => {
     if (event.target === puzzleOverlay) closePuzzle();
@@ -219,7 +201,6 @@ if (answerForm && answerInput && answerFeedback) {
 
 /* Lucka 20: chifferbrev med klickbara streck. */
 const cipherOverlay = document.querySelector("#cipher-overlay");
-const cipherEnvelope = document.querySelector("#cipher-envelope");
 const cipherLetter = document.querySelector("#cipher-letter");
 const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
@@ -315,7 +296,6 @@ function openCipher() {
   if (!cipherOverlay || !cipherLetter) return;
   cipherOverlay.hidden = false;
   cipherLetter.hidden = false;
-  cipherEnvelope?.parentElement && (cipherEnvelope.parentElement.hidden = true);
   document.body.style.overflow = "hidden";
   renderCipher();
   if (cipherFeedback) {
@@ -323,10 +303,6 @@ function openCipher() {
     cipherFeedback.classList.remove("is-correct", "is-wrong");
   }
   cipherMessage?.querySelector(".cipher-char.is-blank")?.focus();
-}
-
-function revealCipherLetter() {
-  // Chifferuppgiften visas direkt när luckan öppnas.
 }
 
 function closeCipher() {
@@ -398,9 +374,8 @@ function revealCipherGuess(cell, input) {
   }
 }
 
-if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherClose) {
+if (twentiethDoor && cipherOverlay && cipherLetter && cipherClose) {
   twentiethDoor.addEventListener("click", openCipher);
-  cipherEnvelope.addEventListener("click", revealCipherLetter);
   cipherClose.addEventListener("click", closeCipher);
   cipherOverlay.addEventListener("click", (event) => {
     if (event.target === cipherOverlay) closeCipher();
