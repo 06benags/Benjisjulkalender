@@ -1489,3 +1489,29 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
     linear-gradient(135deg, #fffdf5 0%, #f8eedc 55%, #fffaf0 100%) padding-box,
     repeating-linear-gradient(45deg, #b83236 0 9px, #fff8e9 9px 18px) border-box !important;
 }
+
+
+/* Tydligare, mjukt rundat kuvertlock */
+.envelope {
+  overflow: visible;
+}
+.envelope-flap {
+  height: 68% !important;
+  left: 5% !important;
+  right: 5% !important;
+  top: 0 !important;
+  border-radius: 0 0 22px 22px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.7), transparent 48%),
+    linear-gradient(160deg, #fff4d8 0%, #efd9ad 62%, #d4ad70 100%) !important;
+  filter:
+    drop-shadow(0 5px 4px rgba(75,45,20,.28))
+    drop-shadow(0 1px 1px rgba(255,255,255,.7));
+  transform-origin: 50% 0%;
+  transition: transform .75s cubic-bezier(.25,.75,.25,1), filter .75s ease !important;
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+  filter: drop-shadow(0 -3px 4px rgba(75,45,20,.2));
+}
