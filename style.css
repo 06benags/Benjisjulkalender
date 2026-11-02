@@ -118,12 +118,31 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 
 .letter-close:hover { background: #6e1c22; }
 
-.letter-holly {
+.letter-date {
   margin: 0 0 12px;
-  color: #1d6945;
+  color: #8b6740;
   text-align: center;
-  font-size: 1.3rem;
-  letter-spacing: .5em;
+  font: 500 2rem/1.1 "Caveat", "Segoe Print", cursive;
+  letter-spacing: .025em;
+  transform: rotate(-2deg);
+}
+.letter h2 {
+  font-family: "Caveat", "Segoe Print", cursive;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: .01em;
+  text-transform: none;
+}
+.letter-content {
+  font-family: "Caveat", "Segoe Print", cursive;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.48;
+  letter-spacing: .005em;
+}
+.letter-content p {
+  margin: 0 0 .8em;
+  text-indent: .8em;
 }
 
 .letter h2 {
@@ -1043,3 +1062,362 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 }
 
 
+
+
+/* En diskret rullningslist som smälter in i brevpapperet. */
+.letter {
+  scrollbar-width: thin;
+  scrollbar-color: #a77a48 rgba(181,138,77,.13);
+}
+.letter::-webkit-scrollbar {
+  width: 10px;
+}
+.letter::-webkit-scrollbar-track {
+  margin: 12px 0;
+  border-radius: 10px;
+  background: rgba(181,138,77,.12);
+}
+.letter::-webkit-scrollbar-thumb {
+  border: 2px solid #fff1ce;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #c29a65, #987044);
+}
+.letter::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a77a48, #79552f);
+}
+
+
+/* Slightly larger handwritten letter typography */
+.letter-date {
+  font-size: clamp(2.2rem, 5vw, 2.55rem);
+}
+.letter h2 {
+  font-size: clamp(2.1rem, 5.5vw, 2.9rem);
+}
+.letter-content {
+  font-size: clamp(1.3rem, 3.2vw, 1.6rem);
+  line-height: 1.5;
+}
+
+
+/* Brevtexten läses naturligt från vänster till höger, inte centrerad */
+.letter-content {
+  text-align: left;
+  direction: ltr;
+}
+.letter-content p {
+  text-align: left;
+}
+
+/* Mjukare, mer taktilt kuvert med rundade hörn och pappersdjup */
+.envelope {
+  border: 1px solid #b88b50;
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.72), transparent 58%),
+    linear-gradient(155deg, #fff4dc 0%, #f2dfb8 48%, #dfbd83 100%);
+  box-shadow:
+    0 26px 65px rgba(0,0,0,.42),
+    0 7px 15px rgba(58,35,17,.2),
+    inset 0 1px 2px rgba(255,255,255,.9),
+    inset 0 -3px 8px rgba(128,83,35,.12);
+}
+.envelope::before {
+  border-radius: 14px;
+  background:
+    linear-gradient(32deg, transparent 49.2%, rgba(142,96,46,.32) 49.8%, rgba(255,248,228,.55) 50.2%, transparent 51%),
+    linear-gradient(-32deg, transparent 49.2%, rgba(142,96,46,.28) 49.8%, rgba(255,248,228,.5) 50.2%, transparent 51%);
+}
+.envelope::after {
+  border-radius: 14px;
+  background: linear-gradient(145deg, transparent 48.8%, rgba(173,124,61,.24) 49.7%, rgba(255,250,232,.55) 50.2%, transparent 51.2%);
+}
+.envelope-flap {
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(160deg, #fff0ca 0%, #e8cb91 65%, #d4ad6d 100%);
+  filter: drop-shadow(0 3px 3px rgba(80,45,20,.2));
+}
+
+
+/* Rundade hörn på själva brevet som visas när kuvertet öppnas */
+.letter {
+  border-radius: 22px;
+  overflow: auto;
+  clip-path: inset(0 round 22px);
+  box-shadow: 0 25px 90px rgba(0,0,0,.48), 0 3px 12px rgba(76,48,20,.18);
+}
+
+
+/* Mer verklighetstroget julkuvert – endast form, papper och material */
+.envelope {
+  border: 7px solid transparent;
+  border-radius: 15px;
+  background:
+    linear-gradient(145deg, #fff5df 0%, #f0dfbd 52%, #dfc18f 100%) padding-box,
+    repeating-linear-gradient(45deg, #9e3430 0 7px, #f5e8cf 7px 14px, #b78a4d 14px 17px, #f5e8cf 17px 24px) border-box;
+  box-shadow:
+    0 28px 55px rgba(0,0,0,.42),
+    0 8px 15px rgba(50,29,13,.22),
+    inset 0 2px 4px rgba(255,255,255,.92),
+    inset 0 -7px 14px rgba(115,72,30,.13);
+}
+.envelope::before {
+  inset: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(32deg, transparent 49%, rgba(132,85,42,.25) 49.7%, rgba(255,255,255,.55) 50%, transparent 50.8%),
+    linear-gradient(-32deg, transparent 49%, rgba(132,85,42,.23) 49.7%, rgba(255,255,255,.5) 50%, transparent 50.8%),
+    radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.32), transparent 72%);
+}
+.envelope::after {
+  inset: 1px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, transparent 48.8%, rgba(151,102,49,.22) 49.7%, rgba(255,255,255,.48) 50.2%, transparent 51.2%);
+}
+.envelope-flap {
+  height: 60%;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.48), transparent 45%),
+    linear-gradient(160deg, #fff0cf 0%, #ecd5a8 58%, #d6b77e 100%);
+  filter: drop-shadow(0 4px 3px rgba(75,43,20,.24));
+}
+.envelope-seal {
+  width: 51px;
+  height: 51px;
+  border: 2px solid #d9ad63;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,.4), transparent 27%),
+    radial-gradient(circle at 35% 28%, #c94f43 0%, #9b2929 58%, #681b20 100%);
+  box-shadow:
+    0 4px 7px rgba(54,24,15,.35),
+    inset 0 2px 3px rgba(255,255,255,.25),
+    inset 0 -3px 5px rgba(50,8,8,.28);
+}
+
+
+/* Tydlig, omarbetad tomtepost: kraftigare kuvertpapper, kantband och veck */
+.envelope {
+  appearance: none;
+  padding: 0;
+  border: 10px solid transparent;
+  border-radius: 13px;
+  background:
+    linear-gradient(145deg, #fff8e8 0%, #f4e5c8 38%, #e4c99a 100%) padding-box,
+    repeating-linear-gradient(135deg, #a52e2c 0 8px, #fff0d4 8px 16px, #c49a5b 16px 19px, #fff0d4 19px 27px) border-box;
+  box-shadow: 0 25px 50px rgba(0,0,0,.48), 0 8px 14px rgba(61,35,15,.25), inset 0 2px 5px rgba(255,255,255,.95), inset 0 -10px 18px rgba(112,70,28,.16);
+}
+.envelope::before {
+  inset: 0;
+  border-radius: 3px;
+  background:
+    linear-gradient(32deg, transparent 49%, rgba(117,73,34,.34) 49.7%, rgba(255,255,255,.7) 50.1%, transparent 51%),
+    linear-gradient(-32deg, transparent 49%, rgba(117,73,34,.3) 49.7%, rgba(255,255,255,.65) 50.1%, transparent 51%),
+    linear-gradient(180deg, rgba(255,255,255,.34), transparent 25%, transparent 80%, rgba(115,70,25,.12));
+}
+.envelope::after {
+  inset: 0;
+  border-radius: 3px;
+  background: linear-gradient(145deg, transparent 48.5%, rgba(130,82,37,.3) 49.6%, rgba(255,255,255,.7) 50.2%, transparent 51.5%);
+}
+.envelope-flap {
+  height: 64%;
+  background: linear-gradient(155deg, #fff8e7 0%, #f1dfbb 48%, #d9b77c 100%);
+  filter: drop-shadow(0 7px 5px rgba(72,42,18,.3));
+}
+.envelope-seal {
+  width: 58px;
+  height: 58px;
+  border: 3px solid #e4bd75;
+  background: radial-gradient(circle at 30% 22%, #e77a65 0%, #b52f30 38%, #791c25 78%, #55141b 100%);
+  box-shadow: 0 5px 9px rgba(47,19,13,.4), inset 0 3px 4px rgba(255,255,255,.3), inset 0 -5px 7px rgba(45,5,8,.35);
+}
+
+
+/* Kuvert med riktig papperskropp, vikta hörn och tredimensionell öppning */
+.envelope {
+  isolation: isolate;
+  perspective: 1000px;
+  border: 1px solid #b99661;
+  border-radius: 9px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.72), transparent 38%),
+    radial-gradient(ellipse at 50% 8%, #fff9e9 0%, #f5e7ca 58%, #dfc69a 100%);
+  box-shadow: 0 30px 65px rgba(0,0,0,.46), 0 9px 18px rgba(56,34,16,.22), inset 0 1px 3px rgba(255,255,255,.95), inset 0 -8px 16px rgba(113,75,35,.15);
+  transition: transform .35s ease, filter .35s ease;
+}
+.envelope:hover {
+  transform: translateY(-5px) rotate(-.5deg);
+  filter: brightness(1.035);
+}
+.envelope::before {
+  z-index: 1;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(32deg, transparent 49.1%, rgba(133,91,48,.28) 49.7%, rgba(255,255,255,.56) 50.1%, transparent 50.9%),
+    linear-gradient(-32deg, transparent 49.1%, rgba(133,91,48,.25) 49.7%, rgba(255,255,255,.52) 50.1%, transparent 50.9%),
+    linear-gradient(180deg, transparent 58%, rgba(128,85,39,.09) 100%);
+}
+.envelope::after {
+  z-index: 1;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(145deg, transparent 48.8%, rgba(128,83,39,.2) 49.6%, rgba(255,255,255,.42) 50.1%, transparent 51.1%);
+}
+.envelope-flap {
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 62%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0%;
+  transform: rotateX(0deg);
+  backface-visibility: visible;
+  background: linear-gradient(160deg, #fff9e9 0%, #f1dfbd 48%, #d9b77f 100%);
+  filter: drop-shadow(0 3px 3px rgba(76,48,22,.24));
+  transition: transform .9s cubic-bezier(.2,.72,.22,1), filter .7s ease;
+}
+.envelope-seal {
+  z-index: 3;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #d9ad69;
+  background: radial-gradient(circle at 30% 22%, #e77a66 0%, #b52e30 42%, #781b24 82%);
+  box-shadow: 0 5px 9px rgba(47,19,13,.38), inset 0 3px 4px rgba(255,255,255,.3), inset 0 -4px 7px rgba(45,5,8,.32);
+  transition: opacity .3s ease, transform .45s ease;
+}
+.envelope.is-opening {
+  animation: envelope-open-lift 1s cubic-bezier(.22,.7,.25,1) forwards;
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+  filter: drop-shadow(0 -2px 2px rgba(76,48,22,.16));
+}
+.envelope.is-opening .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -35%) scale(.72);
+}
+@keyframes envelope-open-lift {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  28% { transform: translateY(-3px) scale(1.015); opacity: 1; }
+  72% { transform: translateY(-13px) scale(1.035); opacity: 1; }
+  100% { transform: translateY(-24px) scale(.96); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope.is-opening { animation-duration: .1s; }
+  .envelope.is-opening .envelope-flap { transition-duration: .1s; }
+}
+
+
+/* Gemensam slutfinish för alla kuvert: helt utan text, med taktil papperskänsla. */
+.envelope {
+  position: relative; overflow: visible; isolation: isolate;
+  transform-style: preserve-3d; perspective: 1100px;
+  border: 1px solid #b89a69; border-radius: 8px;
+  background: radial-gradient(ellipse at 24% 12%, rgba(255,255,255,.88), transparent 42%), linear-gradient(145deg, #fff9eb 0%, #f1e1c2 56%, #d9bd8d 100%);
+  box-shadow: 0 28px 65px rgba(0,0,0,.48), 0 8px 18px rgba(47,29,13,.2), inset 0 1px 2px rgba(255,255,255,.95), inset 0 -8px 18px rgba(112,76,38,.14);
+  -webkit-tap-highlight-color: transparent;
+}
+.envelope::before {
+  z-index: 1; inset: 0; border-radius: 7px;
+  background: linear-gradient(32deg, transparent 49.1%, rgba(126,86,45,.3) 49.7%, rgba(255,255,255,.68) 50.1%, transparent 50.9%), linear-gradient(-32deg, transparent 49.1%, rgba(126,86,45,.27) 49.7%, rgba(255,255,255,.62) 50.1%, transparent 50.9%), linear-gradient(180deg, transparent 58%, rgba(112,73,35,.12) 100%);
+}
+.envelope::after { z-index: 1; inset: 0; border-radius: 7px; background: linear-gradient(145deg, transparent 48.8%, rgba(128,83,39,.2) 49.6%, rgba(255,255,255,.42) 50.1%, transparent 51.1%); }
+.envelope-flap {
+  z-index: 3; height: 64%; transform-origin: 50% 0%; transform: rotateX(0deg); backface-visibility: hidden;
+  background: linear-gradient(160deg, rgba(255,255,255,.55), transparent 44%), linear-gradient(160deg, #fffdf4 0%, #f0dfbd 54%, #d5b77e 100%);
+  filter: drop-shadow(0 4px 4px rgba(76,48,22,.24));
+  transition: transform 1.05s cubic-bezier(.32,.02,.2,1), filter .8s ease;
+}
+.envelope-seal {
+  z-index: 4; width: 58px; height: 58px; border: 2px solid #e2bd78;
+  background: radial-gradient(circle at 30% 22%, rgba(255,255,255,.42), transparent 25%), radial-gradient(circle at 35% 28%, #d96b58 0%, #a92d30 48%, #681922 100%);
+  box-shadow: 0 5px 10px rgba(47,19,13,.4), inset 0 3px 4px rgba(255,255,255,.3), inset 0 -5px 7px rgba(45,5,8,.35);
+  transition: opacity .35s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+}
+.envelope-seal::after {
+  content: "✦"; position: absolute; inset: 0; display: grid; place-items: center;
+  color: #f7dfad; font: 25px Georgia, serif; text-shadow: 0 1px 2px #5d171b;
+}
+.envelope.is-opening { animation: envelope-open-lift 1.35s .28s cubic-bezier(.22,.7,.25,1) forwards; pointer-events: none; }
+.envelope.is-opening .envelope-flap { transform: rotateX(178deg); filter: drop-shadow(0 -2px 2px rgba(76,48,22,.12)); }
+.envelope.is-opening .envelope-seal { opacity: 0; transform: translate(-50%, -35%) scale(.55) rotate(-18deg); }
+@keyframes envelope-open-lift {
+  0%, 52% { transform: translateY(0) scale(1); opacity: 1; }
+  70% { transform: translateY(-8px) scale(1.025); opacity: 1; }
+  100% { transform: translateY(-35px) scale(.94); opacity: 0; }
+}
+@media (hover: hover) {
+  .envelope:not(.is-opening):hover { transform: translateY(-4px) rotate(-.35deg); filter: brightness(1.035); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope, .envelope-flap, .envelope-seal { transition-duration: .01ms !important; }
+  .envelope.is-opening { animation-duration: .01ms; animation-delay: 0ms; }
+}
+
+
+/* Kuvertens instruktion och tydligare öppningsögonblick */
+.envelope-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+.envelope-hint {
+  position: static;
+  margin: 0;
+  color: #fff4d6;
+  font: 1.05rem Georgia, serif;
+  letter-spacing: .02em;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0,0,0,.9);
+}
+.envelope-paper {
+  position: absolute;
+  z-index: 2;
+  left: 16%;
+  bottom: 9%;
+  width: 68%;
+  height: 72%;
+  border: 1px solid rgba(153,119,74,.45);
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(100deg, #fffdf4, #f7edda 55%, #fffaf0);
+  box-shadow: 0 2px 7px rgba(60,38,18,.2);
+  opacity: 0;
+  transform: translateY(42%) scale(.94);
+  transition: transform 1.05s cubic-bezier(.22,.72,.2,1) .12s, opacity .3s ease .12s;
+  pointer-events: none;
+}
+.envelope-paper::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 22%;
+  height: 1px;
+  background: rgba(150,119,79,.22);
+  box-shadow: 0 12px 0 rgba(150,119,79,.16), 0 24px 0 rgba(150,119,79,.12);
+}
+.envelope-flap { z-index: 4; backface-visibility: visible; }
+.envelope-seal { z-index: 5; }
+.envelope.is-opening .envelope-paper {
+  opacity: 1;
+  transform: translateY(-32%) scale(1);
+}
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(178deg);
+  transition-duration: 1.05s;
+}
+.envelope.is-opening {
+  animation: envelope-open-lift 1.35s .28s cubic-bezier(.22,.7,.25,1) forwards;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .envelope-paper, .envelope-flap, .envelope.is-opening {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+  }
+}
