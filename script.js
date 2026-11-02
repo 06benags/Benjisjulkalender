@@ -435,7 +435,6 @@ function revealCipherGuess(cell, input) {
 }
 
 if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherClose) {
-  twentiethDoor.addEventListener("click", openCipher);
   cipherEnvelope.addEventListener("click", revealCipherLetter);
   cipherClose.addEventListener("click", closeCipher);
   cipherOverlay.addEventListener("click", (event) => {
@@ -615,7 +614,6 @@ function checkSudokuCell(cell) {
 }
 
 if (eleventhDoor && sudokuOverlay && sudokuClose) {
-  eleventhDoor.addEventListener("click", openSudoku);
   sudokuClose.addEventListener("click", closeSudoku);
   sudokuOverlay.addEventListener("click", (event) => {
     if (event.target === sudokuOverlay) closeSudoku();
@@ -872,7 +870,6 @@ function closeLetterMaze() {
 }
 
 if (ninthDoor && mazeOverlay && mazeClose) {
-  ninthDoor.addEventListener("click", openLetterMaze);
   mazeClose.addEventListener("click", closeLetterMaze);
   // Labyrinten lämnas endast via kryssknappen.
   mazeHost?.addEventListener("click", (event) => {
