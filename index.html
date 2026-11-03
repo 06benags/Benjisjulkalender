@@ -111,9 +111,14 @@
       <div class="letter-date">3 december</div>
       <h2 id="cipher-title">Ett meddelande i kod</h2>
       <div id="cipher-message" class="cipher-message" aria-label="Chiffermeddelande"></div>
-      <div class="answer-form cipher-form">
+      <form class="answer-form cipher-form" id="cipher-answer-form" hidden>
+        <label for="cipher-answer">Vilken lucka ska öppnas imorgon?</label>
+        <div class="answer-controls">
+          <input id="cipher-answer" name="cipher-answer" type="number" min="1" max="24" inputmode="numeric" placeholder="Luckans nummer" required>
+          <button type="submit">Svara</button>
+        </div>
         <p id="cipher-feedback" class="answer-feedback" aria-live="polite"></p>
-      </div>
+      </form>
     </section>
   </div>
 
