@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
-  <script src="script.js?v=54" defer></script>
+  <script src="script.js?v=55" defer></script>
 </head>
 <body>
   <div id="snowfall" aria-hidden="true"></div>
@@ -48,13 +48,17 @@
   <div class="sudoku-overlay" id="sudoku-overlay" hidden>
     <section class="sudoku-letter" role="dialog" aria-modal="true" aria-labelledby="sudoku-title">
       <button class="sudoku-close" id="sudoku-close" type="button" aria-label="Stäng sudoku">×</button>
-      <p class="sudoku-kicker">LUCKA 11</p>
-      <h2 id="sudoku-title">Ett klassiskt sudoku</h2>
-      <p class="sudoku-instructions">Fyll i rutorna så att varje rad, kolumn och 3×3-ruta innehåller siffrorna 1–9 exakt en gång.</p>
+      <div class="letter-date">4 december</div>
+      <h2 id="sudoku-title">Benjis sudoku</h2>
       <div class="sudoku-board" id="sudoku-board" role="group" aria-label="Sudokubräde med nio rader och nio kolumner"></div>
-      <div class="sudoku-actions">
+      <form class="answer-form" id="sudoku-answer-form">
+        <label for="sudoku-answer">Vilken lucka ska öppnas imorgon?</label>
+        <div class="answer-controls">
+          <input id="sudoku-answer" name="sudoku-answer" type="number" min="1" max="24" inputmode="numeric" placeholder="Luckans nummer" required>
+          <button type="submit">Svara</button>
+        </div>
         <p class="sudoku-feedback" id="sudoku-feedback" aria-live="polite"></p>
-      </div>
+      </form>
     </section>
   </div>
 
