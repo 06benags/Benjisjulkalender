@@ -774,18 +774,9 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 
 
 /* Lucka 11 – sudoku i julkalenderns pergamentstil. */
-.sudoku-overlay[hidden] { display: none !important; }
-.sudoku-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px;
-  overflow-y: auto;
-  background: rgba(3, 16, 18, .88);
-  backdrop-filter: blur(7px);
+/* Lucka 11 använder samma kuvert- och brevutseende som lucka 1, 7 och 20. */
+#sudoku-overlay {
+  z-index: 20;
 }
 .sudoku-letter {
   position: relative;
