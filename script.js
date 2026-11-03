@@ -462,6 +462,8 @@ if (cipherAnswerForm && cipherAnswerInput && cipherFeedback) {
       cipherFeedback.classList.add("is-correct");
       cipherAnswerInput.disabled = true;
       cipherAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+      twentiethDoor?.classList.remove("is-unlocked");
+      twentiethDoor?.setAttribute("aria-label", "Lucka 20");
       finishCipher();
     } else {
       cipherFeedback.textContent = "Fel, testa igen!";
