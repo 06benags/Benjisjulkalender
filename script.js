@@ -539,27 +539,6 @@ const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
 const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
 
-function playSudokuSuccessTone() {
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  const audio = new AudioContextClass();
-  const now = audio.currentTime;
-  [659.25, 783.99, 987.77].forEach((frequency, index) => {
-    const oscillator = audio.createOscillator();
-    const gain = audio.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.0001, now + index * 0.13);
-    gain.gain.exponentialRampToValueAtTime(0.12, now + index * 0.13 + 0.025);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.13 + 0.32);
-    oscillator.connect(gain);
-    gain.connect(audio.destination);
-    oscillator.start(now + index * 0.13);
-    oscillator.stop(now + index * 0.13 + 0.34);
-  });
-  window.setTimeout(() => audio.close(), 900);
-}
-
 const sudokuPuzzle = [
   "534678012",
   "672195340",
@@ -692,9 +671,29 @@ if (sudokuAnswerForm && sudokuAnswerInput && sudokuFeedback) {
       sudokuFeedback.classList.add("is-correct");
       sudokuAnswerInput.disabled = true;
       sudokuAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
-      playSudokuSuccessTone();
-      ninthDoor?.classList.add("is-unlocked");
-      ninthDoor?.setAttribute("aria-label", "Lucka 9, upplåst");
+      window.setTimeout(() => {
+        if (!sceneTransition) {
+          closeSudoku();
+          ninthDoor?.classList.add("is-unlocked");
+          ninthDoor?.setAttribute("aria-label", "Lucka 9, upplåst");
+          ninthDoor?.focus();
+          return;
+        }
+        sceneTransition.hidden = false;
+        requestAnimationFrame(() => sceneTransition.classList.add("is-visible"));
+        window.setTimeout(() => {
+          closeSudoku();
+          ninthDoor?.classList.add("is-unlocked");
+          ninthDoor?.setAttribute("aria-label", "Lucka 9, upplåst");
+          window.setTimeout(() => {
+            sceneTransition.classList.remove("is-visible");
+            window.setTimeout(() => {
+              sceneTransition.hidden = true;
+              ninthDoor?.focus();
+            }, 650);
+          }, 180);
+        }, 650);
+      }, 350);
     } else {
       sudokuFeedback.textContent = "Fel, testa igen!";
       sudokuFeedback.classList.add("is-wrong");
