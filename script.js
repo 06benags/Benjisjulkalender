@@ -408,7 +408,7 @@ function revealCipherGuess(cell, input) {
   if (guess.length !== 1) return;
 
   if (guess !== expectedLetter || cipherCodes[guess] !== number) {
-    cipherFeedback.textContent = "Inte riktigt – försök igen!";
+    cipherFeedback.textContent = "Fel, testa igen!";
     cipherFeedback.classList.remove("is-correct");
     cipherFeedback.classList.add("is-wrong");
     input.classList.add("cipher-input-wrong");
@@ -473,7 +473,7 @@ if (cipherMessage && cipherFeedback) {
         input.replaceWith(button);
         revealCipherGuess(cell, input);
       } else {
-        cipherFeedback.textContent = "Inte riktigt – försök igen!";
+        cipherFeedback.textContent = "Fel, testa igen!";
         cipherFeedback.classList.remove("is-correct");
         cipherFeedback.classList.add("is-wrong");
         input.classList.add("cipher-input-wrong");
