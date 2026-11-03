@@ -530,6 +530,8 @@ if (cipherMessage && cipherFeedback) {
 
 /* Lucka 11: klassiskt 9×9-sudoku. */
 const sudokuOverlay = document.querySelector("#sudoku-overlay");
+const sudokuEnvelope = document.querySelector("#sudoku-envelope");
+const sudokuLetter = document.querySelector("#sudoku-letter");
 const sudokuBoard = document.querySelector("#sudoku-board");
 const sudokuClose = document.querySelector("#sudoku-close");
 const sudokuFeedback = document.querySelector("#sudoku-feedback");
@@ -591,13 +593,32 @@ function openSudoku() {
   if (!sudokuOverlay) return;
   renderSudoku();
   sudokuOverlay.hidden = false;
+  if (sudokuEnvelope) {
+    sudokuEnvelope.hidden = false;
+    sudokuEnvelope.classList.remove("is-opening");
+  }
+  if (sudokuLetter) sudokuLetter.hidden = true;
   document.body.style.overflow = "hidden";
-  sudokuBoard?.querySelector("input:not(:disabled)")?.focus();
+}
+
+function revealSudokuLetter() {
+  if (!sudokuEnvelope || !sudokuLetter) return;
+  sudokuEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    sudokuEnvelope.hidden = true;
+    sudokuLetter.hidden = false;
+    sudokuBoard?.querySelector("input:not(:disabled)")?.focus();
+  }, 650);
 }
 
 function closeSudoku() {
   if (!sudokuOverlay) return;
   sudokuOverlay.hidden = true;
+  if (sudokuEnvelope) {
+    sudokuEnvelope.hidden = false;
+    sudokuEnvelope.classList.remove("is-opening");
+  }
+  if (sudokuLetter) sudokuLetter.hidden = true;
   document.body.style.overflow = "";
   eleventhDoor?.focus();
 }
@@ -664,7 +685,8 @@ if (sudokuAnswerForm && sudokuAnswerInput && sudokuFeedback) {
   });
 }
 
-if (eleventhDoor && sudokuOverlay && sudokuClose) {
+if (eleventhDoor && sudokuOverlay && sudokuClose && sudokuEnvelope) {
+  sudokuEnvelope.addEventListener("click", revealSudokuLetter);
   sudokuClose.addEventListener("click", closeSudoku);
   sudokuOverlay.addEventListener("click", (event) => {
     if (event.target === sudokuOverlay) closeSudoku();
