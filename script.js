@@ -722,7 +722,7 @@ const mazeHost = document.querySelector("#letter-maze");
 const mazeAnswerForm = document.querySelector("#maze-answer-form");
 const mazeAnswerInput = document.querySelector("#maze-answer");
 const mazeFeedback = document.querySelector("#maze-feedback");
-const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARFÖREJUL";
+const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINNANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
