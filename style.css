@@ -874,14 +874,21 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   background: #dff1df;
 }
 .sudoku-cell.is-red-clue {
+  position: relative;
+  z-index: 2;
   color: #c0182b !important;
   background: #ffe0df !important;
   -webkit-text-fill-color: #c0182b;
-  text-shadow: 0 0 10px rgba(192,24,43,.25);
+  font-size: clamp(1.2rem, 4.5vw, 1.7rem);
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(192,24,43,.5);
+  outline: 3px solid #c0182b;
+  outline-offset: -3px;
+  box-shadow: inset 0 0 0 3px rgba(192,24,43,.2), 0 0 12px rgba(192,24,43,.3);
   animation: sudoku-red-pulse .8s ease-in-out 3;
 }
 @keyframes sudoku-red-pulse {
-  50% { transform: scale(.88); background: #ffc4c4; }
+  50% { transform: scale(1.06); background: #ffc4c4; }
 }
 .sudoku-actions { margin-top: 18px; }
 .sudoku-check {
