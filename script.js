@@ -724,90 +724,6 @@ const mazeAnswerInput = document.querySelector("#maze-answer");
 const mazeFeedback = document.querySelector("#maze-feedback");
 const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
 
-function setMazeExpanded(expanded) {
-  if (!mazeHost) return;
-  mazeHost.classList.toggle("maze-expanded", expanded);
-  mazeHost.setAttribute(
-    "aria-label",
-    expanded ? "Förstorad labyrint." : "Labyrint. Tryck för att förstora."
-  );
-  if (!expanded) {
-    mazeHost.style.setProperty("--maze-zoom", "1");
-    mazeHost.dataset.panX = "0";
-    mazeHost.dataset.panY = "0";
-    mazeHost.style.setProperty("--maze-pan-x", "0px");
-    mazeHost.style.setProperty("--maze-pan-y", "0px");
-    mazeHost.style.cursor = "zoom-in";
-  } else {
-    mazeHost.style.cursor = "grab";
-  }
-  const controls = mazeOverlay?.querySelector(".maze-zoom-controls");
-  if (controls) controls.hidden = !expanded;
-}
-
-let mazeDrag = null;
-let suppressMazeClick = false;
-
-function attachMazePanning() {
-  if (!mazeHost) return;
-  mazeHost.addEventListener("pointerdown", (event) => {
-    if (!mazeHost.classList.contains("maze-expanded") || event.button !== 0) return;
-    mazeDrag = {
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startY: event.clientY,
-      panX: Number(mazeHost.dataset.panX || 0),
-      panY: Number(mazeHost.dataset.panY || 0),
-      moved: false
-    };
-    mazeHost.setPointerCapture(event.pointerId);
-    mazeHost.style.cursor = "grabbing";
-  });
-
-  mazeHost.addEventListener("pointermove", (event) => {
-    if (!mazeDrag || event.pointerId !== mazeDrag.pointerId) return;
-    const dx = event.clientX - mazeDrag.startX;
-    const dy = event.clientY - mazeDrag.startY;
-    if (Math.abs(dx) + Math.abs(dy) > 3) mazeDrag.moved = true;
-    if (!mazeDrag.moved) return;
-    mazeHost.dataset.panX = String(mazeDrag.panX + dx);
-    mazeHost.dataset.panY = String(mazeDrag.panY + dy);
-    mazeHost.style.setProperty("--maze-pan-x", mazeHost.dataset.panX + "px");
-    mazeHost.style.setProperty("--maze-pan-y", mazeHost.dataset.panY + "px");
-  });
-
-  const stopDragging = (event) => {
-    if (!mazeDrag || event.pointerId !== mazeDrag.pointerId) return;
-    suppressMazeClick = mazeDrag.moved;
-    mazeDrag = null;
-    mazeHost.style.cursor = "grab";
-  };
-  mazeHost.addEventListener("pointerup", stopDragging);
-  mazeHost.addEventListener("pointercancel", stopDragging);
-}
-
-function addMazeZoomControls() {
-  if (!mazeHost || !mazeOverlay || mazeOverlay.querySelector(".maze-zoom-controls")) return;
-  const controls = document.createElement("div");
-  controls.className = "maze-zoom-controls";
-  controls.hidden = true;
-  controls.innerHTML = '<button type="button" class="maze-zoom-close" aria-label="Stäng förstoring">×</button><button type="button" class="maze-zoom-out" aria-label="Zooma ut">−</button><button type="button" class="maze-zoom-in" aria-label="Zooma in">+</button>';
-  controls.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const button = event.target.closest("button");
-    if (!button) return;
-    if (button.classList.contains("maze-zoom-close")) {
-      setMazeExpanded(false);
-      return;
-    }
-    const current = Number(mazeHost.dataset.zoom || 1);
-    const next = Math.max(0.7, Math.min(1.6, current + (button.classList.contains("maze-zoom-in") ? 0.1 : -0.1)));
-    mazeHost.dataset.zoom = next.toFixed(1);
-    mazeHost.style.setProperty("--maze-zoom", next.toFixed(1));
-  });
-  mazeOverlay.append(controls);
-}
-
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
   const rows = 27;
@@ -946,7 +862,6 @@ function buildLetterMaze() {
 
   svg.append(wallGroup, textGroup);
   mazeHost.append(svg);
-  addMazeZoomControls();
 }
 
 if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
@@ -1014,8 +929,5 @@ if (ninthDoor && mazeOverlay && mazeClose && mazeEnvelope) {
     if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
   });
   // Labyrinten lämnas endast via kryssknappen.
-  mazeHost?.addEventListener("click", (event) => {
-    if (event.target.closest(".maze-zoom-controls")) return;
-    if (!mazeHost.classList.contains("maze-expanded")) setMazeExpanded(true);
-  });
+  // Labyrinten är statisk och går inte att förstora genom att trycka på den.
 }
