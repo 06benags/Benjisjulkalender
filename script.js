@@ -665,13 +665,7 @@ if (sudokuAnswerForm && sudokuAnswerInput && sudokuFeedback) {
   sudokuAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     sudokuFeedback.classList.remove("is-correct", "is-wrong");
-    const sudokuSolved = [...sudokuBoard.querySelectorAll(".sudoku-cell")].every((cell) =>
-      cell.value.trim() === sudokuSolution[Number(cell.dataset.row)][Number(cell.dataset.col)]
-    );
-    if (!sudokuSolved) {
-      sudokuFeedback.textContent = "Lös först sudokut!";
-      sudokuFeedback.classList.add("is-wrong");
-    } else if (Number(sudokuAnswerInput.value) === 9) {
+    if (Number(sudokuAnswerInput.value) === 9) {
       sudokuFeedback.textContent = "Rätt!";
       sudokuFeedback.classList.add("is-correct");
       sudokuAnswerInput.disabled = true;
