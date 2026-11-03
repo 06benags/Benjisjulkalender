@@ -538,6 +538,7 @@ const sudokuFeedback = document.querySelector("#sudoku-feedback");
 const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
 const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
+const sixteenthDoor = document.querySelectorAll(".door")[15];
 
 const sudokuPuzzle = [
   "534678012",
@@ -716,6 +717,9 @@ if (eleventhDoor && sudokuOverlay && sudokuClose && sudokuEnvelope) {
 const mazeOverlay = document.querySelector("#maze-overlay");
 const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
+const mazeAnswerForm = document.querySelector("#maze-answer-form");
+const mazeAnswerInput = document.querySelector("#maze-answer");
+const mazeFeedback = document.querySelector("#maze-feedback");
 const mazePhrase = "OMDUADDERARÅTTAPLUSNIOOCHSEDANTARBORTETTOCHLÄGGERTILLTREFÖRATTSEDANTABORTTRESÅVETDUVILKENLUCKADUSKAÖPPNAIMORGON";
 
 function setMazeExpanded(expanded) {
@@ -941,6 +945,24 @@ function buildLetterMaze() {
   svg.append(wallGroup, textGroup);
   mazeHost.append(svg);
   addMazeZoomControls();
+}
+
+if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
+  mazeAnswerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    mazeFeedback.classList.remove("is-correct", "is-wrong");
+    if (Number(mazeAnswerInput.value) === 16) {
+      mazeFeedback.textContent = "Rätt!";
+      mazeFeedback.classList.add("is-correct");
+      mazeAnswerInput.disabled = true;
+      mazeAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+      sixteenthDoor?.classList.add("is-unlocked");
+      sixteenthDoor?.setAttribute("aria-label", "Lucka 16, upplåst");
+    } else {
+      mazeFeedback.textContent = "Fel, testa igen!";
+      mazeFeedback.classList.add("is-wrong");
+    }
+  });
 }
 
 function openLetterMaze() {
