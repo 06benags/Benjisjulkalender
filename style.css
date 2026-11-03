@@ -920,7 +920,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   padding: clamp(18px, 4vw, 34px);
 }
 .letter-maze {
-  cursor: zoom-in;
+  cursor: default;
 }
 .letter-maze.maze-expanded {
   position: fixed;
@@ -975,7 +975,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 }
 .letter-maze {
   width: 100%;
-  max-width: 460px;
+  max-width: 600px;
   margin-inline: auto;
   overflow: hidden;
   border: 2px solid #b58a4d;
@@ -989,7 +989,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 }
 .maze-walls line {
   stroke: #3b3429;
-  stroke-width: 3;
+  stroke-width: 1.5;
   stroke-linecap: square;
 }
 .letter-maze,
@@ -1004,7 +1004,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 }
 .maze-letters text {
   fill: #49351f;
-  font: 700 15px Georgia, "Times New Roman", serif;
+  font: 700 22px Georgia, "Times New Roman", serif;
   text-anchor: middle;
   dominant-baseline: middle;
 }
@@ -1015,7 +1015,7 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 }
 @media (max-width: 480px) {
   .maze-letter { padding: 16px 10px; }
-  .maze-letters text { font-size: 14px; }
+  .maze-letters text { font-size: 20px; }
 }
 
 /* Kontroller för förstoring av bokstavslabyrinten. */
