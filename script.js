@@ -626,7 +626,7 @@ function closeSudoku() {
 function finishSudoku() {
   const clueCell = sudokuBoard.querySelector('.sudoku-cell[data-row="0"][data-col="6"]');
   clueCell?.classList.add("is-red-clue");
-  sudokuFeedback.textContent = "Sudokut är löst! Svara på frågan nedan.";
+  sudokuFeedback.textContent = "Sudokut är löst!";
   sudokuFeedback.className = "sudoku-feedback is-correct is-complete";
   sudokuBoard.querySelectorAll(".sudoku-cell").forEach((cell) => { cell.disabled = true; });
 }
