@@ -539,15 +539,15 @@ const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
 const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
 const sudokuPuzzle = [
-  "530070000",
-  "600195000",
-  "098000060",
-  "800060003",
-  "400803001",
-  "700020006",
-  "060000280",
-  "000419005",
-  "000080079"
+  "534070010",
+  "670195040",
+  "198002067",
+  "800760023",
+  "406803091",
+  "703020806",
+  "061030280",
+  "207419005",
+  "305080179"
 ];
 const sudokuSolution = [
   "534678912",
