@@ -726,9 +726,9 @@ const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-  const rows = 27;
-  const cols = 41;
-  const size = 26;
+  const rows = 19;
+  const cols = 29;
+  const size = 34;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
   const cells = Array.from({ length: rows }, (_, r) =>
@@ -750,7 +750,7 @@ function buildLetterMaze() {
     return (seed >>> 0) / 4294967296;
   };
 
-  // Skapa en perfekt labyrint: många återvändsgränder, men bara en möjlig väg.
+  // Skapa en luftigare labyrint med färre återvändsgränder och enklare vägval.
   const stack = [cells[0][0]];
   cells[0][0].visited = true;
   while (stack.length) {
@@ -769,6 +769,17 @@ function buildLetterMaze() {
     choice.next.visited = true;
     stack.push(choice.next);
   }
+
+  // Ta bort extra väggar mellan intilliggande rutor så att fler alternativa vägar finns.
+  cells.flat().forEach((cell) => {
+    directions.forEach((direction) => {
+      const next = cells[cell.r + direction.dr]?.[cell.c + direction.dc];
+      if (next && cell.walls[direction.wall] && random() < 0.24) {
+        cell.walls[direction.wall] = false;
+        next.walls[direction.opposite] = false;
+      }
+    });
+  });
 
   // Öppna start och hitta den enda vägen genom labyrinten.
   cells[0][0].walls[3] = false;
