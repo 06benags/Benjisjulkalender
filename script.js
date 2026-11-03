@@ -538,7 +538,7 @@ const sudokuFeedback = document.querySelector("#sudoku-feedback");
 const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
 const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
-const twentysecondDoor = document.querySelectorAll(".door")[21];
+const twentyfirstDoor = document.querySelectorAll(".door")[20];
 
 const sudokuPuzzle = [
   "534678012",
@@ -953,13 +953,13 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
   mazeAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     mazeFeedback.classList.remove("is-correct", "is-wrong");
-    if (Number(mazeAnswerInput.value) === 22) {
+    if (Number(mazeAnswerInput.value) === 21) {
       mazeFeedback.textContent = "Rätt!";
       mazeFeedback.classList.add("is-correct");
       mazeAnswerInput.disabled = true;
       mazeAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
-      twentysecondDoor?.classList.add("is-unlocked");
-      twentysecondDoor?.setAttribute("aria-label", "Lucka 22, upplåst");
+      twentyfirstDoor?.classList.add("is-unlocked");
+      twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
     } else {
       mazeFeedback.textContent = "Fel, testa igen!";
       mazeFeedback.classList.add("is-wrong");
