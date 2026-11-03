@@ -825,6 +825,16 @@ function buildLetterMaze() {
   entryArrow.setAttribute("stroke-linejoin", "round");
   entryArrow.setAttribute("class", "maze-entry-arrow");
 
+  // Utgångspil precis under öppningen längst ned.
+  const exitArrow = document.createElementNS(ns, "path");
+  exitArrow.setAttribute("d", `M ${pad + exitCell.c * size + size / 2} ${pad + rows * size + 3} V ${pad + rows * size + 15} M ${pad + exitCell.c * size + size / 2 - 6} ${pad + rows * size + 9} L ${pad + exitCell.c * size + size / 2} ${pad + rows * size + 15} L ${pad + exitCell.c * size + size / 2 + 6} ${pad + rows * size + 9}`);
+  exitArrow.setAttribute("fill", "none");
+  exitArrow.setAttribute("stroke", "#b3261e");
+  exitArrow.setAttribute("stroke-width", "3");
+  exitArrow.setAttribute("stroke-linecap", "round");
+  exitArrow.setAttribute("stroke-linejoin", "round");
+  exitArrow.setAttribute("class", "maze-exit-arrow");
+
   cells.flat().forEach((cell) => {
     const x = pad + cell.c * size;
     const y = pad + cell.r * size;
@@ -852,7 +862,7 @@ function buildLetterMaze() {
     }
   });
 
-  svg.append(entryArrow, wallGroup, textGroup);
+  svg.append(entryArrow, exitArrow, wallGroup, textGroup);
   mazeHost.append(svg);
 }
 
