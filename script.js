@@ -726,8 +726,8 @@ const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINNANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-  const rows = 31;
-  const cols = 41;
+  const rows = 12;
+  const cols = 16;
   const size = 34;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
