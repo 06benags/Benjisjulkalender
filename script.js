@@ -875,8 +875,34 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
       mazeFeedback.classList.add("is-correct");
       mazeAnswerInput.disabled = true;
       mazeAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
-      twentyfirstDoor?.classList.add("is-unlocked");
-      twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
+
+      // Samma svarta scenövergång som vid de andra luckornas lösningar.
+      window.setTimeout(() => {
+        if (!sceneTransition) {
+          closeLetterMaze();
+          twentyfirstDoor?.classList.add("is-unlocked");
+          twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
+          twentyfirstDoor?.focus();
+          return;
+        }
+
+        sceneTransition.hidden = false;
+        requestAnimationFrame(() => sceneTransition.classList.add("is-visible"));
+
+        window.setTimeout(() => {
+          closeLetterMaze();
+          twentyfirstDoor?.classList.add("is-unlocked");
+          twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
+
+          window.setTimeout(() => {
+            sceneTransition.classList.remove("is-visible");
+            window.setTimeout(() => {
+              sceneTransition.hidden = true;
+              twentyfirstDoor?.focus();
+            }, 650);
+          }, 180);
+        }, 650);
+      }, 350);
     } else {
       mazeFeedback.textContent = "Fel, testa igen!";
       mazeFeedback.classList.add("is-wrong");
