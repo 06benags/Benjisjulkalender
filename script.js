@@ -533,6 +533,8 @@ const sudokuOverlay = document.querySelector("#sudoku-overlay");
 const sudokuBoard = document.querySelector("#sudoku-board");
 const sudokuClose = document.querySelector("#sudoku-close");
 const sudokuFeedback = document.querySelector("#sudoku-feedback");
+const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
+const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
 const sudokuPuzzle = [
   "530070000",
@@ -603,11 +605,9 @@ function closeSudoku() {
 function finishSudoku() {
   const clueCell = sudokuBoard.querySelector('.sudoku-cell[data-row="0"][data-col="6"]');
   clueCell?.classList.add("is-red-clue");
-  sudokuFeedback.textContent = "Helt rätt! Snyggt löst.";
+  sudokuFeedback.textContent = "Sudokut är löst! Svara på frågan nedan.";
   sudokuFeedback.className = "sudoku-feedback is-correct is-complete";
   sudokuBoard.querySelectorAll(".sudoku-cell").forEach((cell) => { cell.disabled = true; });
-  ninthDoor?.classList.add("is-unlocked");
-  ninthDoor?.setAttribute("aria-label", "Lucka 9, markerad");
 }
 
 function checkSudokuCell(cell) {
@@ -638,6 +638,30 @@ function checkSudokuCell(cell) {
     item.value.trim() === sudokuSolution[Number(item.dataset.row)][Number(item.dataset.col)]
   );
   if (allCorrect) finishSudoku();
+}
+
+if (sudokuAnswerForm && sudokuAnswerInput && sudokuFeedback) {
+  sudokuAnswerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    sudokuFeedback.classList.remove("is-correct", "is-wrong");
+    const sudokuSolved = [...sudokuBoard.querySelectorAll(".sudoku-cell")].every((cell) =>
+      cell.value.trim() === sudokuSolution[Number(cell.dataset.row)][Number(cell.dataset.col)]
+    );
+    if (!sudokuSolved) {
+      sudokuFeedback.textContent = "Lös först sudokut!";
+      sudokuFeedback.classList.add("is-wrong");
+    } else if (Number(sudokuAnswerInput.value) === 9) {
+      sudokuFeedback.textContent = "Rätt!";
+      sudokuFeedback.classList.add("is-correct");
+      sudokuAnswerInput.disabled = true;
+      sudokuAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+      ninthDoor?.classList.add("is-unlocked");
+      ninthDoor?.setAttribute("aria-label", "Lucka 9, markerad");
+    } else {
+      sudokuFeedback.textContent = "Fel, testa igen!";
+      sudokuFeedback.classList.add("is-wrong");
+    }
+  });
 }
 
 if (eleventhDoor && sudokuOverlay && sudokuClose) {
