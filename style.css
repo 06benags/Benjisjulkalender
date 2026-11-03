@@ -1643,3 +1643,29 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   content: none !important;
   display: none !important;
 }
+
+
+/* Lucka 9 ska fortsätta lysa tydligt efter rätt svar. */
+.door.is-unlocked {
+  position: relative;
+  z-index: 2;
+  border-color: #fff2b0 !important;
+  filter: brightness(1.45) saturate(1.12) !important;
+  box-shadow:
+    0 0 0 3px rgba(255,232,145,.82),
+    0 0 18px 5px rgba(255,220,100,.72),
+    0 0 34px 10px rgba(255,220,100,.42),
+    inset 0 0 22px rgba(255,245,190,.48) !important;
+  animation: door-unlocked-glow 1.8s ease-in-out infinite;
+}
+@keyframes door-unlocked-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(255,232,145,.72), 0 0 18px 5px rgba(255,220,100,.62), 0 0 30px 8px rgba(255,220,100,.32), inset 0 0 18px rgba(255,245,190,.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255,245,180,.95), 0 0 24px 8px rgba(255,230,120,.88), 0 0 42px 13px rgba(255,220,100,.5), inset 0 0 25px rgba(255,250,205,.58);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .door.is-unlocked { animation: none; }
+}
