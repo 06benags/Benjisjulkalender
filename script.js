@@ -815,6 +815,16 @@ function buildLetterMaze() {
   const textGroup = document.createElementNS(ns, "g");
   textGroup.setAttribute("class", "maze-letters");
 
+  // Tydlig nedåtpil precis ovanför öppningen.
+  const entryArrow = document.createElementNS(ns, "path");
+  entryArrow.setAttribute("d", `M ${pad + startCell.c * size + size / 2} 1 V ${pad - 3} M ${pad + startCell.c * size + size / 2 - 6} ${pad - 9} L ${pad + startCell.c * size + size / 2} ${pad - 3} L ${pad + startCell.c * size + size / 2 + 6} ${pad - 9}`);
+  entryArrow.setAttribute("fill", "none");
+  entryArrow.setAttribute("stroke", "#b3261e");
+  entryArrow.setAttribute("stroke-width", "3");
+  entryArrow.setAttribute("stroke-linecap", "round");
+  entryArrow.setAttribute("stroke-linejoin", "round");
+  entryArrow.setAttribute("class", "maze-entry-arrow");
+
   cells.flat().forEach((cell) => {
     const x = pad + cell.c * size;
     const y = pad + cell.r * size;
@@ -842,7 +852,7 @@ function buildLetterMaze() {
     }
   });
 
-  svg.append(wallGroup, textGroup);
+  svg.append(entryArrow, wallGroup, textGroup);
   mazeHost.append(svg);
 }
 
