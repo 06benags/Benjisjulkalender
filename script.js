@@ -255,7 +255,7 @@ const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
 const cipherFeedback = document.querySelector("#cipher-feedback");
 const eleventhDoor = document.querySelector('[data-door="11"]');
-const cipherText = "Imorgon ska du öppna lucka elva";
+const cipherText = "Imorgon ska du öppna lucka nummer elva";
 const cipherAlphabet = "abcdefghijklmnopqrstuvwxyzåäö";
 const cipherCodes = (() => {
   const map = {};
