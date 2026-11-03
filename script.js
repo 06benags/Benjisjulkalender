@@ -742,7 +742,7 @@ function buildLetterMaze() {
     { dr: 1, dc: 0, wall: 2, opposite: 0 },
     { dr: 0, dc: -1, wall: 3, opposite: 1 }
   ];
-  let seed = 203175;
+  let seed = 713;
   const random = () => {
     seed ^= seed << 13;
     seed ^= seed >>> 17;
@@ -750,30 +750,32 @@ function buildLetterMaze() {
     return (seed >>> 0) / 4294967296;
   };
 
-  // Klassisk labyrint: alla gångar hänger ihop, med förgreningar och återvändsgränder – inga extra genvägar eller slingor.
-  const stack = [cells[0][0]];
+  // Randomiserad Prim-algoritm ger en tät, klassisk labyrint med många
+  // korta sidogångar, återvändsgränder och vägval – utan öppna slingor.
+  const startCell = cells[0][15];
+  const exitCell = cells[rows - 1][14];
+  const frontier = [];
+  const addFrontier = (cell) => {
+    directions.forEach((direction) => {
+      const next = cells[cell.r + direction.dr]?.[cell.c + direction.dc];
+      if (next && !next.visited) frontier.push({ cell, next, direction });
+    });
+  };
   cells[0][0].visited = true;
-  while (stack.length) {
-    const current = stack[stack.length - 1];
-    const options = directions.map((direction) => ({
-      direction,
-      next: cells[current.r + direction.dr]?.[current.c + direction.dc]
-    })).filter((item) => item.next && !item.next.visited);
-    if (!options.length) {
-      stack.pop();
-      continue;
-    }
-    const choice = options[Math.floor(random() * options.length)];
-    current.walls[choice.direction.wall] = false;
-    choice.next.walls[choice.direction.opposite] = false;
-    choice.next.visited = true;
-    stack.push(choice.next);
+  addFrontier(cells[0][0]);
+  while (frontier.length) {
+    const index = Math.floor(random() * frontier.length);
+    const { cell, next, direction } = frontier[index];
+    frontier[index] = frontier[frontier.length - 1];
+    frontier.pop();
+    if (next.visited) continue;
+    cell.walls[direction.wall] = false;
+    next.walls[direction.opposite] = false;
+    next.visited = true;
+    addFrontier(next);
   }
 
-  // Ingång och utgång är placerade så att den enda vägen innehåller exakt
-  // lika många rutor som meddelandet: 55 bokstäver från första till sista.
-  const startCell = cells[0][2];
-  const exitCell = cells[rows - 1][7];
+  // Öppningarna sitter i överkanten respektive nederkanten.
   startCell.walls[0] = false;
   exitCell.walls[2] = false;
 
@@ -807,7 +809,7 @@ function buildLetterMaze() {
   const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Svårare bokstavslabyrint. Följ gångarna från ingången och läs hela meddelandet fram till utgången.");
+  svg.setAttribute("aria-label", "Bokstavslabyrint med många återvändsgränder. Börja vid öppningen upptill och följ gångarna till utgången nedtill.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
