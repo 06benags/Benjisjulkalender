@@ -750,7 +750,7 @@ function buildLetterMaze() {
     return (seed >>> 0) / 4294967296;
   };
 
-  // Klassisk medelsvår labyrint för barn: större rutnät med fler gångar, svängar och återvändsgränder.
+  // Klassisk labyrint: alla gångar hänger ihop, med förgreningar och återvändsgränder – inga extra genvägar eller slingor.
   const stack = [cells[0][0]];
   cells[0][0].visited = true;
   while (stack.length) {
@@ -799,28 +799,6 @@ function buildLetterMaze() {
   if (route.length !== mazePhrase.length) {
     throw new Error("Labyrintens lösningsväg måste innehålla exakt hela meddelandet.");
   }
-
-  // Lägg till extra förbindelser enbart bland felgångarna. De skapar slingor
-  // och flera val utan att öppna genvägar in på den rätta bokstavsvägen.
-  const routeCells = new Set(route.map((cell) => `${cell.r},${cell.c}`));
-  const falsePathWalls = [];
-  cells.flat().forEach((cell) => {
-    if (routeCells.has(`${cell.r},${cell.c}`)) return;
-    directions.forEach((direction) => {
-      const next = cells[cell.r + direction.dr]?.[cell.c + direction.dc];
-      if (!next || routeCells.has(`${next.r},${next.c}`) || !cell.walls[direction.wall]) return;
-      if (direction.dr < 0 || direction.dc < 0) return;
-      falsePathWalls.push({ cell, next, direction });
-    });
-  });
-  for (let i = falsePathWalls.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [falsePathWalls[i], falsePathWalls[j]] = [falsePathWalls[j], falsePathWalls[i]];
-  }
-  falsePathWalls.slice(0, 22).forEach(({ cell, next, direction }) => {
-    cell.walls[direction.wall] = false;
-    next.walls[direction.opposite] = false;
-  });
 
   const routeLetters = new Map();
   route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
