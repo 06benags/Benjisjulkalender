@@ -726,15 +726,15 @@ const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-
-  // En enkel labyrint: fyra långa gångar som går fram och tillbaka.
-  const rows = 9;
-  const cols = 15;
-  const size = 48;
+  const rows = 27;
+  const cols = 41;
+  const size = 26;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
   const cells = Array.from({ length: rows }, (_, r) =>
-    Array.from({ length: cols }, (_, c) => ({ r, c, walls: [true, true, true, true] }))
+    Array.from({ length: cols }, (_, c) => ({
+      r, c, walls: [true, true, true, true], visited: false
+    }))
   );
   const directions = [
     { dr: -1, dc: 0, wall: 0, opposite: 2 },
@@ -742,42 +742,94 @@ function buildLetterMaze() {
     { dr: 1, dc: 0, wall: 2, opposite: 0 },
     { dr: 0, dc: -1, wall: 3, opposite: 1 }
   ];
-  const carve = (from, direction) => {
-    const to = cells[from.r + direction.dr]?.[from.c + direction.dc];
-    if (!to) return null;
-    from.walls[direction.wall] = false;
-    to.walls[direction.opposite] = false;
-    return to;
+  let seed = 987654321;
+  const random = () => {
+    seed ^= seed << 13;
+    seed ^= seed >>> 17;
+    seed ^= seed << 5;
+    return (seed >>> 0) / 4294967296;
   };
-  const route = [];
-  for (let row = 0; row < 4; row++) {
-    const columns = row % 2 === 0
-      ? Array.from({ length: cols }, (_, c) => c)
-      : Array.from({ length: cols }, (_, c) => cols - 1 - c);
-    columns.forEach((col) => route.push(cells[row][col]));
+
+  // Skapa en perfekt labyrint: många återvändsgränder, men bara en möjlig väg.
+  const stack = [cells[0][0]];
+  cells[0][0].visited = true;
+  while (stack.length) {
+    const current = stack[stack.length - 1];
+    const options = directions.map((direction) => ({
+      direction,
+      next: cells[current.r + direction.dr]?.[current.c + direction.dc]
+    })).filter((item) => item.next && !item.next.visited);
+    if (!options.length) {
+      stack.pop();
+      continue;
+    }
+    const choice = options[Math.floor(random() * options.length)];
+    current.walls[choice.direction.wall] = false;
+    choice.next.walls[choice.direction.opposite] = false;
+    choice.next.visited = true;
+    stack.push(choice.next);
   }
-  for (let i = 0; i < route.length - 1; i++) {
-    const from = route[i];
-    const to = route[i + 1];
-    const direction = directions.find((d) => from.r + d.dr === to.r && from.c + d.dc === to.c);
-    if (direction) carve(from, direction);
-  }
+
+  // Öppna start och hitta den enda vägen genom labyrinten.
   cells[0][0].walls[3] = false;
-  let exitCell = route[mazePhrase.length - 1];
-  while (exitCell.c > 0) exitCell = carve(exitCell, directions[3]);
-  exitCell.walls[3] = false;
+  const queue = [cells[0][0]];
+  const previous = new Map([[cells[0][0], null]]);
+  for (let index = 0; index < queue.length; index++) {
+    const current = queue[index];
+    if (current === cells[rows - 1][cols - 1]) break;
+    directions.forEach((direction) => {
+      const next = cells[current.r + direction.dr]?.[current.c + direction.dc];
+      if (next && !current.walls[direction.wall] && !previous.has(next)) {
+        previous.set(next, current);
+        queue.push(next);
+      }
+    });
+  }
+  const fullRoute = [];
+  let step = cells[rows - 1][cols - 1];
+  while (step) {
+    fullRoute.unshift(step);
+    step = previous.get(step);
+  }
+
+  // Lösningsvägen slutar exakt vid meddelandets sista bokstav.
+  const route = fullRoute.slice(0, mazePhrase.length);
   const routeLetters = new Map();
-  route.slice(0, mazePhrase.length).forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+  route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
+
+  // Förläng den tomma gången från lösningsvägens slut till närmaste ytterkant.
+  const exitCell = route[route.length - 1];
+  const edgeOptions = [
+    { distance: exitCell.r, dr: -1, dc: 0, wall: 0, opposite: 2 },
+    { distance: cols - 1 - exitCell.c, dr: 0, dc: 1, wall: 1, opposite: 3 },
+    { distance: rows - 1 - exitCell.r, dr: 1, dc: 0, wall: 2, opposite: 0 },
+    { distance: exitCell.c, dr: 0, dc: -1, wall: 3, opposite: 1 }
+  ];
+  const exitDirection = edgeOptions.reduce((best, option) =>
+    option.distance < best.distance ? option : best
+  );
+  const exitCorridor = new Set();
+  let corridorCell = exitCell;
+  while (corridorCell.r !== (exitDirection.dr < 0 ? 0 : exitDirection.dr > 0 ? rows - 1 : corridorCell.r) ||
+         corridorCell.c !== (exitDirection.dc < 0 ? 0 : exitDirection.dc > 0 ? cols - 1 : corridorCell.c)) {
+    const next = cells[corridorCell.r + exitDirection.dr][corridorCell.c + exitDirection.dc];
+    corridorCell.walls[exitDirection.wall] = false;
+    next.walls[exitDirection.opposite] = false;
+    corridorCell = next;
+    exitCorridor.add(corridorCell);
+  }
+  corridorCell.walls[exitDirection.wall] = false;
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
-  svg.setAttribute("viewBox", "0 0 " + (cols * size + pad * 2) + " " + (rows * size + pad * 2));
+  svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "En enkel bokstavslabyrint med en tydlig sicksackväg.");
+  svg.setAttribute("aria-label", "Bokstavslabyrint.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
   textGroup.setAttribute("class", "maze-letters");
+
   cells.flat().forEach((cell) => {
     const x = pad + cell.c * size;
     const y = pad + cell.r * size;
@@ -793,16 +845,25 @@ function buildLetterMaze() {
       ["x1", "y1", "x2", "y2"].forEach((attribute, i) => line.setAttribute(attribute, coords[i]));
       wallGroup.append(line);
     });
-    const letter = routeLetters.get(cell) ?? letters[(cell.r * 7 + cell.c * 11) % letters.length];
-    const text = document.createElementNS(ns, "text");
-    text.setAttribute("x", x + size / 2);
-    text.setAttribute("y", y + size / 2);
-    text.textContent = letter;
-    textGroup.append(text);
+
+    let letter = routeLetters.get(cell);
+    if (letter === undefined && !exitCorridor.has(cell)) {
+      // Övriga rutor får slumpbokstäver som vilseleder utan att ändra texten.
+      letter = letters[Math.floor(random() * letters.length)];
+    }
+    if (letter) {
+      const text = document.createElementNS(ns, "text");
+      text.setAttribute("x", x + size / 2);
+      text.setAttribute("y", y + size / 2);
+      text.textContent = letter;
+      textGroup.append(text);
+    }
   });
+
   svg.append(wallGroup, textGroup);
   mazeHost.append(svg);
 }
+
 if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
   mazeAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
