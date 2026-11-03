@@ -891,13 +891,16 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
 
         window.setTimeout(() => {
           closeLetterMaze();
-          twentyfirstDoor?.classList.add("is-unlocked");
-          twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
 
           window.setTimeout(() => {
             sceneTransition.classList.remove("is-visible");
             window.setTimeout(() => {
               sceneTransition.hidden = true;
+              // Starta upplåsningsblinkningen först när kalendern syns igen.
+              twentyfirstDoor?.classList.remove("is-unlocked");
+              void twentyfirstDoor?.offsetWidth;
+              twentyfirstDoor?.classList.add("is-unlocked");
+              twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
               twentyfirstDoor?.focus();
             }, 650);
           }, 180);
