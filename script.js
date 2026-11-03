@@ -742,7 +742,7 @@ function buildLetterMaze() {
     { dr: 1, dc: 0, wall: 2, opposite: 0 },
     { dr: 0, dc: -1, wall: 3, opposite: 1 }
   ];
-  let seed = 1001;
+  let seed = 203175;
   const random = () => {
     seed ^= seed << 13;
     seed ^= seed >>> 17;
