@@ -432,7 +432,6 @@ function revealCipherGuess(cell, input) {
   );
   if (allRevealed) {
     cipherFeedback.textContent = "";
-    cipherAnswerForm.hidden = false;
     cipherAnswerInput.focus();
   }
 }
@@ -452,7 +451,13 @@ if (cipherAnswerForm && cipherAnswerInput && cipherFeedback) {
   cipherAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     cipherFeedback.classList.remove("is-correct", "is-wrong");
-    if (Number(cipherAnswerInput.value) === 11) {
+    const allLettersRevealed = [...cipherMessage.querySelectorAll(".cipher-cell")].every((item) =>
+      item.querySelector(".cipher-char").classList.contains("is-revealed")
+    );
+    if (!allLettersRevealed) {
+      cipherFeedback.textContent = "Lös först alla bokstäver!";
+      cipherFeedback.classList.add("is-wrong");
+    } else if (Number(cipherAnswerInput.value) === 11) {
       cipherFeedback.textContent = "Rätt!";
       cipherFeedback.classList.add("is-correct");
       cipherAnswerInput.disabled = true;
