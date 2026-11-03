@@ -415,15 +415,13 @@ function revealCipherGuess(cell, input) {
     return;
   }
 
-  cipherMessage.querySelectorAll('.cipher-cell[data-number="' + number + '"]').forEach((matchingCell) => {
-    const button = matchingCell.querySelector(".cipher-char");
-    button.textContent = matchingCell.dataset.letter.toLocaleUpperCase("sv-SE");
-    button.classList.remove("is-blank");
-    button.classList.add("is-revealed");
-    button.setAttribute("aria-label", "Avslöjad bokstav " + button.textContent);
-    button.disabled = true;
-  });
-  cipherFeedback.textContent = "Rätt bokstav! Alla rutor med siffran " + number + " är ifyllda.";
+  const button = cell.querySelector(".cipher-char");
+  button.textContent = expectedLetter.toLocaleUpperCase("sv-SE");
+  button.classList.remove("is-blank");
+  button.classList.add("is-revealed");
+  button.setAttribute("aria-label", "Avslöjad bokstav " + button.textContent);
+  button.disabled = true;
+  cipherFeedback.textContent = "Rätt bokstav! Fyll nu i nästa ruta."
   cipherFeedback.classList.remove("is-wrong");
   cipherFeedback.classList.add("is-correct");
 
