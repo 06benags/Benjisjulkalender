@@ -880,7 +880,8 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
       window.setTimeout(() => {
         if (!sceneTransition) {
           closeLetterMaze();
-          twentyfirstDoor?.classList.add("is-unlocked");
+          twentyfirstDoor?.classList.add("is-unlocked", "just-unlocked");
+          window.setTimeout(() => twentyfirstDoor?.classList.remove("just-unlocked"), 2100);
           twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
           twentyfirstDoor?.focus();
           return;
@@ -899,7 +900,8 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
               // Starta upplåsningsblinkningen först när kalendern syns igen.
               twentyfirstDoor?.classList.remove("is-unlocked");
               void twentyfirstDoor?.offsetWidth;
-              twentyfirstDoor?.classList.add("is-unlocked");
+              twentyfirstDoor?.classList.add("is-unlocked", "just-unlocked");
+              window.setTimeout(() => twentyfirstDoor?.classList.remove("just-unlocked"), 2100);
               twentyfirstDoor?.setAttribute("aria-label", "Lucka 21, upplåst");
               twentyfirstDoor?.focus();
             }, 650);
