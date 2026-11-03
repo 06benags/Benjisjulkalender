@@ -722,7 +722,7 @@ const mazeHost = document.querySelector("#letter-maze");
 const mazeAnswerForm = document.querySelector("#maze-answer-form");
 const mazeAnswerInput = document.querySelector("#maze-answer");
 const mazeFeedback = document.querySelector("#maze-feedback");
-const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINNANJUL";
+const mazePhrase = "LUCKANSOMDUSKAÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINNANJUL!";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
@@ -742,7 +742,7 @@ function buildLetterMaze() {
     { dr: 1, dc: 0, wall: 2, opposite: 0 },
     { dr: 0, dc: -1, wall: 3, opposite: 1 }
   ];
-  let seed = 713;
+  let seed = 1863;
   const random = () => {
     seed ^= seed << 13;
     seed ^= seed >>> 17;
