@@ -1636,3 +1636,10 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
     inset 0 0 0 1px rgba(255,255,255,.8);
 }
 .sudoku-board::before { content: none; }
+
+/* Ingen symbol ovanför sudokuramen – behåll endast guldramen. */
+.sudoku-board::before,
+.sudoku-board::after {
+  content: none !important;
+  display: none !important;
+}
