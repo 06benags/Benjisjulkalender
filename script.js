@@ -797,28 +797,14 @@ function buildLetterMaze() {
   const routeLetters = new Map();
   route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
 
-  // Förläng den tomma gången från lösningsvägens slut till närmaste ytterkant.
-  const exitCell = route[route.length - 1];
-  const edgeOptions = [
-    { distance: exitCell.r, dr: -1, dc: 0, wall: 0, opposite: 2 },
-    { distance: cols - 1 - exitCell.c, dr: 0, dc: 1, wall: 1, opposite: 3 },
-    { distance: rows - 1 - exitCell.r, dr: 1, dc: 0, wall: 2, opposite: 0 },
-    { distance: exitCell.c, dr: 0, dc: -1, wall: 3, opposite: 1 }
-  ];
-  const exitDirection = edgeOptions.reduce((best, option) =>
-    option.distance < best.distance ? option : best
+  // Fortsätt längs den redan byggda lösningsvägen efter sista bokstaven.
+  // Utgången öppnas först vid slutet av hela gången, aldrig mitt i meningen.
+  const exitCorridor = new Set(fullRoute.slice(mazePhrase.length));
+  const exitCell = fullRoute[fullRoute.length - 1];
+  const exitDirection = directions.find((direction) =>
+    !cells[exitCell.r + direction.dr]?.[exitCell.c + direction.dc]
   );
-  const exitCorridor = new Set();
-  let corridorCell = exitCell;
-  while (corridorCell.r !== (exitDirection.dr < 0 ? 0 : exitDirection.dr > 0 ? rows - 1 : corridorCell.r) ||
-         corridorCell.c !== (exitDirection.dc < 0 ? 0 : exitDirection.dc > 0 ? cols - 1 : corridorCell.c)) {
-    const next = cells[corridorCell.r + exitDirection.dr][corridorCell.c + exitDirection.dc];
-    corridorCell.walls[exitDirection.wall] = false;
-    next.walls[exitDirection.opposite] = false;
-    corridorCell = next;
-    exitCorridor.add(corridorCell);
-  }
-  corridorCell.walls[exitDirection.wall] = false;
+  exitCell.walls[exitDirection.wall] = false;
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
