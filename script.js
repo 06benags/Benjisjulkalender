@@ -726,9 +726,9 @@ const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-  const rows = 27;
-  const cols = 41;
-  const size = 26;
+  const rows = 23;
+  const cols = 31;
+  const size = 34;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
   const cells = Array.from({ length: rows }, (_, r) =>
@@ -750,7 +750,7 @@ function buildLetterMaze() {
     return (seed >>> 0) / 4294967296;
   };
 
-  // Skapa en perfekt labyrint: många återvändsgränder, men bara en möjlig väg.
+  // Klassisk medelsvår labyrint för barn: tydliga gångar, svängar och återvändsgränder.
   const stack = [cells[0][0]];
   cells[0][0].visited = true;
   while (stack.length) {
@@ -824,7 +824,7 @@ function buildLetterMaze() {
   const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Bokstavslabyrint.");
+  svg.setAttribute("aria-label", "Medelsvår bokstavslabyrint. Följ gångarna från ingången och läs bokstäverna på rätt väg.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
