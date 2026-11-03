@@ -69,7 +69,12 @@
 
 
   <div class="letter-overlay maze-overlay" id="maze-overlay" hidden>
-    <section class="letter maze-letter" role="dialog" aria-modal="true" aria-labelledby="maze-title">
+    <button class="envelope" id="maze-envelope" type="button" aria-label="Öppna brevet till lucka 9">
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">✦</span>
+      <span class="envelope-hint">Tryck för att öppna</span>
+    </button>
+    <section class="letter maze-letter" id="maze-letter" role="dialog" aria-modal="true" aria-labelledby="maze-title" hidden>
       <button class="maze-close" id="maze-close" type="button" aria-label="Stäng labyrinten">×</button>
       <div class="letter-date">5 december</div>
       <h2 id="maze-title">Labyrinten</h2>
