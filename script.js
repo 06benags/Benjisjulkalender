@@ -423,7 +423,7 @@ function revealCipherGuess(cell, input) {
   button.classList.add("is-revealed");
   button.setAttribute("aria-label", "Avslöjad bokstav " + button.textContent);
   button.disabled = true;
-  cipherFeedback.textContent = "Rätt bokstav! Fyll nu i nästa ruta."
+  cipherFeedback.textContent = "Rätt!"
   cipherFeedback.classList.remove("is-wrong");
   cipherFeedback.classList.add("is-correct");
 
