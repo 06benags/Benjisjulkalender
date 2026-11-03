@@ -715,6 +715,8 @@ if (eleventhDoor && sudokuOverlay && sudokuClose && sudokuEnvelope) {
  
 /* Lucka 9: extra svår bokstavslabyrint med en tydlig slutpunkt. */
 const mazeOverlay = document.querySelector("#maze-overlay");
+const mazeEnvelope = document.querySelector("#maze-envelope");
+const mazeLetter = document.querySelector("#maze-letter");
 const mazeClose = document.querySelector("#maze-close");
 const mazeHost = document.querySelector("#letter-maze");
 const mazeAnswerForm = document.querySelector("#maze-answer-form");
@@ -969,19 +971,48 @@ function openLetterMaze() {
   if (!mazeOverlay) return;
   buildLetterMaze();
   mazeOverlay.hidden = false;
+  if (mazeEnvelope) {
+    mazeEnvelope.hidden = false;
+    mazeEnvelope.classList.remove("is-opening");
+  }
+  if (mazeLetter) mazeLetter.hidden = true;
   document.body.style.overflow = "hidden";
-  mazeClose?.focus();
+  mazeEnvelope?.focus();
+}
+
+function revealMazeLetter() {
+  if (!mazeEnvelope || !mazeLetter) return;
+  mazeEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    mazeEnvelope.hidden = true;
+    mazeLetter.hidden = false;
+    mazeLetter.scrollTop = 0;
+    window.scrollTo(0, 0);
+    mazeClose?.focus({ preventScroll: true });
+  }, 650);
 }
 
 function closeLetterMaze() {
   if (!mazeOverlay) return;
   mazeOverlay.hidden = true;
+  if (mazeEnvelope) {
+    mazeEnvelope.hidden = false;
+    mazeEnvelope.classList.remove("is-opening");
+  }
+  if (mazeLetter) mazeLetter.hidden = true;
   document.body.style.overflow = "";
   ninthDoor?.focus();
 }
 
-if (ninthDoor && mazeOverlay && mazeClose) {
+if (ninthDoor && mazeOverlay && mazeClose && mazeEnvelope) {
+  mazeEnvelope.addEventListener("click", revealMazeLetter);
   mazeClose.addEventListener("click", closeLetterMaze);
+  mazeOverlay.addEventListener("click", (event) => {
+    if (event.target === mazeOverlay) closeLetterMaze();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !mazeOverlay.hidden) closeLetterMaze();
+  });
   // Labyrinten lämnas endast via kryssknappen.
   mazeHost?.addEventListener("click", (event) => {
     if (event.target.closest(".maze-zoom-controls")) return;
