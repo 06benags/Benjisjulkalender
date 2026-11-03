@@ -742,7 +742,7 @@ function buildLetterMaze() {
     { dr: 1, dc: 0, wall: 2, opposite: 0 },
     { dr: 0, dc: -1, wall: 3, opposite: 1 }
   ];
-  let seed = 987654321;
+  let seed = 1001;
   const random = () => {
     seed ^= seed << 13;
     seed ^= seed >>> 17;
@@ -770,13 +770,18 @@ function buildLetterMaze() {
     stack.push(choice.next);
   }
 
-  // Öppna start och hitta den enda vägen genom labyrinten.
-  cells[0][0].walls[3] = false;
-  const queue = [cells[0][0]];
-  const previous = new Map([[cells[0][0], null]]);
+  // Ingång och utgång är placerade så att den enda vägen innehåller exakt
+  // lika många rutor som meddelandet: 55 bokstäver från första till sista.
+  const startCell = cells[0][2];
+  const exitCell = cells[rows - 1][7];
+  startCell.walls[0] = false;
+  exitCell.walls[2] = false;
+
+  const queue = [startCell];
+  const previous = new Map([[startCell, null]]);
   for (let index = 0; index < queue.length; index++) {
     const current = queue[index];
-    if (current === cells[rows - 1][cols - 1]) break;
+    if (current === exitCell) break;
     directions.forEach((direction) => {
       const next = cells[current.r + direction.dr]?.[current.c + direction.dc];
       if (next && !current.walls[direction.wall] && !previous.has(next)) {
@@ -785,32 +790,24 @@ function buildLetterMaze() {
       }
     });
   }
-  const fullRoute = [];
-  let step = cells[rows - 1][cols - 1];
+  const route = [];
+  let step = exitCell;
   while (step) {
-    fullRoute.unshift(step);
+    route.unshift(step);
     step = previous.get(step);
   }
+  if (route.length !== mazePhrase.length) {
+    throw new Error("Labyrintens lösningsväg måste innehålla exakt hela meddelandet.");
+  }
 
-  // Lösningsvägen slutar exakt vid meddelandets sista bokstav.
-  const route = fullRoute.slice(0, mazePhrase.length);
   const routeLetters = new Map();
   route.forEach((cell, index) => routeLetters.set(cell, mazePhrase[index]));
-
-  // Fortsätt längs den redan byggda lösningsvägen efter sista bokstaven.
-  // Utgången öppnas först vid slutet av hela gången, aldrig mitt i meningen.
-  const exitCorridor = new Set(fullRoute.slice(mazePhrase.length));
-  const exitCell = fullRoute[fullRoute.length - 1];
-  const exitDirection = directions.find((direction) =>
-    !cells[exitCell.r + direction.dr]?.[exitCell.c + direction.dc]
-  );
-  exitCell.walls[exitDirection.wall] = false;
 
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Medelsvår bokstavslabyrint. Följ gångarna från ingången och läs bokstäverna på rätt väg.");
+  svg.setAttribute("aria-label", "Svårare bokstavslabyrint. Följ gångarna från ingången och läs hela meddelandet fram till utgången.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
@@ -832,11 +829,8 @@ function buildLetterMaze() {
       wallGroup.append(line);
     });
 
-    let letter = routeLetters.get(cell);
-    if (letter === undefined && !exitCorridor.has(cell)) {
-      // Övriga rutor får slumpbokstäver som vilseleder utan att ändra texten.
-      letter = letters[Math.floor(random() * letters.length)];
-    }
+    // Alla rutor får en bokstav. Endast den rätta vägen stavar meddelandet.
+    const letter = routeLetters.get(cell) ?? letters[Math.floor(random() * letters.length)];
     if (letter) {
       const text = document.createElementNS(ns, "text");
       text.setAttribute("x", x + size / 2);
