@@ -538,7 +538,7 @@ const sudokuFeedback = document.querySelector("#sudoku-feedback");
 const sudokuAnswerForm = document.querySelector("#sudoku-answer-form");
 const sudokuAnswerInput = document.querySelector("#sudoku-answer");
 const ninthDoor = document.querySelectorAll(".door")[8];
-const sixteenthDoor = document.querySelectorAll(".door")[15];
+const twentysecondDoor = document.querySelectorAll(".door")[21];
 
 const sudokuPuzzle = [
   "534678012",
@@ -722,7 +722,7 @@ const mazeHost = document.querySelector("#letter-maze");
 const mazeAnswerForm = document.querySelector("#maze-answer-form");
 const mazeAnswerInput = document.querySelector("#maze-answer");
 const mazeFeedback = document.querySelector("#maze-feedback");
-const mazePhrase = "OMDUADDERARÅTTAPLUSNIOOCHSEDANTARBORTETTOCHLÄGGERTILLTREFÖRATTSEDANTABORTTRESÅVETDUVILKENLUCKADUSKAÖPPNAIMORGON";
+const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
 
 function setMazeExpanded(expanded) {
   if (!mazeHost) return;
@@ -908,7 +908,7 @@ function buildLetterMaze() {
   const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", `0 0 ${cols * size + pad * 2} ${rows * size + pad * 2}`);
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Svår bokstavslabyrint. Följ bokstäverna utan mellanrum och fortsätt sedan längs den tomma gången ut ur labyrinten.");
+  svg.setAttribute("aria-label", "Bokstavslabyrint.");
   const wallGroup = document.createElementNS(ns, "g");
   wallGroup.setAttribute("class", "maze-walls");
   const textGroup = document.createElementNS(ns, "g");
@@ -953,13 +953,13 @@ if (mazeAnswerForm && mazeAnswerInput && mazeFeedback) {
   mazeAnswerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     mazeFeedback.classList.remove("is-correct", "is-wrong");
-    if (Number(mazeAnswerInput.value) === 16) {
+    if (Number(mazeAnswerInput.value) === 22) {
       mazeFeedback.textContent = "Rätt!";
       mazeFeedback.classList.add("is-correct");
       mazeAnswerInput.disabled = true;
       mazeAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
-      sixteenthDoor?.classList.add("is-unlocked");
-      sixteenthDoor?.setAttribute("aria-label", "Lucka 16, upplåst");
+      twentysecondDoor?.classList.add("is-unlocked");
+      twentysecondDoor?.setAttribute("aria-label", "Lucka 22, upplåst");
     } else {
       mazeFeedback.textContent = "Fel, testa igen!";
       mazeFeedback.classList.add("is-wrong");
