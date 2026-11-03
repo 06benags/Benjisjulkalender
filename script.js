@@ -722,12 +722,12 @@ const mazeHost = document.querySelector("#letter-maze");
 const mazeAnswerForm = document.querySelector("#maze-answer-form");
 const mazeAnswerInput = document.querySelector("#maze-answer");
 const mazeFeedback = document.querySelector("#maze-feedback");
-const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINANJUL";
+const mazePhrase = "LUCKANSOMDUSKÖPPNAIMORGONÄRSIFFRANSOMÄRTREDAGARINNANJUL";
 
 function buildLetterMaze() {
   if (!mazeHost || mazeHost.childElementCount) return;
-  const rows = 23;
-  const cols = 31;
+  const rows = 31;
+  const cols = 41;
   const size = 34;
   const pad = 18;
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
@@ -750,7 +750,7 @@ function buildLetterMaze() {
     return (seed >>> 0) / 4294967296;
   };
 
-  // Klassisk medelsvår labyrint för barn: tydliga gångar, svängar och återvändsgränder.
+  // Klassisk medelsvår labyrint för barn: större rutnät med fler gångar, svängar och återvändsgränder.
   const stack = [cells[0][0]];
   cells[0][0].visited = true;
   while (stack.length) {
