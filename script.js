@@ -254,6 +254,8 @@ const cipherLetter = document.querySelector("#cipher-letter");
 const cipherClose = document.querySelector("#cipher-close");
 const cipherMessage = document.querySelector("#cipher-message");
 const cipherFeedback = document.querySelector("#cipher-feedback");
+const cipherAnswerForm = document.querySelector("#cipher-answer-form");
+const cipherAnswerInput = document.querySelector("#cipher-answer");
 const eleventhDoor = document.querySelector('[data-door="11"]');
 const cipherText = "Imorgon ska du öppna lucka nummer elva";
 const cipherAlphabet = "abcdefghijklmnopqrstuvwxyzåäö";
@@ -429,8 +431,9 @@ function revealCipherGuess(cell, input) {
     item.querySelector(".cipher-char").classList.contains("is-revealed")
   );
   if (allRevealed) {
-    cipherFeedback.textContent = "Du knäckte meddelandet! Morgondagens lucka är lucka 11.";
-    finishCipher();
+    cipherFeedback.textContent = "";
+    cipherAnswerForm.hidden = false;
+    cipherAnswerInput.focus();
   }
 }
 
@@ -442,6 +445,23 @@ if (twentiethDoor && cipherOverlay && cipherEnvelope && cipherLetter && cipherCl
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !cipherOverlay.hidden) closeCipher();
+  });
+}
+
+if (cipherAnswerForm && cipherAnswerInput && cipherFeedback) {
+  cipherAnswerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    cipherFeedback.classList.remove("is-correct", "is-wrong");
+    if (Number(cipherAnswerInput.value) === 11) {
+      cipherFeedback.textContent = "Rätt!";
+      cipherFeedback.classList.add("is-correct");
+      cipherAnswerInput.disabled = true;
+      cipherAnswerForm.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
+      finishCipher();
+    } else {
+      cipherFeedback.textContent = "Fel, testa igen!";
+      cipherFeedback.classList.add("is-wrong");
+    }
   });
 }
 
