@@ -171,15 +171,18 @@ function buildCrossword() {
   answerForm.className = "answer-form crossword-answer-form";
   const answerLabel = document.createElement("label");
   answerLabel.htmlFor = "crossword-final-answer";
-  answerLabel.textContent = "Vilket ord bildas i de markerade rutorna?";
+  answerLabel.textContent = "Vilken lucka ska öppnas imorgon?";
   const controls = document.createElement("div");
   controls.className = "answer-controls";
   const answerInput = document.createElement("input");
   answerInput.id = "crossword-final-answer";
-  answerInput.type = "text";
+  answerInput.type = "number";
+  answerInput.min = "1";
+  answerInput.max = "24";
+  answerInput.inputMode = "numeric";
   answerInput.autocomplete = "off";
-  answerInput.placeholder = "Ditt svar";
-  answerInput.setAttribute("aria-label", "Skriv det lodräta ordet");
+  answerInput.placeholder = "Luckans nummer";
+  answerInput.setAttribute("aria-label", "Luckans nummer");
   const submit = document.createElement("button");
   submit.type = "button";
   submit.textContent = "Svara";
@@ -209,11 +212,17 @@ function buildCrossword() {
       return;
     }
     if (!allCorrect) {
-      feedback.textContent = "Några bokstäver i korsordet är fel. Försök igen!";
+      allInputs.forEach((input) => {
+        input.value = "";
+        input.classList.remove("is-wrong");
+      });
+      answerInput.value = "";
+      feedback.textContent = "Ett eller flera ord är fel. Alla rutor har tömts – försök igen!";
       feedback.classList.add("is-wrong");
+      allInputs[0]?.focus();
       return;
     }
-    if (answerInput.value.trim().toLocaleUpperCase("sv-SE") !== "JULAFTON") {
+    if (answerInput.value.trim() !== "24") {
       feedback.textContent = "Inte riktigt! Läs de markerade rutorna uppifrån och ner.";
       feedback.classList.add("is-wrong");
       return;
