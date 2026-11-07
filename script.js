@@ -119,6 +119,11 @@ function buildCrossword() {
   entries.forEach(({ word, marked }, rowIndex) => {
     const row = document.createElement("div");
     row.className = "crossword-row";
+    const rowNumber = document.createElement("span");
+    rowNumber.className = "crossword-row-number";
+    rowNumber.textContent = String(rowIndex + 1);
+    rowNumber.setAttribute("aria-hidden", "true");
+    row.append(rowNumber);
     const start = markedColumn - marked;
     for (let column = 0; column < 9; column++) {
       const letterIndex = column - start;
