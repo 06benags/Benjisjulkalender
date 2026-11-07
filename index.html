@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
-  <script src="script.js?v=89" defer></script>
+  <script src="script.js?v=90" defer></script>
 </head>
 <body>
   <div id="snowfall" aria-hidden="true"></div>
@@ -87,6 +87,20 @@
         </div>
         <p class="answer-feedback" id="maze-feedback" aria-live="polite"></p>
       </form>
+    </section>
+  </div>
+
+  <div class="letter-overlay" id="crossword-overlay" hidden>
+    <button class="envelope" id="crossword-envelope" type="button" aria-label="Öppna brevet till lucka 21">
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">✦</span>
+      <span class="envelope-hint">Tryck för att öppna</span>
+    </button>
+    <section class="letter crossword-letter" id="crossword-letter" role="dialog" aria-modal="true" aria-labelledby="crossword-title" hidden>
+      <button class="letter-close" id="crossword-close" type="button" aria-label="Stäng brevet">×</button>
+      <div class="letter-date">6 december</div>
+      <h2 id="crossword-title">Korsordet</h2>
+      <div id="crossword-content" class="crossword-content"></div>
     </section>
   </div>
 
