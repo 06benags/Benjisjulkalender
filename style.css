@@ -1669,3 +1669,71 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 @media (prefers-reduced-motion: reduce) {
   .door.is-unlocked { animation: none; }
 }
+
+
+/* Lucka 21 – korsord med lodrät hemlig kolumn. */
+.crossword-letter {
+  width: min(94vw, 620px);
+  max-height: min(88vh, 900px);
+  padding: clamp(22px, 5vw, 42px);
+  text-align: center;
+}
+.crossword-content {
+  width: 100%;
+  margin: 24px auto 8px;
+}
+.crossword-arrow {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  width: min(100%, 430px);
+  margin: 0 auto 3px;
+  color: #a87932;
+  font: 700 2rem/1 Georgia, serif;
+}
+.crossword-arrow span {
+  grid-column: var(--arrow-column);
+  justify-self: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+.crossword-grid {
+  display: grid;
+  gap: 5px;
+  width: min(100%, 430px);
+  margin: 0 auto;
+}
+.crossword-row {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 5px;
+}
+.crossword-cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 1px solid #b99a69;
+  border-radius: 3px;
+  background: linear-gradient(145deg, #fffefa, #f0e3c9);
+  color: #342719;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.95), 0 1px 2px rgba(70,45,20,.12);
+  font: 600 clamp(14px, 3.8vw, 23px)/1 Georgia, serif;
+}
+.crossword-cell.is-key-letter {
+  border: 2px solid #a87932;
+  background: linear-gradient(145deg, #f9e8b7, #dfbd76);
+  color: #542f14;
+  box-shadow: 0 0 0 2px rgba(184,139,66,.16), inset 0 1px 2px rgba(255,255,255,.7);
+}
+.crossword-empty {
+  aspect-ratio: 1;
+}
+.crossword-instruction {
+  margin: 22px 0 0;
+  color: #705b3c;
+  font: italic 1.05rem Georgia, serif;
+}
+@media (max-width: 420px) {
+  .crossword-grid, .crossword-arrow { width: 100%; }
+  .crossword-grid, .crossword-row { gap: 3px; }
+  .crossword-cell { border-radius: 2px; }
+}
