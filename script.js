@@ -2,6 +2,10 @@
 const firstDoor = document.querySelector('[data-door="1"]');
 const seventhDoor = document.querySelectorAll(".door")[6];
 const twentiethDoor = document.querySelectorAll(".door")[19];
+const crosswordOverlay = document.querySelector("#crossword-overlay");
+const crosswordEnvelope = document.querySelector("#crossword-envelope");
+const crosswordLetter = document.querySelector("#crossword-letter");
+const crosswordClose = document.querySelector("#crossword-close");
 const puzzleOverlay = document.querySelector("#puzzle-overlay");
 const puzzleEnvelope = document.querySelector("#puzzle-envelope");
 const puzzleLetter = document.querySelector("#puzzle-letter");
@@ -80,6 +84,52 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
+function openCrossword() {
+  if (!crosswordOverlay || !crosswordEnvelope || !crosswordLetter) return;
+  crosswordOverlay.hidden = false;
+  crosswordEnvelope.hidden = false;
+  crosswordEnvelope.classList.remove("is-opening");
+  crosswordLetter.hidden = true;
+  document.body.style.overflow = "hidden";
+  crosswordEnvelope.focus();
+}
+
+function revealCrosswordLetter() {
+  if (!crosswordEnvelope || !crosswordLetter) return;
+  crosswordEnvelope.classList.add("is-opening");
+  window.setTimeout(() => {
+    crosswordEnvelope.hidden = true;
+    crosswordLetter.hidden = false;
+    crosswordLetter.scrollTop = 0;
+    window.scrollTo(0, 0);
+    crosswordClose?.focus({ preventScroll: true });
+  }, 650);
+}
+
+function closeCrossword() {
+  if (!crosswordOverlay) return;
+  crosswordOverlay.hidden = true;
+  if (crosswordEnvelope) {
+    crosswordEnvelope.hidden = false;
+    crosswordEnvelope.classList.remove("is-opening");
+  }
+  if (crosswordLetter) crosswordLetter.hidden = true;
+  document.body.style.overflow = "";
+  twentyfirstDoor?.focus();
+}
+
+if (crosswordOverlay && crosswordEnvelope && crosswordClose) {
+  crosswordEnvelope.addEventListener("click", revealCrosswordLetter);
+  crosswordClose.addEventListener("click", closeCrossword);
+  crosswordOverlay.addEventListener("click", (event) => {
+    if (event.target === crosswordOverlay) closeCrossword();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !crosswordOverlay.hidden) closeCrossword();
+  });
+}
+
+
 // Koppla luckornas klick via kalendern. Händelsedelegering gör att
 // enskilda luckor fortsätter fungera även om markupen ändras.
 const calendar = document.querySelector("#calendar");
@@ -93,6 +143,7 @@ if (calendar) {
     else if (index === 8) openLetterMaze();
     else if (index === 10) openSudoku();
     else if (index === 19) openCipher();
+    else if (index === 20) openCrossword();
   });
 }
 
