@@ -89,53 +89,134 @@ function buildCrossword() {
   if (!host || host.childElementCount) return;
 
   const entries = [
-    { word: "STJÄRNA", marked: 2 },
-    { word: "LUCIA", marked: 1 },
-    { word: "OLOF", marked: 1 },
-    { word: "NISSAR", marked: 4 },
-    { word: "SAFFRAN", marked: 3 },
-    { word: "TOMTEN", marked: 3 },
-    { word: "RUDOLF", marked: 3 },
-    { word: "GRÖN", marked: 3 }
+    { word: "STJÄRNA", marked: 2, clue: "Vad brukar man placera allra högst upp i julgranen?" },
+    { word: "LUCIA", marked: 1, clue: "Vilken högtid firar vi den 13 december?" },
+    { word: "OLOF", marked: 1, clue: "Vad heter snögubben i Frost?" },
+    { word: "NISSAR", marked: 4, clue: "Vad kallas tomtens små hjälpredor som tillverkar julklappar?" },
+    { word: "SAFFRAN", marked: 3, clue: "Vilken krydda ger lussekatter sin gula färg?" },
+    { word: "TOMTEN", marked: 3, clue: "Vad kallas den rödklädda figuren med vitt skägg som förknippas med julen?" },
+    { word: "RUDOLF", marked: 3, clue: "Vad heter renen med den röda mulen?" },
+    { word: "GRÖN", marked: 3, clue: "Vilken färg har granen som vi pyntar till jul?" }
   ];
   const markedColumn = 4;
+  const form = document.createElement("form");
+  form.className = "crossword-form";
+  form.noValidate = true;
+
+  const arrow = document.createElement("div");
+  arrow.className = "crossword-arrow";
+  arrow.setAttribute("aria-hidden", "true");
+  const arrowSpan = document.createElement("span");
+  arrowSpan.textContent = "↓";
+  arrow.append(arrowSpan);
+  arrow.style.setProperty("--arrow-column", String(markedColumn + 1));
+
   const grid = document.createElement("div");
   grid.className = "crossword-grid";
-  grid.setAttribute("role", "img");
-  grid.setAttribute("aria-label", "Korsord med åtta vågräta julord. De guldfärgade rutorna bildar JULAFTON uppifrån och ner.");
+  grid.setAttribute("role", "group");
+  grid.setAttribute("aria-label", "Åtta vågräta svar. Fyll i en bokstav per ruta.");
 
-  entries.forEach(({ word, marked }) => {
+  entries.forEach(({ word, marked }, rowIndex) => {
     const row = document.createElement("div");
     row.className = "crossword-row";
-    row.style.setProperty("--crossword-columns", "9");
     const start = markedColumn - marked;
     for (let column = 0; column < 9; column++) {
       const letterIndex = column - start;
       if (letterIndex < 0 || letterIndex >= word.length) {
         const blank = document.createElement("span");
         blank.className = "crossword-empty";
+        blank.setAttribute("aria-hidden", "true");
         row.append(blank);
         continue;
       }
-      const cell = document.createElement("span");
+      const cell = document.createElement("label");
       cell.className = "crossword-cell" + (letterIndex === marked ? " is-key-letter" : "");
-      cell.textContent = word[letterIndex];
+      const input = document.createElement("input");
+      input.type = "text";
+      input.maxLength = 1;
+      input.autocomplete = "off";
+      input.spellcheck = false;
+      input.name = `crossword-${rowIndex}-${letterIndex}`;
+      input.setAttribute("aria-label", `Fråga ${rowIndex + 1}, bokstav ${letterIndex + 1} av ${word.length}`);
+      input.dataset.row = String(rowIndex);
+      input.dataset.position = String(letterIndex);
+      input.addEventListener("input", () => {
+        input.value = [...input.value.toLocaleUpperCase("sv-SE")].slice(-1)[0] || "";
+        input.classList.remove("is-wrong");
+        const cells = [...form.querySelectorAll(".crossword-cell input")];
+        const currentIndex = cells.indexOf(input);
+        if (input.value && cells[currentIndex + 1]) cells[currentIndex + 1].focus();
+      });
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Backspace" && !input.value) {
+          const cells = [...form.querySelectorAll(".crossword-cell input")];
+          const previous = cells[cells.indexOf(input) - 1];
+          previous?.focus();
+        }
+      });
+      cell.append(input);
       row.append(cell);
     }
     grid.append(row);
   });
 
-  const arrow = document.createElement("div");
-  arrow.className = "crossword-arrow";
-  arrow.setAttribute("aria-hidden", "true");
-  arrow.innerHTML = '<span>↓</span>';
-  arrow.style.setProperty("--arrow-column", String(markedColumn + 1));
+  const clues = document.createElement("ol");
+  clues.className = "crossword-clues";
+  entries.forEach(({ clue }, index) => {
+    const item = document.createElement("li");
+    item.textContent = clue;
+    clues.append(item);
+  });
 
   const instruction = document.createElement("p");
   instruction.className = "crossword-instruction";
-  instruction.textContent = "Läs de markerade rutorna uppifrån och ner.";
+  instruction.textContent = "Svara på frågorna och fyll i orden vågrätt. Läs sedan de markerade rutorna uppifrån och ner.";
 
-  host.append(arrow, grid, instruction);
+  const submit = document.createElement("button");
+  submit.type = "submit";
+  submit.className = "crossword-check";
+  submit.textContent = "Kontrollera svaren";
+
+  const feedback = document.createElement("p");
+  feedback.className = "crossword-feedback";
+  feedback.setAttribute("aria-live", "polite");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    feedback.classList.remove("is-correct", "is-wrong");
+    const allInputs = [...form.querySelectorAll(".crossword-cell input")];
+    let complete = true;
+    let allCorrect = true;
+    entries.forEach(({ word }, rowIndex) => {
+      const rowInputs = allInputs.filter((input) => Number(input.dataset.row) === rowIndex);
+      rowInputs.forEach((input, index) => {
+        const value = input.value.trim().toLocaleUpperCase("sv-SE");
+        if (!value) complete = false;
+        const correct = value === [...word][index];
+        input.classList.toggle("is-wrong", Boolean(value) && !correct);
+        if (!correct) allCorrect = false;
+      });
+    });
+
+    if (!complete) {
+      feedback.textContent = "Fyll i alla rutor innan du kontrollerar.";
+      feedback.classList.add("is-wrong");
+      return;
+    }
+    if (!allCorrect) {
+      feedback.textContent = "Några bokstäver blev fel. Försök igen!";
+      feedback.classList.add("is-wrong");
+      return;
+    }
+
+    feedback.textContent = "Alla ord är rätt! De markerade bokstäverna bildar JULAFTON. God jul!";
+    feedback.classList.add("is-correct");
+    allInputs.forEach((input) => { input.disabled = true; });
+    submit.disabled = true;
+  });
+
+  form.append(arrow, grid, instruction, clues, submit, feedback);
+  host.append(form);
 }
 
 function openCrossword() {
