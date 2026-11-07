@@ -1737,3 +1737,82 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
   .crossword-grid, .crossword-row { gap: 3px; }
   .crossword-cell { border-radius: 2px; }
 }
+
+
+/* Lucka 21 – skrivbara korsordsrutor och julfrågor. */
+.crossword-form {
+  width: 100%;
+  margin: 0 auto;
+}
+.crossword-cell {
+  padding: 0;
+  overflow: hidden;
+}
+.crossword-cell input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: #342719;
+  text-align: center;
+  text-transform: uppercase;
+  font: 600 clamp(14px, 3.8vw, 23px)/1 Georgia, serif;
+  caret-color: #9b6c2b;
+}
+.crossword-cell:focus-within {
+  outline: 2px solid #a87932;
+  outline-offset: 2px;
+}
+.crossword-cell.is-key-letter {
+  background: linear-gradient(145deg, #f9e8b7, #dfbd76);
+}
+.crossword-cell.is-key-letter input {
+  color: #542f14;
+}
+.crossword-cell input.is-wrong {
+  color: #a32929;
+  background: rgba(179,38,30,.1);
+}
+.crossword-clues {
+  width: min(100%, 500px);
+  margin: 25px auto 20px;
+  padding-left: 28px;
+  color: #493923;
+  text-align: left;
+  font: 1rem/1.45 Georgia, serif;
+}
+.crossword-clues li {
+  padding: 0 0 9px 5px;
+}
+.crossword-clues li::marker {
+  color: #a87932;
+  font-weight: 700;
+}
+.crossword-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 24px;
+  border: 1px solid #9d743c;
+  border-radius: 7px;
+  background: linear-gradient(145deg, #b58a4d, #8f642f);
+  color: #fffaf0;
+  font: 600 1rem Georgia, serif;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(76,48,20,.2);
+}
+.crossword-check:hover { filter: brightness(1.06); }
+.crossword-check:disabled { opacity: .65; cursor: default; }
+.crossword-feedback {
+  min-height: 1.5em;
+  margin: 14px 0 0;
+  font: 600 1rem Georgia, serif;
+}
+.crossword-feedback.is-correct { color: #397044; }
+.crossword-feedback.is-wrong { color: #a32929; }
