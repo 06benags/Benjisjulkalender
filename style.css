@@ -1817,29 +1817,18 @@ footer{position:relative;text-align:center;padding:0 16px 30px;color:#d5c69eaa;f
 .crossword-feedback.is-correct { color: #397044; }
 .crossword-feedback.is-wrong { color: #a32929; }
 
-/* Numrering av korsordets rader, i linje med frågorna. */
-.crossword-row {
-  position: relative;
-}
-.crossword-row-number {
-  position: absolute;
-  right: calc(100% + 9px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.4em;
-  color: #8d622c;
-  font: 700 clamp(13px, 3.4vw, 18px)/1 Georgia, serif;
-  text-align: right;
-  pointer-events: none;
-}
+/* Korsordet centreras utan radnummer. */
 .crossword-grid,
 .crossword-arrow {
-  width: min(calc(100% - 28px), 430px);
+  width: min(100%, 430px);
   margin-left: auto;
   margin-right: auto;
 }
-@media (max-width: 420px) {
-  .crossword-row-number {
-    right: calc(100% + 5px);
-  }
+
+.crossword-answer-form {
+  margin-top: 22px;
+  text-align: left;
+}
+.crossword-answer-form .answer-controls button {
+  flex: 0 0 auto;
 }
