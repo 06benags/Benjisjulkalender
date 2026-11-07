@@ -84,8 +84,63 @@ function closeLetter() {
   firstDoor?.focus();
 }
 
+function buildCrossword() {
+  const host = document.querySelector("#crossword-content");
+  if (!host || host.childElementCount) return;
+
+  const entries = [
+    { word: "STJÄRNA", marked: 2 },
+    { word: "LUCIA", marked: 1 },
+    { word: "OLOF", marked: 1 },
+    { word: "NISSAR", marked: 4 },
+    { word: "SAFFRAN", marked: 3 },
+    { word: "TOMTEN", marked: 3 },
+    { word: "RUDOLF", marked: 3 },
+    { word: "GRÖN", marked: 3 }
+  ];
+  const markedColumn = 4;
+  const grid = document.createElement("div");
+  grid.className = "crossword-grid";
+  grid.setAttribute("role", "img");
+  grid.setAttribute("aria-label", "Korsord med åtta vågräta julord. De guldfärgade rutorna bildar JULAFTON uppifrån och ner.");
+
+  entries.forEach(({ word, marked }) => {
+    const row = document.createElement("div");
+    row.className = "crossword-row";
+    row.style.setProperty("--crossword-columns", "9");
+    const start = markedColumn - marked;
+    for (let column = 0; column < 9; column++) {
+      const letterIndex = column - start;
+      if (letterIndex < 0 || letterIndex >= word.length) {
+        const blank = document.createElement("span");
+        blank.className = "crossword-empty";
+        row.append(blank);
+        continue;
+      }
+      const cell = document.createElement("span");
+      cell.className = "crossword-cell" + (letterIndex === marked ? " is-key-letter" : "");
+      cell.textContent = word[letterIndex];
+      row.append(cell);
+    }
+    grid.append(row);
+  });
+
+  const arrow = document.createElement("div");
+  arrow.className = "crossword-arrow";
+  arrow.setAttribute("aria-hidden", "true");
+  arrow.innerHTML = '<span>↓</span>';
+  arrow.style.setProperty("--arrow-column", String(markedColumn + 1));
+
+  const instruction = document.createElement("p");
+  instruction.className = "crossword-instruction";
+  instruction.textContent = "Läs de markerade rutorna uppifrån och ner.";
+
+  host.append(arrow, grid, instruction);
+}
+
 function openCrossword() {
   if (!crosswordOverlay || !crosswordEnvelope || !crosswordLetter) return;
+  buildCrossword();
   crosswordOverlay.hidden = false;
   crosswordEnvelope.hidden = false;
   crosswordEnvelope.classList.remove("is-opening");
